@@ -10,10 +10,6 @@ def dbConnect():
     conn = MySQLdb.connect(user=dsn_uid, passwd=dsn_pwd, db=dsn_database)
     return conn
 
-# disconnect from MySQL database
-def dbDisconnect(conn):
-    conn.close()
-
 # convert database table into dataframe
 def dbTableToDataFrame(conn, table):
     cursor = conn.cursor()
