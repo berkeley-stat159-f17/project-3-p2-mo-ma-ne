@@ -15,7 +15,7 @@ mysql > create database p3;
 ### Load tables into database using command line
 For each of the 11 .sql files run:
 ```
-mysql -u root -p p3 < cb_acquisions.sql
+mysql -u root -p p3 < cb_acquisitions.sql
 ```
 
 ### Make sure tables are all loaded
