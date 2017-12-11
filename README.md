@@ -16,10 +16,14 @@ There are endless questions we can ask of this data. Our main aim will be to ide
 ## Data acquisition, database setup, and database connection
 
 ### Data acquisition
-That data are publicly available. Access must be requested, and the request is typically approved in a few hours. The source of the data is: https://data.crunchbase.com/docs/2013-snapshot. It is downloaded using a private key you are given once access is granted. The data are provided in a MySQL format and are licensed uncer Create Commons with Attribution. The downloaded file is a tar.gz file that contains one .sql file for each of the 11 tables in the database. The database was generated using mysqldump. Store these .sql files locally.
+The data are publicly available. Access must be requested, and the request is typically approved in a few hours. The source of the data is: https://data.crunchbase.com/docs/2013-snapshot. It is downloaded using a private key you are given once access is granted. The data are provided in a MySQL format and are licensed uncer Create Commons with Attribution. The downloaded file is a tar.gz file that contains one .sql file for each of the 11 tables in the database. The database was generated using mysqldump. Store these .sql files locally.
 
 ### Database setup
-After all .sql files are downloaded, create a MySQL database locally following the database setup instructions below.
+After all .sql files are downloaded, create a MySQL database locally following the database setup instructions below after ensuring you have mysql installed. If you have homebrew, we recommend running
+```
+brew install mysql
+```
+However, there are many mysql installation options (https://dev.mysql.com/downloads/installer/).
 
 #### Create p3 database
 ```
@@ -52,3 +56,5 @@ make all
 ```
 
 Refer to main.ipynb for a summary of the key results. Important dataframes and figures can also be found in the results folder. All analysis notebooks are in the main directory.
+
+## Licensing conditions
