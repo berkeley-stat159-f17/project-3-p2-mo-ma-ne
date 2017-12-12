@@ -4,7 +4,8 @@ python:
 services:
   - mysql
 before_install:
-  - mysql -u root --password="" < test/travis.sql
+  - mysql -u root -e "create database p3"
+  - mysql -u root -p p3 < test/travis.sql
 install:
   - pip install pytest
   - pip install mysqlclient
