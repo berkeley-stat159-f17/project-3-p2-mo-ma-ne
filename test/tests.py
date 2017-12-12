@@ -10,18 +10,9 @@ def test_connection_and_dataframe_cols():
     """
 
     conn = dbConnect()
-    table = 'cb_objects'
+    table = 'testtable'
     df = dbTableToDataFrame(conn, table)
-    obj_cols = ['category_code', 'city', 'closed_at', 'country_code', 'created_at',
-       'created_by', 'description', 'domain', 'entity_id', 'entity_type',
-       'first_funding_at', 'first_investment_at', 'first_milestone_at',
-       'founded_at', 'funding_rounds', 'funding_total_usd', 'homepage_url',
-       'id', 'invested_companies', 'investment_rounds', 'last_funding_at',
-       'last_investment_at', 'last_milestone_at', 'logo_height', 'logo_url',
-       'logo_width', 'milestones', 'name', 'normalized_name', 'overview',
-       'parent_id', 'permalink', 'region', 'relationships',
-       'short_description', 'state_code', 'status', 'tag_list',
-       'twitter_username', 'updated_at']
+    obj_cols = ['id','target']
     npt.assert_array_equal(df.columns, obj_cols)
 
 def test_connection_and_dataframe_shape():
@@ -31,9 +22,9 @@ def test_connection_and_dataframe_shape():
     converted to dataframe is the correct dimension
     """
     conn = dbConnect()
-    table = 'cb_objects'
+    table = 'testtable'
     df = dbTableToDataFrame(conn, table)
-    obj_shape = (462651, 40)
+    obj_shape = (4, 2)
     assert df.shape == obj_shape
 
 def test_SchoolID_remove_stopword():
