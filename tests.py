@@ -34,3 +34,15 @@ def test_connection_and_dataframe_shape():
     df = dbTableToDataFrame(conn, table)
     obj_shape = (462651, 40)
     assert df.shape == obj_shape
+
+def test_SchoolID_delete_stems():
+    pass
+
+def test_SchoolID_reduce_to_stems():
+    pass
+
+def test_SchoolID_replace_by_keyword():
+    pass
+
+def test_SchoolID_replace_by_nickname():
+    pass

@@ -43,3 +43,19 @@ def dbTableToDataFrame(conn, table):
         result.append(dict(zip(columns, row)))
     result_df = pd.DataFrame(result)
     return result_df
+
+class SchoolID:
+    def __init__(self):
+        pass
+
+    def delete_stems(self,institutions,i):
+        '''Delete some common superfluous words in institution names.'''
+        del_stems = ['univ','school','law','business']
+        del_word_inds = []
+        for word_i in range(len(institutions[i])):
+            for del_stem in del_stems:
+                if institutions[i][word_i] == del_stem:
+                    del_word_inds.append(word_i)
+        for word_i in del_word_inds[::-1]:
+            del(institutions[i][word_i])
+        return
