@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/berkeley-stat159-f17/project-3-p2-mo-ma-ne.svg?branch=master.png)](https://travis-ci.org/berkeley-stat159-f17/project-3-p2-mo-ma-ne.svg?branch=master)
+
 # Can we predict a start-up's success?
 
 ## Objective
