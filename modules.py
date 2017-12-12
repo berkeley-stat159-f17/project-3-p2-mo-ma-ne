@@ -44,28 +44,59 @@ def dbTableToDataFrame(conn, table):
     result_df = pd.DataFrame(result)
     return result_df
 
-class SchoolID:
+class SchoolTools:
     def __init__(self):
         pass
 
-    def identify_school(self,institutions,i):
+    def remove_stopwords(self,institutions):
         '''
-        Process a school name to give a more unique identifier.
-
-        Replace common stems with just the stem, delete others, and replace
-        keywords and nicknames with a common title.
+        Remove stopwords from a series of strings.
 
         Parameters
         ----------
         institutions : Series
             A series of institution names, not identified.
-        i : int
-            The index of the school to be identified in institutions
         '''
-        institutions[i] = self._delete_stems(institutions[i])
-        institutions[i] = self._reduce_to_stems(institutions[i])
-        institutions[i] = self._replace_by_keyword(institutions[i])
-        institutions[i] = self._replace_by_nickname(institutions[i])
+        stopwords = ['of','the','at','in','i','y','and','de','@']
+        for word in stopwords:
+            institutions = institutions.str.replace(' '+word+' ',' ')
+            institutions = institutions.str.replace('\A'+word+' ','')
+        return institutions
+    
+    def remove_punctuation(self,institutions):
+        '''
+        Remove punctuation from a series of strings.
+
+        Parameters
+        ----------
+        institutions : Series
+            A series of institution names, not identified.
+        '''
+        stoppunc = [',','\.',';',':','-','&','(',')','/']
+        for punc in stoppunc:
+            institutions = institutions.str.replace(punc,' ')
+        return institutions.str.strip()
+        
+
+    def identify_schools(self,institutions):
+        '''
+        Process a series of school names to give more unique identifiers.
+
+        Replace common stems with just the stem, delete other stems completely,
+        and replace keywords and nicknames with common titles.
+
+        Parameters
+        ----------
+        institutions : Series
+            A series of institution names, not identified.
+        '''
+        institutions = institutions.str.split()
+        for i in range(len(institutions)):
+            institutions[i] = self._delete_stems(institutions[i])
+            institutions[i] = self._reduce_to_stems(institutions[i])
+            institutions[i] = self._replace_by_keyword(institutions[i])
+            institutions[i] = self._replace_by_nickname(institutions[i])
+        return institutions.str.join(' ')
 
     def _delete_stems(self,institution):
         '''Delete some common superfluous words in institution names.'''
@@ -103,7 +134,7 @@ class SchoolID:
                 if word in institution:
                     match_counter += 1
                 if match_counter == len(names):
-                    institutions = names
+                    institution = names
         return institution
 
     def _replace_by_nickname(self,institution):
