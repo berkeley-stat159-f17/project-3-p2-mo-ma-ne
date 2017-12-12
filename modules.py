@@ -1,6 +1,8 @@
 import MySQLdb
 import seaborn as sns
 import pandas as pd
+import numpy as np
+from collections import Counter
 
 def dbConnect():
     """
@@ -152,3 +154,33 @@ class SchoolTools:
                     institution = [nicknames[name]]
                     return institution
         return institution
+
+def company_vector(investor, companies):
+    """ Return a company vecotr for the input investor in the context of the given companies
+    
+    Parameters
+    ----------
+    investor: iterable of companies
+    companies: iterable of companies
+    integer, size of the entire set of companies across all investors
+    
+    Return
+    ------
+    array
+        An integer array, of length equal to len(companies), containing the count for each
+        company in investor at its corresponding position in companies
+    
+    """
+    
+    #create dictionary of counts of each company in investor porfolios
+    counter = Counter(investor)
+    #intialize empty array
+    counts = []
+    #loop through vocab and add counts
+    for let in companies:
+        if let not in counter.keys():
+            counts.append(0)
+        else:
+            counts.append(counter[let])
+    counts = np.array(counts).astype(int)
+    return(counts)

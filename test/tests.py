@@ -5,7 +5,7 @@ import numpy.testing as npt
 def test_connection_and_dataframe_cols():
     """
     methods tested: dbConnect(), dbTableToDataFrame(conn, table):
-    confirms successfully connected to p3 database and that a table
+    confirms successfully connected to database and that a table
     converted to dataframe has the correct column names
     """
 
@@ -18,7 +18,7 @@ def test_connection_and_dataframe_cols():
 def test_connection_and_dataframe_shape():
     """
     methods tested: dbConnect(), dbTableToDataFrame(conn, table):
-    confirms successfully connected to p3 database and that a table
+    confirms successfully connected to database and that a table
     converted to dataframe is the correct dimension
     """
     conn = dbConnect()
@@ -72,3 +72,9 @@ def test_SchoolID_replace_by_nickname():
         institutions[i] = SD._replace_by_nickname(institutions[i])
     key = pd.Series([['berkeley'],['mit']])
     assert institutions.equals(key)
+
+def test_company_vector():
+    investor = "c:1 c:1 c:5".split()
+    companies = "c:1 c:2 c:3 c:4 c:5".split()
+    cv = company_vector(investor, companies)
+    npt.assert_equal(cv, np.array([2, 0, 0, 0, 1]))
