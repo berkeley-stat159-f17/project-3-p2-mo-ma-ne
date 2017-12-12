@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from collections import Counter
 
-def dbConnect():
+def dbConnect(username='root',password=''):
     """
     connect to MySQL database called p3
 
@@ -18,8 +18,8 @@ def dbConnect():
 
     """
     dsn_database = 'p3'
-    dsn_uid = 'root'
-    dsn_pwd = ''
+    dsn_uid = username
+    dsn_pwd = password 
     conn = MySQLdb.connect(user=dsn_uid, passwd=dsn_pwd, db=dsn_database)
     return conn
 
