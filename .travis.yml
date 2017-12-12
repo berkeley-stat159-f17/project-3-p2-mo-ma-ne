@@ -4,5 +4,7 @@ python:
 install:
   - pip install pytest
   - pip install mysqlclient
+  - pip install seaborn
+  - pip install pandas
 script:
   - pytest tests.py
