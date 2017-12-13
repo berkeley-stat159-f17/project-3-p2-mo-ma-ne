@@ -20,7 +20,7 @@ def dbConnect():
     """
     dsn_database = 'p3'
     try:
-        conn = MySQLdb.connect(user='root',passwd='')
+        conn = MySQLdb.connect(user='root',passwd='',db=dsn_database)
     except:
         conn = MySQLdb.connect(user=input('Username: '),
                                passwd=getpass.getpass('Password: '),
