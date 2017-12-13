@@ -26,6 +26,10 @@ all :
 	--output classification.ipynb \
 	--ExecutePreprocessor.timeout=-1
 	jupyter nbconvert --to notebook \
+	--execute education.ipynb \
+	--output education.ipynb \
+	--ExecutePreprocessor.timeout=-1
+	jupyter nbconvert --to notebook \
 	--execute main.ipynb \
 	--output main.ipynb \
 	--ExecutePreprocessor.timeout=-1
