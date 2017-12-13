@@ -17,3 +17,4 @@ Can we predict a start-up's success?
    classification_data_prep.ipynb
    classification.ipynb
    main.ipynb
+   licence.md
