@@ -1,0 +1,208 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Can we predict a start-up&#39;s success? &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Explore the effects of office location and year founded" href="location_time..html" />
+    <link rel="prev" title="Can we predict a start-up’s success?" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><a class="reference external" href="https://travis-ci.org/berkeley-stat159-f17/project-3-p2-mo-ma-ne"><img alt="https://travis-ci.org/berkeley-stat159-f17/project-3-p2-mo-ma-ne.svg?branch=master" src="https://travis-ci.org/berkeley-stat159-f17/project-3-p2-mo-ma-ne.svg?branch=master" />Build Status</a></p>
+<div class="section" id="can-we-predict-a-start-up-s-success">
+<h1>Can we predict a start-up's success?<a class="headerlink" href="#can-we-predict-a-start-up-s-success" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="objective">
+<h2>Objective<a class="headerlink" href="#objective" title="Permalink to this headline">¶</a></h2>
+<p>Our question is: what are the biggest predictors of a start-up's success? We therefore first must define success. We could, for example, consider total investment amount, time to IPO, or time to acquisition. We will explore all of these metrics and more when considering success. While success is difficult to define, we will be sure to define key metrics to benchmark success.</p>
+<p>We will look at characteristics of the startup such as the industry, the founder's profile, and the location. Does the location of the startup or the founder's age have a significant effect on time to acquisition or IPO? As we consider each metric, we will examine the correlation among the various metrics. For example, does biotech tend to be concentrated in certain areas more so than other industries?</p>
+<p>Aside from characteristics of the company itself, we will look at the investors. Are there certain VC firms that are major predictors of success? How related are the investment decisions of various VC firms? For example, are there some VC firms that almost always invest together? Is it a good idea to raise money earlier or later? Does it depend on the industry?</p>
+<p>We can think of our response variable of being set up in two classes - success and failure - so it seems like the best way to go about our analysis would be do use several classification methods. The scikit-learn package has built in methods for to perform classification methods like KNN, logistic regression, or Discriminant Analysis (LDA or QDA), which members of our group are familiar with, but we may also attempt to try different classification methods, or try tree-based methods if possible.</p>
+<p>One issue with classification in statistical learning is that often methods will be able to predict well without providing inference. During our analysis we will do some sort of best-subset selection to find the best set of predictors for each statistical learning methods, but it may be hard to extrapolate meaning from those models. One idea we had in order to find which predictors had the most influence is once we are pick our best subset of predictors for a certain methods, we can use a dimensionality reduction method, like PCA, and then see if any of the predictors are particularly correlated to either of the first several principal components. This process will evolve as our analysis gets deeper.</p>
+<p>There are endless questions we can ask of this data. Our main aim will be to identify the key contributors to total investment amount and time to acquisition/IPO. However, the various relationships mentioned above will also be explored along the way.</p>
+</div>
+<div class="section" id="data-acquisition-database-setup-and-database-connection">
+<h2>Data acquisition, database setup, and database connection<a class="headerlink" href="#data-acquisition-database-setup-and-database-connection" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-acquisition">
+<h3>Data acquisition<a class="headerlink" href="#data-acquisition" title="Permalink to this headline">¶</a></h3>
+<p>The data are publicly available from <a class="reference external" href="https://www.crunchbase.com/">Crunchbase</a>. This project specifically uses the <a class="reference external" href="https://data.crunchbase.com/v3.1/docs/2013-snapshot">2013 Crunchbase Snapshot</a>. Access must be requested, and the request is typically approved in a few hours. It is downloaded using a private key you are given once access is granted. The data are provided in a MySQL format and are licensed under Creative Commons with Attribution. The downloaded file is a tar.gz file that contains one .sql file for each of the 11 tables in the database. The database was generated using mysqldump. Store these <code class="docutils literal"><span class="pre">cb_*.sql</span></code> (where <code class="docutils literal"><span class="pre">*</span></code> denotes any string) files locally, in a single directory.</p>
+</div>
+<div class="section" id="database-setup">
+<h3>Database setup<a class="headerlink" href="#database-setup" title="Permalink to this headline">¶</a></h3>
+<p>After all .sql files are downloaded, create a MySQL database locally. Instructions are provided below, but you will need to ensure that you have MySQL installed. If you have homebrew, we recommend running</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">mysql</span>
+</pre></div>
+</div>
+<p>There are many other mysql installation options, and more information can be found in the <a class="reference external" href="https://dev.mysql.com/downloads/installer/">MySQL downloads documentation</a>.</p>
+<div class="section" id="create-p3-database">
+<h4>Create p3 database<a class="headerlink" href="#create-p3-database" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="mysql-without-a-password">
+<h5>MySQL without a password<a class="headerlink" href="#mysql-without-a-password" title="Permalink to this headline">¶</a></h5>
+<p>If your MySQL database does not require a password, run the following set of commands in the directory containing the <code class="docutils literal"><span class="pre">cb_*.sql</span></code> files. This will create the database and load the files into it.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;create database p3&quot;</span>
+<span class="k">for</span> <span class="n">sqlfile</span> <span class="ow">in</span> <span class="n">cb_</span><span class="o">*.</span><span class="n">sql</span><span class="p">;</span> <span class="n">do</span>
+	<span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="n">p3</span> <span class="o">&lt;</span> <span class="n">sqlfile</span>
+<span class="n">done</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mysql-with-a-password">
+<h5>MySQL with a password<a class="headerlink" href="#mysql-with-a-password" title="Permalink to this headline">¶</a></h5>
+<p>If your MySQL database has a password, run the following set of commands in the directory containing the <code class="docutils literal"><span class="pre">cb_*.sql</span></code> files. Enter your password whenever prompted. This will create the database and load the files into it.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;create database p3&quot;</span>
+<span class="k">for</span> <span class="n">sqlfile</span> <span class="ow">in</span> <span class="n">cb_</span><span class="o">*.</span><span class="n">sql</span><span class="p">;</span> <span class="n">do</span>
+	<span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="n">p</span> <span class="n">p3</span> <span class="o">&lt;</span> <span class="n">sqlfile</span>
+<span class="n">done</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="make-sure-tables-are-all-loaded">
+<h4>Make sure tables are all loaded<a class="headerlink" href="#make-sure-tables-are-all-loaded" title="Permalink to this headline">¶</a></h4>
+<p>You can check that the files have loaded properly by executing the following from the command line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="n">p</span>
+<span class="n">mysql</span> <span class="o">&gt;</span> <span class="n">use</span> <span class="n">p3</span><span class="p">;</span>
+<span class="n">mysql</span> <span class="o">&gt;</span> <span class="n">SHOW</span> <span class="n">TABLES</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="database-connection">
+<h3>Database connection<a class="headerlink" href="#database-connection" title="Permalink to this headline">¶</a></h3>
+<p>We use MySQLdb to make database queries. This required pip installation of mysqlclient, which will automatically be installed when running <code class="docutils literal"><span class="pre">make</span> <span class="pre">env</span></code> as outlined in the instructions below.</p>
+</div>
+</div>
+<div class="section" id="running-our-analysis">
+<h2>Running our analysis<a class="headerlink" href="#running-our-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Once you are ready to begin running the analysis, enter</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">env</span>
+<span class="n">source</span> <span class="n">activate</span> <span class="n">cb</span>
+</pre></div>
+</div>
+<p>in the repository's base directory to create and activate the required conda environment.</p>
+<p>If your MySQL database does not require a password, running all of the notebooks can be accomplished by executing</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="nb">all</span>
+</pre></div>
+</div>
+<p>in the repo's base directory.</p>
+<p>If your MySQL database does require a password, then the <code class="docutils literal"><span class="pre">make</span> <span class="pre">all</span></code> command will fail. It relies on nbconvert to execute the Jupyter notebooks in place, and nbconvert does not accept user input. In this case you must manually execute the notebooks.</p>
+</div>
+<div class="section" id="your-analysis-of-our-analysis">
+<h2>Your analysis of our analysis<a class="headerlink" href="#your-analysis-of-our-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Once the notebooks have been run, refer to main.ipynb for a summary of the key results. Important dataframes and figures can also be found in the results folder. All analysis notebooks are in the main directory.</p>
+</div>
+<div class="section" id="licensing-conditions">
+<h2>Licensing conditions<a class="headerlink" href="#licensing-conditions" title="Permalink to this headline">¶</a></h2>
+<p>We have licensed our analysis and associated code under the FreeBSD license (see <a class="reference external" href="https://github.com/berkeley-stat159-f17/project-3-p2-mo-ma-ne/blob/master/license.md">license.md</a>). Please note that this license <em>only</em> applies to our <strong>code</strong>, and not the associated data. The data belongs to Crunchbase. Their license (provided with the datasets after download) expressly prohibits redistribution of the data used in this project without prior permission from Crunchbase. It is for this reason that we have not included the complete datasets with this repository, and have made a conscious effort to limit the size of all tables displayed herein.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Can we predict a start-up's success?</a><ul>
+<li><a class="reference internal" href="#objective">Objective</a></li>
+<li><a class="reference internal" href="#data-acquisition-database-setup-and-database-connection">Data acquisition, database setup, and database connection</a><ul>
+<li><a class="reference internal" href="#data-acquisition">Data acquisition</a></li>
+<li><a class="reference internal" href="#database-setup">Database setup</a><ul>
+<li><a class="reference internal" href="#create-p3-database">Create p3 database</a><ul>
+<li><a class="reference internal" href="#mysql-without-a-password">MySQL without a password</a></li>
+<li><a class="reference internal" href="#mysql-with-a-password">MySQL with a password</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#make-sure-tables-are-all-loaded">Make sure tables are all loaded</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#database-connection">Database connection</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-our-analysis">Running our analysis</a></li>
+<li><a class="reference internal" href="#your-analysis-of-our-analysis">Your analysis of our analysis</a></li>
+<li><a class="reference internal" href="#licensing-conditions">Licensing conditions</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Can we predict a start-up’s success?</a></li>
+      <li>Next: <a href="location_time..html" title="next chapter">Explore the effects of office location and year founded</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/README.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Annie Maslan, Jack Moorer, Mitch Negus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/README.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
