@@ -1,0 +1,1201 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Prepare Data for Classification &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Explore Categorical Variables to Classify Company Status" href="classification..html" />
+    <link rel="prev" title="So you want to start a company…" href="education..html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+</style>
+<div class="section" id="Prepare-Data-for-Classification">
+<h1>Prepare Data for Classification<a class="headerlink" href="#Prepare-Data-for-Classification" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">modules</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">missingno</span> <span class="kn">as</span> <span class="nn">msno</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-dark&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">conn</span> <span class="o">=</span> <span class="n">dbConnect</span><span class="p">()</span>
+<span class="n">objects</span> <span class="o">=</span> <span class="n">dbTableToDataFrame</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s1">&#39;cb_objects&#39;</span><span class="p">)</span>
+<span class="n">degrees</span> <span class="o">=</span> <span class="n">dbTableToDataFrame</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s1">&#39;cb_degrees&#39;</span><span class="p">)</span>
+<span class="n">people</span> <span class="o">=</span> <span class="n">dbTableToDataFrame</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s1">&#39;cb_people&#39;</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In this notebook I am going to prepare data to be analyzed in the
+classification notebook. The classification I will do is attempt to
+predict company succes, and find which categorical predictors about a
+company and founder, like company region or academic degree of the
+founder. Success here is based on status, with a status of “closed” for
+a company representing a failure for the company. This is an
+oversimplification of succes, but instead of looking at company value, I
+want to specifically run classificaiton models.</p>
+<p>The predictors I am using are: - company category_code - whether they
+had funding (yes or no) - number of investors - number of relationships
+to other founders - company logo height - company logo width - office
+latitude - office longitude - region - degree_type (highest degree -
+institution (for highest degree) - subject (for highest degree - first
+name - last name</p>
+<p>One big issue with this data set though is that it is mostly empty. Many
+of the variables have missing values in place of a “0”, or for a
+categorical variable like ‘closed_at’, a none value means the company
+is not closed. This means if we don’t create dumby variables the data
+frame will be almost entirely empty. Let’s take a look at how empty our
+objects data frame is using missingno.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#look at missing values of objects</span>
+<span class="n">msno</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification_data_prep._7_0.png" src="_images/classification_data_prep._7_0.png" />
+</div>
+</div>
+<p>The other issue is how we can go about combining the row of the data
+fame. We can look at the variable ‘id’ in object, and see every other
+data frame has an ‘object_id’. At first, I thought this was great, and
+would let me combine any of the data frames. However, the ‘id’ in object
+or ‘object_id’ is different for founders and companies, and is
+denotated with a “p” for a person or “c” for company. Objects had
+information on everything, and seperates information for companies and
+founders This means I need to find a way to combine information about
+companies and their founders.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#in degrees and offices &#39;object_id&#39; is matched to &#39;id&#39; in objects</span>
+<span class="c1">#I am going to create an &#39;object_id&#39; in objects</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="n">objects</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ids</span>
+</pre></div>
+</div>
+</div>
+<p>I am not starting with all variables as predictors for a couple of
+reasons. For one, I want to avoid multicollinearity issues. Many of the
+variables are hightly correlated, which is why for now I am only using
+region, instead of state and country as well. These specific variables
+were chosen because they are largely categorical, and don’t deal
+directly with the company’s total funding or worth. I am now going to
+create some dumby variables to get rid of the emptiness of the data.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#function to convert variable to fill data</span>
+<span class="k">def</span> <span class="nf">convert_null</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">negative</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    description: create a two class dummby variable for a dataframe with None values</span>
+
+<span class="sd">    inputs:</span>
+<span class="sd">        column: String, must be name of column in df</span>
+<span class="sd">        df: Pandas Data Frame</span>
+<span class="sd">        postive: String/Boolean/Integer, what to call non-none value in dumby variable</span>
+<span class="sd">        negative: String/Boolean/Integer, what to call non value in dumby variable</span>
+<span class="sd">        pos_val: Boolean (optional), if True then positive keep their own value</span>
+
+<span class="sd">    output:</span>
+<span class="sd">        dumby vector</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;column and newname must be a string&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">!=</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;df must be pandas data frame&quot;</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
+    <span class="n">bools</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">if</span> <span class="n">pos_val</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">dumby</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bools</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">bools</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">dumby</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">negative</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dumby</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">dumby</span><span class="p">)</span>
+    <span class="n">dumby</span> <span class="o">=</span> <span class="p">[</span><span class="n">positive</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">status</span> <span class="k">else</span> <span class="n">negative</span> <span class="k">for</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">bools</span><span class="p">]</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">dumby</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#change variables of responses:</span>
+<span class="n">closed</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;closed_at&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">closed</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#make dumby variable for funding: Yes if they got funding, no if not</span>
+<span class="n">funding</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;first_funding_at&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">)</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;had_funding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">funding</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#make variable for investment: Yes if they got investment, no if not</span>
+<span class="n">investment</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;invested_companies&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;num_investment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">investment</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#get number of relationships</span>
+<span class="n">num_relationships</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;relationships&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;num_relationships&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_relationships</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#get number of milestones</span>
+<span class="n">num_milestones</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;milestones&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;num_milestones&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_milestones</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#deal with people that didn&#39;t go to school for subjects</span>
+<span class="n">subjects</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">degrees</span><span class="p">[</span><span class="s1">&#39;subjects&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subjects</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#deal with institution for people that didn&#39;t go to school</span>
+<span class="n">school</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;institution&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">degrees</span><span class="p">[</span><span class="s1">&#39;school&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">school</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#deal with degree for people that didn&#39;t get a degree</span>
+<span class="n">degree</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;degree_type&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">degrees</span><span class="p">[</span><span class="s1">&#39;degree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">degree</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#deal with logo sizes</span>
+<span class="n">width</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;logo_width&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;logo_width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">width</span>
+
+<span class="n">height</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;logo_height&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;logo_height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span>
+</pre></div>
+</div>
+</div>
+<p>Now I can store the predictors in one data frame.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">keep_variables</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">object_id</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    description: create a two class dummby variable for a dataframe with None values</span>
+
+<span class="sd">    inputs:</span>
+<span class="sd">        df: Pandas Data Frame from where columns are selected</span>
+<span class="sd">        variables: a list of strings of column names of variables to select</span>
+<span class="sd">        object_id: (optional) boolean variable, if False do not keep object_id, else add object_id to variables</span>
+
+<span class="sd">    output:</span>
+<span class="sd">        Pandas Data Frame of variables we want to keep</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#check inputs are good</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;variables must be a list of strings&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all items in variables must be strings&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">!=</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;df must be pandas data frame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">object_id</span><span class="p">:</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">variables</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">variables</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#keep variables from people</span>
+<span class="n">people</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">people</span><span class="p">[</span><span class="s1">&#39;affiliation_name&#39;</span><span class="p">]</span>
+<span class="n">vars_people</span> <span class="o">=</span> <span class="n">keep_variables</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;birthplace&#39;</span><span class="p">,</span> <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">])</span>
+<span class="n">vars_people</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>birthplace</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>p:2</td>
+      <td>None</td>
+      <td>Ben</td>
+      <td>Elowitz</td>
+      <td>Blue Nile</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>p:3</td>
+      <td>None</td>
+      <td>Kevin</td>
+      <td>Flaherty</td>
+      <td>Wetpaint</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>p:4</td>
+      <td>None</td>
+      <td>Raju</td>
+      <td>Vegesna</td>
+      <td>Zoho</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>p:5</td>
+      <td>None</td>
+      <td>Ian</td>
+      <td>Wenig</td>
+      <td>Zoho</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>p:6</td>
+      <td>Redding, CA</td>
+      <td>Kevin</td>
+      <td>Rose</td>
+      <td>i/o Ventures</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#keep variables from degrees</span>
+<span class="n">vars_degrees</span> <span class="o">=</span> <span class="n">keep_variables</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;degree_type&#39;</span><span class="p">,</span> <span class="s1">&#39;institution&#39;</span><span class="p">,</span> <span class="s1">&#39;subject&#39;</span><span class="p">])</span>
+<span class="n">vars_degrees</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>degree_type</th>
+      <th>institution</th>
+      <th>subject</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>p:6117</td>
+      <td>MBA</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>p:6136</td>
+      <td>BA</td>
+      <td>Washington University, St. Louis</td>
+      <td>English, French</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>p:6136</td>
+      <td>MS</td>
+      <td>Boston University</td>
+      <td>Mass Communication</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>p:6005</td>
+      <td>MS</td>
+      <td>University of Greenwich</td>
+      <td>Internet Technology</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>p:5832</td>
+      <td>BCS</td>
+      <td>Rice University</td>
+      <td>Computer Science, Psychology</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#keep variables from objects</span>
+<span class="n">vars_objects</span> <span class="o">=</span> <span class="n">keep_variables</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;category_code&#39;</span><span class="p">,</span> <span class="s1">&#39;had_funding&#39;</span><span class="p">,</span> <span class="s1">&#39;num_investment&#39;</span><span class="p">,</span> <span class="s1">&#39;num_relationships&#39;</span><span class="p">,</span> <span class="s1">&#39;num_milestones&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_height&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_width&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">])</span>
+<span class="n">vars_objects</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>closed</th>
+      <th>status</th>
+      <th>name</th>
+      <th>category_code</th>
+      <th>had_funding</th>
+      <th>num_investment</th>
+      <th>num_relationships</th>
+      <th>num_milestones</th>
+      <th>logo_height</th>
+      <th>logo_width</th>
+      <th>region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>c:1</td>
+      <td>No</td>
+      <td>operating</td>
+      <td>Wetpaint</td>
+      <td>web</td>
+      <td>Yes</td>
+      <td>0.0</td>
+      <td>17.0</td>
+      <td>5.0</td>
+      <td>54.0</td>
+      <td>401.0</td>
+      <td>Seattle</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>c:10</td>
+      <td>No</td>
+      <td>acquired</td>
+      <td>Flektor</td>
+      <td>games_video</td>
+      <td>No</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>85.0</td>
+      <td>186.0</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>c:100</td>
+      <td>No</td>
+      <td>acquired</td>
+      <td>There</td>
+      <td>games_video</td>
+      <td>No</td>
+      <td>0.0</td>
+      <td>12.0</td>
+      <td>4.0</td>
+      <td>34.0</td>
+      <td>107.0</td>
+      <td>SF Bay</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>c:10000</td>
+      <td>No</td>
+      <td>operating</td>
+      <td>MYWEBBO</td>
+      <td>network_hosting</td>
+      <td>No</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>unknown</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>c:10001</td>
+      <td>No</td>
+      <td>operating</td>
+      <td>THE Movie Streamer</td>
+      <td>games_video</td>
+      <td>No</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>74.0</td>
+      <td>200.0</td>
+      <td>unknown</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">drop_duplicates</span><span class="p">(</span><span class="n">dfs_info</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    description: create a two class dummby variable for a dataframe with None values</span>
+
+<span class="sd">    inputs:</span>
+<span class="sd">        dfs_info: List tuples. First item is data frame, second is subset info for drop_dublic, last is keep infor for drop_duplicate</span>
+
+<span class="sd">    output:</span>
+<span class="sd">        list of pandas dfs equal to length of list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">dfs_info</span><span class="p">:</span>
+        <span class="n">cur_df</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cur_subset</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">cur_keep</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">edit_df</span> <span class="o">=</span> <span class="n">cur_df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span> <span class="n">cur_subset</span><span class="p">,</span> <span class="n">keep</span> <span class="o">=</span> <span class="n">cur_keep</span><span class="p">)</span>
+        <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edit_df</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#set up function</span>
+<span class="n">first</span> <span class="o">=</span> <span class="p">(</span><span class="n">vars_people</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">second</span> <span class="o">=</span> <span class="p">(</span><span class="n">vars_degrees</span><span class="p">,</span> <span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="s1">&#39;last&#39;</span><span class="p">)</span>
+<span class="n">dfs_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">]</span>
+
+<span class="c1">#edit dfs</span>
+<span class="n">vars_people</span><span class="p">,</span> <span class="n">vars_degrees</span> <span class="o">=</span> <span class="n">drop_duplicates</span><span class="p">(</span><span class="n">dfs_info</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">multi_merge</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="n">leave_out</span> <span class="o">=</span> <span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    description: merge multiple data frame</span>
+
+<span class="sd">    inputs:</span>
+<span class="sd">        dfs: List of Pandas Data Frame to be merged</span>
+<span class="sd">        times: number of seperate merges</span>
+<span class="sd">        on: (optional) String, column to be merged on</span>
+<span class="sd">        leave_out: (optional) list of 2 item tuples. Each tuple&#39;s first item is a data frame from the df list and the second item is a list of columns to leave out of merge.</span>
+
+<span class="sd">    output:</span>
+<span class="sd">        Pandas Data Frame of meged dfs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;dfs must be a list of Pandas dfs&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all items in dfs must be Pandas DFs&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">leave_out</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">leave_out</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">leave_out</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;leave_out must be a list of tuples&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">leave_out</span><span class="p">:</span>
+            <span class="n">df_to_alter</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">df_to_alter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;data frams in leave_out must be in multi_merge&quot;</span><span class="p">)</span>
+            <span class="n">df_alterted</span> <span class="o">=</span> <span class="n">df_to_alter</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">df_to_alter</span><span class="p">)</span>
+            <span class="n">dfs</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_alterted</span>
+
+    <span class="n">first</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rest</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rest</span><span class="p">)):</span>
+        <span class="n">cur_df</span> <span class="o">=</span> <span class="n">rest</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cur_df</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="n">on</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">first</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#merge the data frames</span>
+<span class="n">deg_pep</span> <span class="o">=</span> <span class="n">vars_degrees</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">vars_people</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;object_id&#39;</span><span class="p">)</span>
+
+<span class="c1">#drop object id</span>
+<span class="c1">#df1 = obj_off.drop(&#39;object_id&#39;, 1)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">vars_objects</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">deg_pep</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">dat</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="n">dat</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[38]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(14051, 17)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#replace missing value</span>
+<span class="n">rep_na</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">rep_na</span> <span class="o">=</span> <span class="n">rep_na</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;unknown&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We still have an issue in that much of this data will have completely
+empty rows. I am going to deal with this by droping any row that has na
+values.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#look at emptiness of data</span>
+<span class="n">msno</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">rep_na</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification_data_prep._32_0.png" src="_images/classification_data_prep._32_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">rep_na</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;any&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[41]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(2348, 17)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[42]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>closed</th>
+      <th>status</th>
+      <th>name</th>
+      <th>category_code</th>
+      <th>had_funding</th>
+      <th>num_investment</th>
+      <th>num_relationships</th>
+      <th>num_milestones</th>
+      <th>logo_height</th>
+      <th>logo_width</th>
+      <th>region</th>
+      <th>degree_type</th>
+      <th>institution</th>
+      <th>subject</th>
+      <th>birthplace</th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7</th>
+      <td>No</td>
+      <td>operating</td>
+      <td>Fundable.com</td>
+      <td>finance</td>
+      <td>No</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>120.0</td>
+      <td>120.0</td>
+      <td>Columbus</td>
+      <td>BBA</td>
+      <td>Ohio State University</td>
+      <td>Entrepreneurship, Marketing</td>
+      <td>Ohio</td>
+      <td>Eric</td>
+      <td>Corl</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>No</td>
+      <td>operating</td>
+      <td>Wevod</td>
+      <td>games_video</td>
+      <td>Yes</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>89.0</td>
+      <td>250.0</td>
+      <td>Paris</td>
+      <td>MS</td>
+      <td>EPITECH</td>
+      <td>computer sciences and technologies</td>
+      <td>France</td>
+      <td>Nassim</td>
+      <td>Ghandour</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>No</td>
+      <td>acquired</td>
+      <td>Jumptap</td>
+      <td>mobile</td>
+      <td>Yes</td>
+      <td>0.0</td>
+      <td>45.0</td>
+      <td>3.0</td>
+      <td>165.0</td>
+      <td>650.0</td>
+      <td>Boston</td>
+      <td>BA</td>
+      <td>American University</td>
+      <td>Economics</td>
+      <td>St. Petersburg, Russia</td>
+      <td>Veronika</td>
+      <td>Sonsev</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Yes</td>
+      <td>closed</td>
+      <td>FairSoftware</td>
+      <td>web</td>
+      <td>Yes</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>67.0</td>
+      <td>250.0</td>
+      <td>SF Bay</td>
+      <td>MS</td>
+      <td>Supelec</td>
+      <td>Electrical Engineering</td>
+      <td>Paris, France</td>
+      <td>Alain</td>
+      <td>Raynaud</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>No</td>
+      <td>operating</td>
+      <td>WPP</td>
+      <td>public_relations</td>
+      <td>No</td>
+      <td>21.0</td>
+      <td>23.0</td>
+      <td>3.0</td>
+      <td>59.0</td>
+      <td>86.0</td>
+      <td>New York</td>
+      <td>Degree</td>
+      <td>University of Kentucky</td>
+      <td>Degree</td>
+      <td>Kentucky</td>
+      <td>Jack</td>
+      <td>Smith</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Now I can save the data file and use it in the next notebook</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#save data</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="s1">&#39;results/classification_data.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;classification_data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Move on to the classification notebook next.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="education..html" title="previous chapter">So you want to start a company…</a></li>
+      <li>Next: <a href="classification..html" title="next chapter">Explore Categorical Variables to Classify Company Status</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/classification_data_prep..ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Annie Maslan, Jack Moorer, Mitch Negus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/classification_data_prep..ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
