@@ -59,7 +59,7 @@
    "metadata": {},
    "source": [
     "We next look at the number of IPOs over time to determine how timing may affect a company's success. We no longer restrict our analysis to companies where valuation amount is provided.  More recent years have more IPOs. However, we cannot rule out the possibility that the Crunchbase dataset is also simply becoming more complete over time.\n",
-    "<img src='results/ipos_year.png'>"
+    "![](results/ipos_year.png)"
    ]
   },
   {
@@ -75,10 +75,10 @@
    "source": [
     "### 2. Total funding by place and time\n",
     "While we had been considering valuation amount from the IPO data, we also consider funding_total_usd for the below analysis because it is a much richer dataset. We have N=27,874 instead of N=167. The median funding is greatest in CA and MA.\n",
-    "<img src='results/funding_state.png'>\n",
+    "![](results/funding_state.png)\n",
     "\n",
     "Just as we looked at the number of IPOs over time, we now look at the emergence of new companies over time. Looking at the period from 1990-2012, we see that the number of new companies in on the rise. As with the IPOs data, we have to consider that the Crunchbase dataset may be becoming more exhaustive. \n",
-    "<img src='results/new_year.png'>\n",
+    "![](results/new_year.png)\n",
     "\n",
     "We also consider the lifespan of companies and find that the median is 3 years, and that the lifespan does not vary significantly by state. For all supplementary related analysis, refer to 'location_time.ipynb.'\n",
     "\n",
@@ -92,8 +92,8 @@
     "### 3. Investor portfolio correlations\n",
     "If a company can get a certain investor, are there other investors the company is likely to get as well? We consider the correlation among investors using multidimensional scaling with the ultimate goal of determing whether certain investor portfolios cluster. We create a company matrix, whose columns are company vectors for each investing company. Each matrix entry is a count of the number of occurences of each company in the investor portfolio. The resulting matrix is very sparse; it is compose of 99.76% zeros. We normalize the matrix to represent the probability of investing in a given company for each given investor. Using Multidimensional Scaling with both euclidean distance and Jensen-Shannon distance calcuations, no clusters are evident. \n",
     "\n",
-    "<img src='results/mds_naive.png'>\n",
-    "<img src='results/mds_jsdiv.png'>\n",
+    "![](results/mds_naive.png)\n",
+    "![](results/mds_jsdiv.png)\n",
     "\n",
     "From this very sparce investor-company distance matrix data we cannot conclude any compelling correlations among investors. We also try a variety of subsets of the data in the hopes that some correlations may arise. For example we consider just the top 5% of companies in terms of funding total, just companies in CA, just biotech companies, etc. For each of the filters we tried, no clusters formed. Therefore, we do not identify any correlations among investor portfolios."
    ]

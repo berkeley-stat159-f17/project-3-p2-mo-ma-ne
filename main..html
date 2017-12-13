@@ -242,7 +242,8 @@ additional analysis can be found in the supplementary notebook
 affect a company’s success. We no longer restrict our analysis to
 companies where valuation amount is provided. More recent years have
 more IPOs. However, we cannot rule out the possibility that the
-Crunchbase dataset is also simply becoming more complete over time.</p>
+Crunchbase dataset is also simply becoming more complete over time.
+<img alt="image0" src="_images/mds_naive.png" /></p>
 <p>From this analysis of valuation and number of IPOs by place and time, we
 may predict that start-ups that originate in SF Bay and New York in the
 years since 2007 would be most successful. However, we have also found
@@ -255,12 +256,12 @@ more recent years.</p>
 <p>While we had been considering valuation amount from the IPO data, we
 also consider funding_total_usd for the below analysis because it is a
 much richer dataset. We have N=27,874 instead of N=167. The median
-funding is greatest in CA and MA.</p>
+funding is greatest in CA and MA. <img alt="image0" src="_images/mds_naive.png" /></p>
 <p>Just as we looked at the number of IPOs over time, we now look at the
 emergence of new companies over time. Looking at the period from
 1990-2012, we see that the number of new companies in on the rise. As
 with the IPOs data, we have to consider that the Crunchbase dataset may
-be becoming more exhaustive.</p>
+be becoming more exhaustive. <img alt="image1" src="_images/mds_jsdiv.png" /></p>
 <p>We also consider the lifespan of companies and find that the median is 3
 years, and that the lifespan does not vary significantly by state. For
 all supplementary related analysis, refer to ‘location_time.ipynb.’</p>
@@ -281,6 +282,7 @@ sparse; it is compose of 99.76% zeros. We normalize the matrix to
 represent the probability of investing in a given company for each given
 investor. Using Multidimensional Scaling with both euclidean distance
 and Jensen-Shannon distance calcuations, no clusters are evident.</p>
+<p><img alt="image0" src="_images/mds_naive.png" /> <img alt="image1" src="_images/mds_jsdiv.png" /></p>
 <p>From this very sparce investor-company distance matrix data we cannot
 conclude any compelling correlations among investors. We also try a
 variety of subsets of the data in the hopes that some correlations may
