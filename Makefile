@@ -59,7 +59,7 @@ github: html
 
 ## clean       : Remove auto-generated files.
 .PHONY: clean
-clean:#
+clean:
 	rm -f $(GRAPHICS) $(RESULTS)
 
 .PHONY : help
