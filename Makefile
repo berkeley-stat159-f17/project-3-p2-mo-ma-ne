@@ -54,7 +54,7 @@ github: html
 	@echo
 	@echo "Published to Github"
 
-%: Makefile
+%: 
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 ## clean       : Remove auto-generated files.

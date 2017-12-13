@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Can we predict a start-up’s success? &#8212; p3 1 documentation</title>
+    <title>Summary: Can we predict a start-up’s success? &#8212; p3 1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,6 +24,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Copyright (c) 2017, Annie Maslan, Jack Moorer, and Mitch Negus" href="license.html" />
     <link rel="prev" title="Explore Categorical Variables to Classify Company Status" href="classification..html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -206,8 +207,8 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 </style>
-<div class="section" id="Can-we-predict-a-start-up's-success?">
-<h1>Can we predict a start-up’s success?<a class="headerlink" href="#Can-we-predict-a-start-up's-success?" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Summary:-Can-we-predict-a-start-up's-success?">
+<h1>Summary: Can we predict a start-up’s success?<a class="headerlink" href="#Summary:-Can-we-predict-a-start-up's-success?" title="Permalink to this headline">¶</a></h1>
 <p>Authors: Annie Maslan, Jack Moorer, Mitch Negus</p>
 <div class="section" id="Overview">
 <h2>Overview<a class="headerlink" href="#Overview" title="Permalink to this headline">¶</a></h2>
@@ -234,11 +235,16 @@ consider a barplot of the same data we see that Seattle with 7 companies
 is more sensitive to outliers and has a broader distribution. This
 additional analysis can be found in the supplementary notebook
 ‘location_time.ipynb.’</p>
+<div class="figure" id="id1">
+<img alt="valuation by region" src="_images/valuation_region.png" />
+<p class="caption"><span class="caption-text">valuation by region</span></p>
+</div>
 <p>We next look at the number of IPOs over time to determine how timing may
 affect a company’s success. We no longer restrict our analysis to
 companies where valuation amount is provided. More recent years have
 more IPOs. However, we cannot rule out the possibility that the
-Crunchbase dataset is also simply becoming more complete over time.</p>
+Crunchbase dataset is also simply becoming more complete over time.
+<img alt="ipos by year" src="_images/ipos_year.png" /></p>
 <p>From this analysis of valuation and number of IPOs by place and time, we
 may predict that start-ups that originate in SF Bay and New York in the
 years since 2007 would be most successful. However, we have also found
@@ -251,12 +257,12 @@ more recent years.</p>
 <p>While we had been considering valuation amount from the IPO data, we
 also consider funding_total_usd for the below analysis because it is a
 much richer dataset. We have N=27,874 instead of N=167. The median
-funding is greatest in CA and MA.</p>
+funding is greatest in CA and MA. <img alt="funding by state" src="_images/funding_state.png" /></p>
 <p>Just as we looked at the number of IPOs over time, we now look at the
 emergence of new companies over time. Looking at the period from
 1990-2012, we see that the number of new companies in on the rise. As
 with the IPOs data, we have to consider that the Crunchbase dataset may
-be becoming more exhaustive.</p>
+be becoming more exhaustive. <img alt="new companies by year" src="_images/new_year.png" /></p>
 <p>We also consider the lifespan of companies and find that the median is 3
 years, and that the lifespan does not vary significantly by state. For
 all supplementary related analysis, refer to ‘location_time.ipynb.’</p>
@@ -277,6 +283,7 @@ sparse; it is compose of 99.76% zeros. We normalize the matrix to
 represent the probability of investing in a given company for each given
 investor. Using Multidimensional Scaling with both euclidean distance
 and Jensen-Shannon distance calcuations, no clusters are evident.</p>
+<p><img alt="mds naive" src="_images/mds_naive.png" /> <img alt="mds jsdiv" src="_images/mds_jsdiv.png" /></p>
 <p>From this very sparce investor-company distance matrix data we cannot
 conclude any compelling correlations among investors. We also try a
 variety of subsets of the data in the hopes that some correlations may
@@ -294,8 +301,8 @@ identify any correlations among investor portfolios.</p>
 <h4>Annie Maslan<a class="headerlink" href="#Annie-Maslan" title="Permalink to this headline">¶</a></h4>
 <p>Annie focused on the exploratory analysis sections about valuation and
 number of IPOs by place and time, total funding by place and time, and
-investor correlations. She also made the Makefile and did the
-MySQL/environment set-up.</p>
+investor correlations. She also made the Makefile, did the
+MySQL/environment set-up, and Sphinx build.</p>
 </div>
 <div class="section" id="Jack-Moorer">
 <h4>Jack Moorer<a class="headerlink" href="#Jack-Moorer" title="Permalink to this headline">¶</a></h4>
@@ -325,7 +332,7 @@ MySQL/environment set-up.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Can we predict a start-up’s success?</a><ul>
+<li><a class="reference internal" href="#">Summary: Can we predict a start-up’s success?</a><ul>
 <li><a class="reference internal" href="#Overview">Overview</a></li>
 <li><a class="reference internal" href="#Exploratory-Analysis">Exploratory Analysis</a><ul>
 <li><a class="reference internal" href="#1.-Valuation-and-number-of-IPOs-by-place-and-time">1. Valuation and number of IPOs by place and time</a></li>
@@ -348,6 +355,7 @@ MySQL/environment set-up.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="classification..html" title="previous chapter">Explore Categorical Variables to Classify Company Status</a></li>
+      <li>Next: <a href="license.html" title="next chapter">Copyright (c) 2017, Annie Maslan, Jack Moorer, and Mitch Negus</a></li>
   </ul></li>
 </ul>
 </div>
