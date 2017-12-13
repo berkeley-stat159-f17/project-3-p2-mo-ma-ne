@@ -1,10 +1,11 @@
 import MySQLdb
+import getpass
 import seaborn as sns
 import pandas as pd
 import numpy as np
 from collections import Counter
 
-def dbConnect(username='root',password=''):
+def dbConnect():
     """
     connect to MySQL database called p3
 
@@ -18,9 +19,12 @@ def dbConnect(username='root',password=''):
 
     """
     dsn_database = 'p3'
-    dsn_uid = username
-    dsn_pwd = password 
-    conn = MySQLdb.connect(user=dsn_uid, passwd=dsn_pwd, db=dsn_database)
+    try:
+        conn = MySQLdb.connect(user='root',passwd='')
+    except:
+        conn = MySQLdb.connect(user=input('Username: '),
+                               passwd=getpass.getpass('Password: '),
+                               db=dsn_database)
     return conn
 
 def dbTableToDataFrame(conn, table):
