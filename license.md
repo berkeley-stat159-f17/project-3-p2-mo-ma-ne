@@ -1,4 +1,4 @@
-Copyright (c) 2017, Annie Maslan, Jack Moorer, and Mitch Negus 
+##### Copyright (c) 2017, Annie Maslan, Jack Moorer, and Mitch Negus 
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
