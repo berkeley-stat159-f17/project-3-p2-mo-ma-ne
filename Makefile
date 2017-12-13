@@ -30,6 +30,15 @@ all :
 	--output main.ipynb \
 	--ExecutePreprocessor.timeout=-1
 
+## github       : Publish to Github.
+.PHONY: github
+
+github: html
+    ghp-import $(BUILDDIR)/html/
+    git push -u origin gh-pages
+    @echo
+    @echo "Published to Github"
+	
 ## clean       : Remove auto-generated files.
 .PHONY: clean
 clean:
