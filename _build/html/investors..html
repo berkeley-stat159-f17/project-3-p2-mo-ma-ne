@@ -1,0 +1,1905 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Exploratory analysis #2: investor portfolio correlations &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="So you want to start a company…" href="education..html" />
+    <link rel="prev" title="Exploratory analysis #1: the effects of place and time" href="location_time..html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+</style>
+<div class="section" id="Exploratory-analysis-#2:-investor-portfolio-correlations">
+<h1>Exploratory analysis #2: investor portfolio correlations<a class="headerlink" href="#Exploratory-analysis-#2:-investor-portfolio-correlations" title="Permalink to this headline">¶</a></h1>
+<p>Do investors cluster together? In other words, if a company can get a
+certain investor, are there others the company is likely to get as well?
+In this notebook we consider the correlation among investors using
+multidimensional scaling.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">modules</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-dark&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1"># connect to mysql db, read cb_investments, cb_objects, and cb_funds as dataframes, disconnect</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">dbConnect</span><span class="p">()</span>
+<span class="n">inv</span> <span class="o">=</span> <span class="n">dbTableToDataFrame</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s1">&#39;cb_investments&#39;</span><span class="p">)</span>
+<span class="n">objs</span> <span class="o">=</span> <span class="n">dbTableToDataFrame</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s1">&#39;cb_objects&#39;</span><span class="p">)</span>
+<span class="n">fund</span> <span class="o">=</span> <span class="n">dbTableToDataFrame</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s1">&#39;cb_funds&#39;</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Look at the dataframes we’ve read in.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">inv</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>created_at</th>
+      <th>funded_object_id</th>
+      <th>funding_round_id</th>
+      <th>id</th>
+      <th>investor_object_id</th>
+      <th>updated_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2007-07-04 04:52:57</td>
+      <td>c:4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>f:1</td>
+      <td>2008-02-27 23:14:29</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2007-07-04 04:52:57</td>
+      <td>c:4</td>
+      <td>1</td>
+      <td>2</td>
+      <td>f:2</td>
+      <td>2008-02-27 23:14:29</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2007-05-27 06:09:10</td>
+      <td>c:5</td>
+      <td>3</td>
+      <td>3</td>
+      <td>f:4</td>
+      <td>2013-06-28 20:07:23</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2007-05-27 06:09:36</td>
+      <td>c:5</td>
+      <td>4</td>
+      <td>4</td>
+      <td>f:1</td>
+      <td>2013-06-28 20:07:24</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2007-05-27 06:09:36</td>
+      <td>c:5</td>
+      <td>4</td>
+      <td>5</td>
+      <td>f:5</td>
+      <td>2013-06-28 20:07:24</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">fund</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>created_at</th>
+      <th>fund_id</th>
+      <th>funded_at</th>
+      <th>id</th>
+      <th>name</th>
+      <th>object_id</th>
+      <th>raised_amount</th>
+      <th>raised_currency_code</th>
+      <th>source_description</th>
+      <th>source_url</th>
+      <th>updated_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2008-12-17 03:07:16</td>
+      <td>1</td>
+      <td>2008-12-16</td>
+      <td>1</td>
+      <td>Second Fund</td>
+      <td>f:371</td>
+      <td>300000000</td>
+      <td>USD</td>
+      <td>peHub</td>
+      <td>http://www.pehub.com/26194/dfj-dragon-raising-...</td>
+      <td>2008-12-17 03:07:16</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2008-12-18 22:04:42</td>
+      <td>4</td>
+      <td>2008-12-17</td>
+      <td>4</td>
+      <td>Sequoia Israel Fourth Fund</td>
+      <td>f:17</td>
+      <td>200750000</td>
+      <td>USD</td>
+      <td>Sequoia Israel Raises Fourth Fund</td>
+      <td>http://www.pehub.com/26725/sequoia-israel-rais...</td>
+      <td>2008-12-18 22:04:42</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2008-12-31 09:47:51</td>
+      <td>5</td>
+      <td>2008-08-11</td>
+      <td>5</td>
+      <td>Tenth fund</td>
+      <td>f:951</td>
+      <td>650000000</td>
+      <td>USD</td>
+      <td>Venture Beat</td>
+      <td>http://venturebeat.com/2008/08/11/interwest-cl...</td>
+      <td>2008-12-31 09:47:51</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2009-01-01 18:13:44</td>
+      <td>6</td>
+      <td>None</td>
+      <td>6</td>
+      <td>New funds acquire</td>
+      <td>f:192</td>
+      <td>625000000</td>
+      <td>USD</td>
+      <td>U.S. Venture Partners raises $625M fund for ne...</td>
+      <td>http://venturebeat.com/2008/07/28/us-venture-p...</td>
+      <td>2009-01-01 18:16:27</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2009-01-03 09:51:58</td>
+      <td>7</td>
+      <td>2008-05-20</td>
+      <td>7</td>
+      <td>Third fund</td>
+      <td>f:519</td>
+      <td>200000000</td>
+      <td>USD</td>
+      <td>Venture Beat</td>
+      <td>http://venturebeat.com/2008/05/20/disneys-stea...</td>
+      <td>2013-09-03 16:34:54</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">objs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>category_code</th>
+      <th>city</th>
+      <th>closed_at</th>
+      <th>country_code</th>
+      <th>created_at</th>
+      <th>created_by</th>
+      <th>description</th>
+      <th>domain</th>
+      <th>entity_id</th>
+      <th>entity_type</th>
+      <th>...</th>
+      <th>parent_id</th>
+      <th>permalink</th>
+      <th>region</th>
+      <th>relationships</th>
+      <th>short_description</th>
+      <th>state_code</th>
+      <th>status</th>
+      <th>tag_list</th>
+      <th>twitter_username</th>
+      <th>updated_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>web</td>
+      <td>Seattle</td>
+      <td>None</td>
+      <td>USA</td>
+      <td>2007-05-25 06:51:27</td>
+      <td>initial-importer</td>
+      <td>Technology Platform Company</td>
+      <td>wetpaint-inc.com</td>
+      <td>1</td>
+      <td>Company</td>
+      <td>...</td>
+      <td>None</td>
+      <td>/company/wetpaint</td>
+      <td>Seattle</td>
+      <td>17.0</td>
+      <td>None</td>
+      <td>WA</td>
+      <td>operating</td>
+      <td>wiki, seattle, elowitz, media-industry, media-...</td>
+      <td>BachelrWetpaint</td>
+      <td>2013-04-13 03:29:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>games_video</td>
+      <td>Culver City</td>
+      <td>None</td>
+      <td>USA</td>
+      <td>2007-05-31 21:11:51</td>
+      <td>initial-importer</td>
+      <td>None</td>
+      <td>flektor.com</td>
+      <td>10</td>
+      <td>Company</td>
+      <td>...</td>
+      <td>None</td>
+      <td>/company/flektor</td>
+      <td>Los Angeles</td>
+      <td>6.0</td>
+      <td>None</td>
+      <td>CA</td>
+      <td>acquired</td>
+      <td>flektor, photo, video</td>
+      <td>None</td>
+      <td>2008-05-23 23:23:14</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>games_video</td>
+      <td>San Mateo</td>
+      <td>None</td>
+      <td>USA</td>
+      <td>2007-08-06 23:52:45</td>
+      <td>initial-importer</td>
+      <td></td>
+      <td>there.com</td>
+      <td>100</td>
+      <td>Company</td>
+      <td>...</td>
+      <td>None</td>
+      <td>/company/there</td>
+      <td>SF Bay</td>
+      <td>12.0</td>
+      <td>None</td>
+      <td>CA</td>
+      <td>acquired</td>
+      <td>virtualworld, there, teens</td>
+      <td>None</td>
+      <td>2013-11-04 02:09:48</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>network_hosting</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>2008-08-24 16:51:57</td>
+      <td>None</td>
+      <td>None</td>
+      <td>mywebbo.com</td>
+      <td>10000</td>
+      <td>Company</td>
+      <td>...</td>
+      <td>None</td>
+      <td>/company/mywebbo</td>
+      <td>unknown</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>operating</td>
+      <td>social-network, new, website, web, friends, ch...</td>
+      <td>None</td>
+      <td>2008-09-06 14:19:18</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>games_video</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>2008-08-24 17:10:34</td>
+      <td>None</td>
+      <td>None</td>
+      <td>themoviestreamer.com</td>
+      <td>10001</td>
+      <td>Company</td>
+      <td>...</td>
+      <td>None</td>
+      <td>/company/the-movie-streamer</td>
+      <td>unknown</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>operating</td>
+      <td>watch, full-length, moives, online, for, free,...</td>
+      <td>None</td>
+      <td>2008-09-06 14:19:18</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 40 columns</p>
+</div></div>
+</div>
+<p>Merge all three dataframes into one dataframe called allData to be used
+in all subsequent analysis in this workbook.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">inv</span><span class="p">,</span> <span class="n">objs</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="s1">&#39;funded_object_id&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_i&#39;</span><span class="p">,</span> <span class="s1">&#39;_o&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">fund</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="s1">&#39;investor_object_id&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_a&#39;</span><span class="p">,</span> <span class="s1">&#39;_f&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">allData</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>created_at_i</th>
+      <th>funded_object_id</th>
+      <th>funding_round_id</th>
+      <th>id_i</th>
+      <th>investor_object_id</th>
+      <th>updated_at_i</th>
+      <th>category_code</th>
+      <th>city</th>
+      <th>closed_at</th>
+      <th>country_code</th>
+      <th>...</th>
+      <th>fund_id</th>
+      <th>funded_at</th>
+      <th>id</th>
+      <th>name_f</th>
+      <th>object_id</th>
+      <th>raised_amount</th>
+      <th>raised_currency_code</th>
+      <th>source_description</th>
+      <th>source_url</th>
+      <th>updated_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2007-07-04 04:52:57</td>
+      <td>c:4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>f:1</td>
+      <td>2008-02-27 23:14:29</td>
+      <td>news</td>
+      <td>San Francisco</td>
+      <td>None</td>
+      <td>USA</td>
+      <td>...</td>
+      <td>99</td>
+      <td>2013-09-10</td>
+      <td>99</td>
+      <td>Greylock Fund XIV</td>
+      <td>f:1</td>
+      <td>1000000000</td>
+      <td>USD</td>
+      <td>Greylock Partners raises $1 billion for new ve...</td>
+      <td>http://www.reuters.com/article/2013/09/10/us-v...</td>
+      <td>2013-09-10 19:05:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2007-07-04 04:52:57</td>
+      <td>c:4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>f:1</td>
+      <td>2008-02-27 23:14:29</td>
+      <td>news</td>
+      <td>San Francisco</td>
+      <td>None</td>
+      <td>USA</td>
+      <td>...</td>
+      <td>420</td>
+      <td>2011-03-01</td>
+      <td>420</td>
+      <td>Greylock Fund XIII</td>
+      <td>f:1</td>
+      <td>1000000000</td>
+      <td>USD</td>
+      <td>Greylock: $1 billion more and new fund for “wi...</td>
+      <td>http://venturebeat.com/2011/03/01/greylock-1-b...</td>
+      <td>2013-09-10 18:53:02</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2007-07-04 04:52:57</td>
+      <td>c:4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>f:1</td>
+      <td>2008-02-27 23:14:29</td>
+      <td>news</td>
+      <td>San Francisco</td>
+      <td>None</td>
+      <td>USA</td>
+      <td>...</td>
+      <td>1446</td>
+      <td>2005-11-14</td>
+      <td>1446</td>
+      <td>Greylock Fund XII</td>
+      <td>f:1</td>
+      <td>500000000</td>
+      <td>USD</td>
+      <td>Greylock locks up 12th fund at $500M</td>
+      <td>http://www.bizjournals.com/boston/blog/mass-hi...</td>
+      <td>2013-09-10 19:05:00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2007-07-04 04:56:09</td>
+      <td>c:4</td>
+      <td>85</td>
+      <td>144</td>
+      <td>f:1</td>
+      <td>2008-02-27 23:14:29</td>
+      <td>news</td>
+      <td>San Francisco</td>
+      <td>None</td>
+      <td>USA</td>
+      <td>...</td>
+      <td>99</td>
+      <td>2013-09-10</td>
+      <td>99</td>
+      <td>Greylock Fund XIV</td>
+      <td>f:1</td>
+      <td>1000000000</td>
+      <td>USD</td>
+      <td>Greylock Partners raises $1 billion for new ve...</td>
+      <td>http://www.reuters.com/article/2013/09/10/us-v...</td>
+      <td>2013-09-10 19:05:00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2007-07-04 04:56:09</td>
+      <td>c:4</td>
+      <td>85</td>
+      <td>144</td>
+      <td>f:1</td>
+      <td>2008-02-27 23:14:29</td>
+      <td>news</td>
+      <td>San Francisco</td>
+      <td>None</td>
+      <td>USA</td>
+      <td>...</td>
+      <td>420</td>
+      <td>2011-03-01</td>
+      <td>420</td>
+      <td>Greylock Fund XIII</td>
+      <td>f:1</td>
+      <td>1000000000</td>
+      <td>USD</td>
+      <td>Greylock: $1 billion more and new fund for “wi...</td>
+      <td>http://venturebeat.com/2011/03/01/greylock-1-b...</td>
+      <td>2013-09-10 18:53:02</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 57 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">allData</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(71811, 57)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">allData</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>Index([&#39;created_at_i&#39;, &#39;funded_object_id&#39;, &#39;funding_round_id&#39;, &#39;id_i&#39;,
+       &#39;investor_object_id&#39;, &#39;updated_at_i&#39;, &#39;category_code&#39;, &#39;city&#39;,
+       &#39;closed_at&#39;, &#39;country_code&#39;, &#39;created_at_o&#39;, &#39;created_by&#39;,
+       &#39;description&#39;, &#39;domain&#39;, &#39;entity_id&#39;, &#39;entity_type&#39;, &#39;first_funding_at&#39;,
+       &#39;first_investment_at&#39;, &#39;first_milestone_at&#39;, &#39;founded_at&#39;,
+       &#39;funding_rounds&#39;, &#39;funding_total_usd&#39;, &#39;homepage_url&#39;, &#39;id_o&#39;,
+       &#39;invested_companies&#39;, &#39;investment_rounds&#39;, &#39;last_funding_at&#39;,
+       &#39;last_investment_at&#39;, &#39;last_milestone_at&#39;, &#39;logo_height&#39;, &#39;logo_url&#39;,
+       &#39;logo_width&#39;, &#39;milestones&#39;, &#39;name_a&#39;, &#39;normalized_name&#39;, &#39;overview&#39;,
+       &#39;parent_id&#39;, &#39;permalink&#39;, &#39;region&#39;, &#39;relationships&#39;,
+       &#39;short_description&#39;, &#39;state_code&#39;, &#39;status&#39;, &#39;tag_list&#39;,
+       &#39;twitter_username&#39;, &#39;updated_at_o&#39;, &#39;created_at&#39;, &#39;fund_id&#39;,
+       &#39;funded_at&#39;, &#39;id&#39;, &#39;name_f&#39;, &#39;object_id&#39;, &#39;raised_amount&#39;,
+       &#39;raised_currency_code&#39;, &#39;source_description&#39;, &#39;source_url&#39;,
+       &#39;updated_at&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+<p>Now create company matrix for entire set of investors. In company
+matrix, the index denotes the company and the column labels denote the
+investor. The matrix entry counts the number of occurences of each
+company in the investor portfolio.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1"># create dictionary with list of companies funded for each investor</span>
+<span class="n">investors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">allData</span><span class="o">.</span><span class="n">investor_object_id</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">f</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">investors</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">investor</span> <span class="ow">in</span> <span class="n">investors</span><span class="p">:</span>
+    <span class="n">allData_investor</span> <span class="o">=</span> <span class="n">allData</span><span class="p">[</span><span class="n">allData</span><span class="o">.</span><span class="n">investor_object_id</span> <span class="o">==</span> <span class="n">investor</span><span class="p">]</span>
+    <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">allData_investor</span><span class="o">.</span><span class="n">funded_object_id</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">investors</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#companies is a list of all companies</span>
+<span class="n">companies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">allData</span><span class="o">.</span><span class="n">funded_object_id</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1"># initialize empty dataframe with rownames as the unique companies</span>
+<span class="n">cmat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">companies</span><span class="p">)</span>
+
+<span class="c1"># for each investor, have list of companies and store as investors</span>
+
+<span class="c1"># need a counter for column names</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># loop through the investors</span>
+<span class="k">for</span> <span class="n">investor</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1">#create column of data frame</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">company_vector</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">companies</span><span class="p">)</span>
+    <span class="c1">#create index name</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="c1">#add column</span>
+    <span class="n">cmat</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">column</span>
+    <span class="c1">#update index</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">cmat</span><span class="p">[</span><span class="mi">500</span><span class="p">:</span><span class="mi">510</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>749</th>
+      <th>750</th>
+      <th>751</th>
+      <th>752</th>
+      <th>753</th>
+      <th>754</th>
+      <th>755</th>
+      <th>756</th>
+      <th>757</th>
+      <th>758</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>c:78697</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:245097</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:77139</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:52705</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:64279</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:59052</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:41370</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:81822</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:66124</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>c:65098</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 759 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="nb">len</span><span class="p">(</span><span class="n">investors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[14]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>759
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">cmat</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(10326, 759)
+</pre></div>
+</div>
+</div>
+<p>Calculate the number of zeros to give the sparsity of the company matrix
+as a percentage.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#generate matrix where 1 is empty, 0 is not</span>
+<span class="n">sparse_matrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">cmat</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1">#calculate row_sums, number times company is not in an investor portfolio</span>
+<span class="n">row_sums</span> <span class="o">=</span> <span class="n">sparse_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">#find the sparsity, the total number of empty cells divided by the number of cells</span>
+<span class="n">sparsity</span> <span class="o">=</span> <span class="n">row_sums</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">cmat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">cmat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cmat is comprised of {100*sparsity:.2f}% zeros.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+cmat is comprised of 99.76% zeros.
+</pre></div></div>
+</div>
+<div class="section" id="Distance-between-investor-portfolios">
+<h2>Distance between investor portfolios<a class="headerlink" href="#Distance-between-investor-portfolios" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
+</pre></div>
+</div>
+</div>
+<p>Plotting infrastructure setup</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">simple_scatterplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">labels</span><span class="p">):</span>
+    <span class="c1"># Scatterplot with a title and labels</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">fit_MDS_2D</span><span class="p">(</span><span class="n">distances</span><span class="p">):</span>
+    <span class="c1"># A simple MDS embedding plot:</span>
+    <span class="n">mds</span> <span class="o">=</span> <span class="n">MDS</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dissimilarity</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+    <span class="c1">#fit based on computed Euclidean distances</span>
+    <span class="n">mds_fit</span> <span class="o">=</span> <span class="n">mds</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+    <span class="c1">#get 2D Euclidean points of presidents</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">mds_fit</span><span class="o">.</span><span class="n">embedding_</span>
+    <span class="k">return</span> <span class="n">points</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1"># normalize distance matrix to represent the probability of investing in a</span>
+<span class="c1"># given company for a given investor</span>
+<span class="n">column_sums</span> <span class="o">=</span> <span class="n">cmat</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">cmat</span> <span class="o">/</span> <span class="n">column_sums</span>
+<span class="n">norm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>749</th>
+      <th>750</th>
+      <th>751</th>
+      <th>752</th>
+      <th>753</th>
+      <th>754</th>
+      <th>755</th>
+      <th>756</th>
+      <th>757</th>
+      <th>758</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>c:4</th>
+      <td>0.009772</td>
+      <td>0.057692</td>
+      <td>0.007042</td>
+      <td>0.002066</td>
+      <td>0.004386</td>
+      <td>0.034483</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>c:5</th>
+      <td>0.003257</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.002066</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.002096</td>
+      <td>0.015385</td>
+      <td>0.007692</td>
+      <td>0.026316</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>c:82</th>
+      <td>0.006515</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.002066</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>c:128</th>
+      <td>0.006515</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>c:161</th>
+      <td>0.003257</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 759 columns</p>
+</div></div>
+</div>
+<p>Make a numpy array version of the dataframe to use with Scikit-Learn:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">norm</span><span class="p">)</span>
+<span class="n">norm</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[21]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(10326, 759)
+</pre></div>
+</div>
+</div>
+<p>We will use JSdiv function for calculating distances. We also use L2
+distance for comparison.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">entropy</span>
+
+<span class="k">def</span> <span class="nf">JSdiv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Jensen-Shannon divergence.</span>
+
+<span class="sd">    Compute the J-S divergence between two discrete probability distributions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    p, q : array</span>
+<span class="sd">        Both p and q should be one-dimensional arrays that can be interpreted as discrete</span>
+<span class="sd">        probability distributions (i.e. sum(p) == 1; this condition is not checked).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The J-S divergence, computed using the scipy entropy function (with base 2) for</span>
+<span class="sd">        the Kullback-Leibler divergence.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">q</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">entropy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">entropy</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#Intialize empty matrix of JSdiv of points</span>
+<span class="n">JSd_dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="c1">#Intialize empty matrix of Euclidean distances</span>
+<span class="n">euc_dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="c1">#loop through columns</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="c1">#catch first column to compare</span>
+    <span class="n">cur_col</span> <span class="o">=</span> <span class="n">norm</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="c1">#loop through remaining columns</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="c1">#catch second column to compare</span>
+        <span class="n">comp_col</span> <span class="o">=</span> <span class="n">norm</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+
+        <span class="c1">#compute JSdiv</span>
+        <span class="n">JSd_dist</span> <span class="o">=</span> <span class="n">JSdiv</span><span class="p">(</span><span class="n">cur_col</span><span class="p">,</span> <span class="n">comp_col</span><span class="p">)</span>
+        <span class="n">JSd_dists</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">JSd_dist</span>
+
+        <span class="c1">#compute Euclidean Distance</span>
+        <span class="n">euc_dist</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">euclidean</span><span class="p">(</span><span class="n">cur_col</span><span class="p">,</span> <span class="n">comp_col</span><span class="p">)</span>
+        <span class="n">euc_dists</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">euc_dist</span>
+
+        <span class="c1">#the matrices are symmetric, saves runntime to do this</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">):</span>
+            <span class="n">JSd_dists</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">JSd_dist</span>
+            <span class="n">euc_dists</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">euc_dist</span>
+
+<span class="c1"># Fit with MDS</span>
+<span class="n">points_euclidean</span> <span class="o">=</span> <span class="n">fit_MDS_2D</span><span class="p">(</span><span class="n">euc_dists</span><span class="p">)</span>
+
+<span class="c1"># Create scatter plot of projected points based on Euclidean Distances</span>
+<span class="n">simple_scatterplot</span><span class="p">(</span><span class="n">points_euclidean</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">points_euclidean</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+                   <span class="s2">&quot;Naive MDS - Euclidean Distances&quot;</span><span class="p">,</span>
+                   <span class="n">investors</span>
+                  <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/investors._31_0.png" src="_images/investors._31_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1"># Fit with MSD</span>
+<span class="n">points_JSd</span> <span class="o">=</span> <span class="n">fit_MDS_2D</span><span class="p">(</span><span class="n">JSd_dists</span><span class="p">)</span>
+
+<span class="c1">#create scatter plot of projected points based on JSDiv</span>
+<span class="n">simple_scatterplot</span><span class="p">(</span><span class="n">points_JSd</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">points_JSd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+                   <span class="s2">&quot;Naive MDS - JSdiv&quot;</span><span class="p">,</span>
+                   <span class="n">investors</span>
+                  <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/investors._32_0.png" src="_images/investors._32_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">plot_embedding</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;MDS Embedding&#39;</span><span class="p">,</span> <span class="n">savepath</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+                   <span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot an MDS embedding dataframe for all presidents.</span>
+
+<span class="sd">    Uses Seaborn&#39;s `lmplot` to create an x-y scatterplot of the data, encoding the</span>
+<span class="sd">    value of the investor field into the hue (which can be mapped to any desired</span>
+<span class="sd">    color palette).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : DataFrame</span>
+<span class="sd">        A DataFrame that must contain 3 columns labeled &#39;x&#39;, &#39;y&#39; and &#39;investor&#39;.</span>
+
+<span class="sd">    title : optional, string</span>
+<span class="sd">        Title for the plot</span>
+
+<span class="sd">    savepath : optional, string</span>
+<span class="sd">        If given, a path to save the figure into using matplotlib&#39;s `savefig`.</span>
+
+<span class="sd">    palette : optional, string</span>
+<span class="sd">        The name of a valid Seaborn palette for coloring the points.</span>
+
+<span class="sd">    size : optional, float</span>
+<span class="sd">        Size of the plot in inches (single number, square plot)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    FacetGrid</span>
+<span class="sd">        The Seaborn FacetGrid object used to create the plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#process data</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    <span class="n">investor</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;investor&#39;</span><span class="p">]</span>
+
+    <span class="c1">#set boolean for using or not using annotation</span>
+    <span class="n">do_annotate</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="c1">#create scatterplot using linear model without a regression fit</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;investor&quot;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="n">palette</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.01</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span><span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1">#this is used in order to annotate</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="c1">#make grid and set title</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+    <span class="c1">#adjust border for file saving so not cut-off</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="c1">#save file</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">savepath</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#create embed_peu data frame</span>
+<span class="n">embed_peu</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([])</span>
+<span class="n">embed_peu</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_euclidean</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">embed_peu</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_euclidean</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">embed_peu</span><span class="p">[</span><span class="s1">&#39;investor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">investors</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">plot_embedding</span><span class="p">(</span><span class="n">embed_peu</span><span class="p">,</span> <span class="s1">&#39;Naive MDS - euclidean distance&#39;</span><span class="p">,</span> <span class="s1">&#39;results/mds_naive.png&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/investors._35_0.png" src="_images/investors._35_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#create edf2 data frame from JSdiv metric</span>
+<span class="n">edf2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([])</span>
+<span class="n">edf2</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_JSd</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">edf2</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points_JSd</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">edf2</span><span class="p">[</span><span class="s1">&#39;investor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">investors</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">plot_embedding</span><span class="p">(</span><span class="n">edf2</span><span class="p">,</span> <span class="s1">&#39;MDS - Jensen-Shannon Distance&#39;</span><span class="p">,</span> <span class="s1">&#39;results/mds_jsdiv.png&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/investors._37_0.png" src="_images/investors._37_0.png" />
+</div>
+</div>
+<p>Using this very sparse investor-company distance matrix data we cannot
+conclude any compelling correlations among investors. We tried a variety
+of subsets of the data in the hopes that we would discover correlations
+among investors. For example, some of the attributes that we tried to
+subset on were: 1. Top 5% of companies in terms of funding_total_usd</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;funding_total_usd&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1">#allData = allData.iloc[0:int(0.05*71811)]</span>
+</pre></div>
+</div>
+<ol class="arabic" start="2">
+<li><p class="first">CA</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="p">[</span><span class="n">allData</span><span class="o">.</span><span class="n">state_code</span> <span class="o">==</span> <span class="s2">&quot;CA&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Biotech</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="p">[</span><span class="n">allData</span><span class="o">.</span><span class="n">category_code</span> <span class="o">==</span> <span class="s2">&quot;biotech&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>However, unfortunately no clusters emerged. Therefore, we condlude that
+we cannot produce compelling correlations among investors.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Exploratory analysis #2: investor portfolio correlations</a><ul>
+<li><a class="reference internal" href="#Distance-between-investor-portfolios">Distance between investor portfolios</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="location_time..html" title="previous chapter">Exploratory analysis #1: the effects of place and time</a></li>
+      <li>Next: <a href="education..html" title="next chapter">So you want to start a company…</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/investors..ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Annie Maslan, Jack Moorer, Mitch Negus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/investors..ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,399 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Summary: Can we predict a start-up’s success? &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Copyright (c) 2017, Annie Maslan, Jack Moorer, and Mitch Negus" href="license.html" />
+    <link rel="prev" title="Explore Categorical Variables to Classify Company Status" href="classification..html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+</style>
+<div class="section" id="Summary:-Can-we-predict-a-start-up's-success?">
+<h1>Summary: Can we predict a start-up’s success?<a class="headerlink" href="#Summary:-Can-we-predict-a-start-up's-success?" title="Permalink to this headline">¶</a></h1>
+<p>Authors: Annie Maslan, Jack Moorer, Mitch Negus</p>
+<div class="section" id="Overview">
+<h2>Overview<a class="headerlink" href="#Overview" title="Permalink to this headline">¶</a></h2>
+<p>We begin by exploratory analysis of the various factors we hypothesize
+may influence a company’s success. We consider the following factors: 1.
+Valuation and number of IPOs by place and time 2. Total funding by place
+and time 3. Investor portfolio correlations</p>
+</div>
+<div class="section" id="Exploratory-Analysis">
+<h2>Exploratory Analysis<a class="headerlink" href="#Exploratory-Analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="1.-Valuation-and-number-of-IPOs-by-place-and-time">
+<h3>1. Valuation and number of IPOs by place and time<a class="headerlink" href="#1.-Valuation-and-number-of-IPOs-by-place-and-time" title="Permalink to this headline">¶</a></h3>
+<p>We first consider the number of IPOs by region. The data provided in the
+‘cb_ipos’ table is lacking the valuation amount for many companies.
+When filtering for entries that have valuation amount included, we have
+an N of 167. We continue with this valuation analyis but will
+subsequently look at total funding in part 2 for a larger dataset that
+may also indicate company success. We find that SF Bay has the highest
+number of companies that IPO (34) with NYC in second (11) and London in
+third (8). In the below barplot, we consider the regions that had &gt;5
+companies IPO in order of decreasing number of companies. Seattle has
+the highest average valuation for companies that IPO; however, if we
+consider a barplot of the same data we see that Seattle with 7 companies
+is more sensitive to outliers and has a broader distribution. This
+additional analysis can be found in the supplementary notebook
+‘location_time.ipynb.’</p>
+<div class="figure" id="id1">
+<img alt="valuation by region" src="_images/valuation_region.png" />
+<p class="caption"><span class="caption-text">valuation by region</span></p>
+</div>
+<p>We next look at the number of IPOs over time to determine how timing may
+affect a company’s success. We no longer restrict our analysis to
+companies where valuation amount is provided. More recent years have
+more IPOs. However, we cannot rule out the possibility that the
+Crunchbase dataset is also simply becoming more complete over time.
+<img alt="ipos by year" src="_images/ipos_year.png" /></p>
+<p>From this analysis of valuation and number of IPOs by place and time, we
+may predict that start-ups that originate in SF Bay and New York in the
+years since 2007 would be most successful. However, we have also found
+many shortcomings in the Crunchbase data suggesting that some findings
+may be more so dependent on improved quality of complete data entry in
+more recent years.</p>
+</div>
+<div class="section" id="2.-Total-funding-by-place-and-time">
+<h3>2. Total funding by place and time<a class="headerlink" href="#2.-Total-funding-by-place-and-time" title="Permalink to this headline">¶</a></h3>
+<p>While we had been considering valuation amount from the IPO data, we
+also consider funding_total_usd for the below analysis because it is a
+much richer dataset. We have N=27,874 instead of N=167. The median
+funding is greatest in CA and MA. <img alt="funding by state" src="_images/funding_state.png" /></p>
+<p>Just as we looked at the number of IPOs over time, we now look at the
+emergence of new companies over time. Looking at the period from
+1990-2012, we see that the number of new companies in on the rise. As
+with the IPOs data, we have to consider that the Crunchbase dataset may
+be becoming more exhaustive. <img alt="new companies by year" src="_images/new_year.png" /></p>
+<p>We also consider the lifespan of companies and find that the median is 3
+years, and that the lifespan does not vary significantly by state. For
+all supplementary related analysis, refer to ‘location_time.ipynb.’</p>
+<p>From the analysis of funding by state and number of new companis over
+time, we can hypothesize that companies in CA and MA that are founded in
+more recent years will be most successful.</p>
+</div>
+<div class="section" id="3.-Investor-portfolio-correlations">
+<h3>3. Investor portfolio correlations<a class="headerlink" href="#3.-Investor-portfolio-correlations" title="Permalink to this headline">¶</a></h3>
+<p>If a company can get a certain investor, are there other investors the
+company is likely to get as well? We consider the correlation among
+investors using multidimensional scaling with the ultimate goal of
+determing whether certain investor portfolios cluster. We create a
+company matrix, whose columns are company vectors for each investing
+company. Each matrix entry is a count of the number of occurences of
+each company in the investor portfolio. The resulting matrix is very
+sparse; it is compose of 99.76% zeros. We normalize the matrix to
+represent the probability of investing in a given company for each given
+investor. Using Multidimensional Scaling with both euclidean distance
+and Jensen-Shannon distance calcuations, no clusters are evident.</p>
+<p><img alt="mds naive" src="_images/mds_naive.png" /> <img alt="mds jsdiv" src="_images/mds_jsdiv.png" /></p>
+<p>From this very sparce investor-company distance matrix data we cannot
+conclude any compelling correlations among investors. We also try a
+variety of subsets of the data in the hopes that some correlations may
+arise. For example we consider just the top 5% of companies in terms of
+funding total, just companies in CA, just biotech companies, etc. For
+each of the filters we tried, no clusters formed. Therefore, we do not
+identify any correlations among investor portfolios.</p>
+</div>
+<div class="section" id="Prediction-of-Success">
+<h3>Prediction of Success<a class="headerlink" href="#Prediction-of-Success" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="Author-Contributions">
+<h3>Author Contributions<a class="headerlink" href="#Author-Contributions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Annie-Maslan">
+<h4>Annie Maslan<a class="headerlink" href="#Annie-Maslan" title="Permalink to this headline">¶</a></h4>
+<p>Annie focused on the exploratory analysis sections about valuation and
+number of IPOs by place and time, total funding by place and time, and
+investor correlations. She also made the Makefile, did the
+MySQL/environment set-up, and Sphinx build.</p>
+</div>
+<div class="section" id="Jack-Moorer">
+<h4>Jack Moorer<a class="headerlink" href="#Jack-Moorer" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="Mitch-Negus">
+<h4>Mitch Negus<a class="headerlink" href="#Mitch-Negus" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Summary: Can we predict a start-up’s success?</a><ul>
+<li><a class="reference internal" href="#Overview">Overview</a></li>
+<li><a class="reference internal" href="#Exploratory-Analysis">Exploratory Analysis</a><ul>
+<li><a class="reference internal" href="#1.-Valuation-and-number-of-IPOs-by-place-and-time">1. Valuation and number of IPOs by place and time</a></li>
+<li><a class="reference internal" href="#2.-Total-funding-by-place-and-time">2. Total funding by place and time</a></li>
+<li><a class="reference internal" href="#3.-Investor-portfolio-correlations">3. Investor portfolio correlations</a></li>
+<li><a class="reference internal" href="#Prediction-of-Success">Prediction of Success</a></li>
+<li><a class="reference internal" href="#Author-Contributions">Author Contributions</a><ul>
+<li><a class="reference internal" href="#Annie-Maslan">Annie Maslan</a></li>
+<li><a class="reference internal" href="#Jack-Moorer">Jack Moorer</a></li>
+<li><a class="reference internal" href="#Mitch-Negus">Mitch Negus</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="classification..html" title="previous chapter">Explore Categorical Variables to Classify Company Status</a></li>
+      <li>Next: <a href="license.html" title="next chapter">Copyright (c) 2017, Annie Maslan, Jack Moorer, and Mitch Negus</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/main..ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Annie Maslan, Jack Moorer, Mitch Negus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/main..ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
