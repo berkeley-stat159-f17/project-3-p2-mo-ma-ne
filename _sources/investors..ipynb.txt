@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Exploratory analysis #2: investor portfolio correlations\n",
+    "# Exploratory analysis #3: investor portfolio correlations\n",
     "\n",
     "Do investors cluster together? In other words, if a company can get a certain investor, are there others the company is likely to get as well? In this notebook we consider the correlation among investors using multidimensional scaling. "
    ]
