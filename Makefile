@@ -1,5 +1,4 @@
-# Include variables
-#include config.mk
+# Initialize variables
 
 # Name of the environment .yml file
 ENV_YML=environment.yml

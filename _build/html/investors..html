@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Exploratory analysis #2: investor portfolio correlations &#8212; p3 1 documentation</title>
+    <title>Exploratory analysis #3: investor portfolio correlations &#8212; p3 1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="So you want to start a company…" href="education..html" />
-    <link rel="prev" title="Exploratory analysis #1: the effects of place and time" href="location_time..html" />
+    <link rel="next" title="Exploratory Analysis #4: Executive Education" href="education..html" />
+    <link rel="prev" title="Exploratory analyses #1 &amp; #2: the effects of place and time" href="location_time..html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -207,8 +207,8 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 </style>
-<div class="section" id="Exploratory-analysis-#2:-investor-portfolio-correlations">
-<h1>Exploratory analysis #2: investor portfolio correlations<a class="headerlink" href="#Exploratory-analysis-#2:-investor-portfolio-correlations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Exploratory-analysis-#3:-investor-portfolio-correlations">
+<h1>Exploratory analysis #3: investor portfolio correlations<a class="headerlink" href="#Exploratory-analysis-#3:-investor-portfolio-correlations" title="Permalink to this headline">¶</a></h1>
 <p>Do investors cluster together? In other words, if a company can get a
 certain investor, are there others the company is likely to get as well?
 In this notebook we consider the correlation among investors using
@@ -1821,12 +1821,14 @@ distance for comparison.</p>
 conclude any compelling correlations among investors. We tried a variety
 of subsets of the data in the hopes that we would discover correlations
 among investors. For example, some of the attributes that we tried to
-subset on were: 1. Top 5% of companies in terms of funding_total_usd</p>
+subset on were:</p>
+<ol class="arabic">
+<li><p class="first">Top 5% of companies in terms of funding_total_usd</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;funding_total_usd&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1">#allData = allData.iloc[0:int(0.05*71811)]</span>
+<span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.05</span><span class="o">*</span><span class="mi">71811</span><span class="p">)]</span>
 </pre></div>
 </div>
-<ol class="arabic" start="2">
+</li>
 <li><p class="first">CA</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="p">[</span><span class="n">allData</span><span class="o">.</span><span class="n">state_code</span> <span class="o">==</span> <span class="s2">&quot;CA&quot;</span><span class="p">]</span>
 </pre></div>
@@ -1851,7 +1853,7 @@ we cannot produce compelling correlations among investors.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Exploratory analysis #2: investor portfolio correlations</a><ul>
+<li><a class="reference internal" href="#">Exploratory analysis #3: investor portfolio correlations</a><ul>
 <li><a class="reference internal" href="#Distance-between-investor-portfolios">Distance between investor portfolios</a></li>
 </ul>
 </li>
@@ -1860,8 +1862,8 @@ we cannot produce compelling correlations among investors.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="location_time..html" title="previous chapter">Exploratory analysis #1: the effects of place and time</a></li>
-      <li>Next: <a href="education..html" title="next chapter">So you want to start a company…</a></li>
+      <li>Previous: <a href="location_time..html" title="previous chapter">Exploratory analyses #1 &amp; #2: the effects of place and time</a></li>
+      <li>Next: <a href="education..html" title="next chapter">Exploratory Analysis #4: Executive Education</a></li>
   </ul></li>
 </ul>
 </div>
