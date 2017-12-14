@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Exploratory analysis #1: the effects of place and time"
+    "# Exploratory analyses #1 & #2: the effects of place and time"
    ]
   },
   {

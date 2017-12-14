@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Exploratory analysis #2: investor portfolio correlations\n",
+    "# Exploratory analysis #3: investor portfolio correlations\n",
     "\n",
     "Do investors cluster together? In other words, if a company can get a certain investor, are there others the company is likely to get as well? In this notebook we consider the correlation among investors using multidimensional scaling. "
    ]
@@ -1880,10 +1880,11 @@
    "metadata": {},
    "source": [
     "Using this very sparse investor-company distance matrix data we cannot conclude any compelling correlations among investors. We tried a variety of subsets of the data in the hopes that we would discover correlations among investors. For example, some of the attributes that we tried to subset on were:\n",
+    "\n",
     "1. Top 5% of companies in terms of funding_total_usd\n",
     "```\n",
     "allData = allData.sort_values(by='funding_total_usd', ascending=False)\n",
-    "#allData = allData.iloc[0:int(0.05*71811)]\n",
+    "allData = allData.iloc[0:int(0.05*71811)]\n",
     "```\n",
     "2. CA\n",
     "```\n",

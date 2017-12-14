@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>So you want to start a company… &#8212; p3 1 documentation</title>
+    <title>Exploratory Analysis #4: Executive Education &#8212; p3 1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -207,8 +207,10 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 </style>
+<div class="section" id="Exploratory-Analysis-#4:-Executive-Education">
+<h1>Exploratory Analysis #4: Executive Education<a class="headerlink" href="#Exploratory-Analysis-#4:-Executive-Education" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="So-you-want-to-start-a-company...">
-<h1>So you want to start a company…<a class="headerlink" href="#So-you-want-to-start-a-company..." title="Permalink to this headline">¶</a></h1>
+<h2>So you want to start a company…<a class="headerlink" href="#So-you-want-to-start-a-company..." title="Permalink to this headline">¶</a></h2>
 <p>The leaders of the world’s top businesses have to start somewhere. Using
 the Crunchbase data, we take a look at where these business leaders
 received their educations. Is it true that you need to attend a world
@@ -261,6 +263,7 @@ locally as pandas DataFrames.</p>
 Username: root
 Password: ········
 </pre></div></div>
+</div>
 </div>
 <div class="section" id="The-most-successful-businesses">
 <h2>The most successful businesses<a class="headerlink" href="#The-most-successful-businesses" title="Permalink to this headline">¶</a></h2>
@@ -409,15 +412,15 @@ totals.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>
 <span class="n">n_top_companies</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plotset</span> <span class="o">=</span> <span class="n">companies</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;funding_total_usd&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n_top_companies</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;funding_total_usd&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">plotset</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;funding_total_usd&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">plotset</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Funding Totals for the Top {} Companies&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_top_companies</span><span class="p">),</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">plotset</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Company&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Funding Total [USD] -- Log Scale&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Funding Total [USD] -- Log Scale&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">plotset</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Company&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;results/funding_totals.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -426,7 +429,7 @@ totals.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/education._9_0.png" src="_images/education._9_0.png" />
+<img alt="_images/education._10_0.png" src="_images/education._10_0.png" />
 </div>
 </div>
 <p>Note that the y-axis is on a logarithmic scale, and so the visible trend
@@ -1281,12 +1284,17 @@ businesses.</p>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">fig</span><span class="p">,</span><span class="n">edu_ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">25</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Graduates contributed to the most successful businesses by college&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+
 <span class="n">edu_ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;institution&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">cpe_count</span><span class="p">)</span>
-<span class="n">edu_ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Graduates contributed to the most successful businesses by college&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
 <span class="n">edu_ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">edu_ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">cpe_count</span><span class="o">.</span><span class="n">institution</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">edu_ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_top</span><span class="p">()</span>
 <span class="n">edu_ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number of graduates&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
-<span class="n">edu_ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;School&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">edu_ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+<span class="n">edu_ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">cpe_count</span><span class="o">.</span><span class="n">institution</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">edu_ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;School&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;results/affiliates_by_school.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1295,7 +1303,7 @@ businesses.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/education._32_0.png" src="_images/education._32_0.png" />
+<img alt="_images/education._33_0.png" src="_images/education._33_0.png" />
 </div>
 </div>
 <p>We can see that there are several universities contributing far more
@@ -1338,7 +1346,8 @@ Together, these three schools produced 13.5% of the total graduates in top busin
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">So you want to start a company…</a><ul>
+<li><a class="reference internal" href="#">Exploratory Analysis #4: Executive Education</a><ul>
+<li><a class="reference internal" href="#So-you-want-to-start-a-company...">So you want to start a company…</a></li>
 <li><a class="reference internal" href="#The-most-successful-businesses">The most successful businesses</a></li>
 <li><a class="reference internal" href="#The-people-behind-the-most-successful-businesses">The people behind the most successful businesses</a></li>
 </ul>

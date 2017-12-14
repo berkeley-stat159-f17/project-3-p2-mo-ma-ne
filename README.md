@@ -2,6 +2,9 @@
 
 # Can we predict a start-up's success?
 
+This repository is also hosted at:
+https://berkeley-stat159-f17.github.io/project-3-p2-mo-ma-ne/
+
 ## Objective
 Our question is: what are the biggest predictors of a start-up's success? We therefore first must define success. We could, for example, consider total investment amount, time to IPO, or time to acquisition. We will explore all of these metrics and more when considering success. While success is difficult to define, we will be sure to define key metrics to benchmark success.
 
