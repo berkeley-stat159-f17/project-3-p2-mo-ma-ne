@@ -1,0 +1,136 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Project #3 Proposal &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="project-3-proposal">
+<h1>Project #3 Proposal<a class="headerlink" href="#project-3-proposal" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
+<p>We will be exploring a replica of the Crunchbase dataset from December 2013. Crunchbase describes itself as &quot;the master record of data on the world's most innovative companies.&quot; We are therefore eager to uncover industry trends and investment predictors. We want to answer the question: what are the biggest predictors of a start-up's success?</p>
+</div>
+<div class="section" id="data-source-and-properties">
+<h2>Data source and properties<a class="headerlink" href="#data-source-and-properties" title="Permalink to this headline">¶</a></h2>
+<p>The data are publicly available. Access must be requested, but the request was approved in a few hours and we now have the data locally. The source of the data is <a class="reference external" href="https://data.crunchbase.com/docs/2013-snapshot">the Crunchbase website</a>. It is downloaded using a private key you are given once access is granted.</p>
+<p>The data are provided in MySQL format and are licensed under Creative Commons with Attribution. The downloaded file is a tar.gz file that contains one file for each table in the database. The database was generated using mysqldump. The tables and size of each table are listed below.</p>
+<ol class="simple">
+<li>cb_offices.sql (14.9 MB)</li>
+<li>cb_people.sql (13.3 MB)</li>
+<li>cb_relationships.sql (48.7 MB)</li>
+<li>cb_acquisitions.sql (2.3 MB)</li>
+<li>cb_degrees.sql (13.8 MB)</li>
+<li>cb_funding_round.sql (14.7 MB)</li>
+<li>cb_funds.sql (385 KB)</li>
+<li>cb_investments.sql (6.2 MB)</li>
+<li>cb_ipos.sql (178 KB)</li>
+<li>cb_milestones.sql (10.5 MB)</li>
+<li>cb_objects.sql (339 MB)</li>
+</ol>
+</div>
+<div class="section" id="analysis-plan">
+<h2>Analysis plan<a class="headerlink" href="#analysis-plan" title="Permalink to this headline">¶</a></h2>
+<p>Our question is: what are the biggest predictors of a start-up's success? We therefore first must define success. We could, for example, consider total investment amount, time to IPO, or time to acquisition. We will explore all of these metrics and more when considering success. While success is difficult to define, we will be sure to define key metrics to benchmark success.</p>
+<p>We will look at characteristics of the startup such as the industry, the founder's profile, and the location. Does the location of the startup or the founder's age have a significant effect on time to acquisition or IPO? As we consider each metric, we will examine the correlation among the various metrics. For example, does biotech tend to be concentrated in certain areas more so than other industries?</p>
+<p>Aside from characteristics of the company itself, we will look at the investors. Are there certain VC firms that are major predictors of success? How related are the investment decisions of various VC firms? For example, are there some VC firms that almost always invest together? Is it a good idea to raise money earlier or later? Does it depend on the industry?</p>
+<p>We can think of our response variable of being set up in two classes - success and failure - so it seems like the best way to go about our analysis would be do use several classification methods. The scikit-learn package has built in methods for to perform classification methods like KNN, logistic regression, or Discriminant Analysis (LDA or QDA), which members of our group are familiar with, but we may also attempt to try different classification methods, or try tree-based methods if possible.</p>
+<p>One issue with classification in statistical learning is that often methods will be able to predict well without providing inference. During our analysis we will do some sort of best-subset selection to find the best set of predictors for each statistical learning methods, but it may be hard to extrapolate meaning from those models. One idea we had in order to find which predictors had the most influence is once we are pick our best subset of predictors for a certain methods, we can use a dimensionality reduction method, like PCA, and then see if any of the predictors are particularly correlated to either of the first several principal components. This process will evolve as our analysis gets deeper.</p>
+<p>There are endless questions we can ask of this data. Our main aim will be to identify the key contributors to total investment amount and time to acquisition/IPO. However, the various relationships mentioned above will also be explored along the way.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Project #3 Proposal</a><ul>
+<li><a class="reference internal" href="#objectives">Objectives</a></li>
+<li><a class="reference internal" href="#data-source-and-properties">Data source and properties</a></li>
+<li><a class="reference internal" href="#analysis-plan">Analysis plan</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/proposal.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Annie Maslan, Jack Moorer, Mitch Negus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/proposal.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
