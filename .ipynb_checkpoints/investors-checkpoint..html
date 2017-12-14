@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Exploratory analysis #3: investor portfolio correlations &#8212; p3 1 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Investor correlations &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../',
         VERSION:     '1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -18,16 +18,14 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Exploratory Analysis #4: Executive Education" href="education..html" />
-    <link rel="prev" title="Exploratory analyses #1 &amp; #2: the effects of place and time" href="location_time..html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -207,8 +205,8 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 </style>
-<div class="section" id="Exploratory-analysis-#3:-investor-portfolio-correlations">
-<h1>Exploratory analysis #3: investor portfolio correlations<a class="headerlink" href="#Exploratory-analysis-#3:-investor-portfolio-correlations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Investor-correlations">
+<h1>Investor correlations<a class="headerlink" href="#Investor-correlations" title="Permalink to this headline">¶</a></h1>
 <p>Do investors cluster together? In other words, if a company can get a
 certain investor, are there others the company is likely to get as well?
 In this notebook we consider the correlation among investors using
@@ -1664,7 +1662,7 @@ distance for comparison.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/investors._31_0.png" src="_images/investors._31_0.png" />
+<img alt="../_images/.ipynb_checkpoints_investors-checkpoint._31_0.png" src="../_images/.ipynb_checkpoints_investors-checkpoint._31_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1688,7 +1686,7 @@ distance for comparison.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/investors._32_0.png" src="_images/investors._32_0.png" />
+<img alt="../_images/.ipynb_checkpoints_investors-checkpoint._32_0.png" src="../_images/.ipynb_checkpoints_investors-checkpoint._32_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1783,7 +1781,7 @@ distance for comparison.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/investors._35_0.png" src="_images/investors._35_0.png" />
+<img alt="../_images/.ipynb_checkpoints_investors-checkpoint._35_0.png" src="../_images/.ipynb_checkpoints_investors-checkpoint._35_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1814,21 +1812,19 @@ distance for comparison.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/investors._37_0.png" src="_images/investors._37_0.png" />
+<img alt="../_images/.ipynb_checkpoints_investors-checkpoint._37_0.png" src="../_images/.ipynb_checkpoints_investors-checkpoint._37_0.png" />
 </div>
 </div>
 <p>Using this very sparse investor-company distance matrix data we cannot
 conclude any compelling correlations among investors. We tried a variety
 of subsets of the data in the hopes that we would discover correlations
 among investors. For example, some of the attributes that we tried to
-subset on were:</p>
-<ol class="arabic">
-<li><p class="first">Top 5% of companies in terms of funding_total_usd</p>
+subset on were: 1. Top 5% of companies in terms of funding_total_usd</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;funding_total_usd&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.05</span><span class="o">*</span><span class="mi">71811</span><span class="p">)]</span>
+<span class="c1">#allData = allData.iloc[0:int(0.05*71811)]</span>
 </pre></div>
 </div>
-</li>
+<ol class="arabic" start="2">
 <li><p class="first">CA</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="p">[</span><span class="n">allData</span><span class="o">.</span><span class="n">state_code</span> <span class="o">==</span> <span class="s2">&quot;CA&quot;</span><span class="p">]</span>
 </pre></div>
@@ -1851,9 +1847,9 @@ we cannot produce compelling correlations among investors.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Exploratory analysis #3: investor portfolio correlations</a><ul>
+<li><a class="reference internal" href="#">Investor correlations</a><ul>
 <li><a class="reference internal" href="#Distance-between-investor-portfolios">Distance between investor portfolios</a></li>
 </ul>
 </li>
@@ -1861,22 +1857,20 @@ we cannot produce compelling correlations among investors.</p>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="location_time..html" title="previous chapter">Exploratory analyses #1 &amp; #2: the effects of place and time</a></li>
-      <li>Next: <a href="education..html" title="next chapter">Exploratory Analysis #4: Executive Education</a></li>
+  <li><a href="../index.html">Documentation overview</a><ul>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/investors..ipynb.txt"
+      <li><a href="../_sources/.ipynb_checkpoints/investors-checkpoint..ipynb.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
+    <form class="search" action="../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
@@ -1896,7 +1890,7 @@ we cannot produce compelling correlations among investors.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/investors..ipynb.txt"
+      <a href="../_sources/.ipynb_checkpoints/investors-checkpoint..ipynb.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Exploratory Analysis #5: Prepare Data for Classification &#8212; p3 1 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Prepare Data for Classification &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../',
         VERSION:     '1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -18,16 +18,14 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status" href="classification..html" />
-    <link rel="prev" title="Exploratory Analysis #4: Executive Education" href="education..html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -207,11 +205,11 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 </style>
-<div class="section" id="Exploratory-Analysis-#5:-Prepare-Data-for-Classification">
-<h1>Exploratory Analysis #5: Prepare Data for Classification<a class="headerlink" href="#Exploratory-Analysis-#5:-Prepare-Data-for-Classification" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Prepare-Data-for-Classification">
+<h1>Prepare Data for Classification<a class="headerlink" href="#Prepare-Data-for-Classification" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [66]:
+<span></span>In [501]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -221,7 +219,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [67]:
+<span></span>In [502]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -240,7 +238,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [68]:
+<span></span>In [503]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -261,10 +259,11 @@ a company representing a failure for the company. This is an
 oversimplification of succes, but instead of looking at company value, I
 want to specifically run classificaiton models.</p>
 <p>The predictors I am using are: - company category_code - whether they
-had funding (yes or no) - number of investors - number of relationships
-to other founders - company logo height - company logo width - region -
-degree_type (highest degree) - institution (for highest degree) -
-subject (for highest degree) - first name - last name</p>
+had funding (yes or no) - whether they had investors (yes or no) -
+number of relationships to other founders - company logo height -
+company logo width - office latitude - office longitude - region -
+degree_type (highest degree - institution (for highest degree) -
+subject (for highest degree - first name - last name</p>
 <p>One big issue with this data set though is that it is mostly empty. Many
 of the variables have missing values in place of a “0”, or for a
 categorical variable like ‘closed_at’, a none value means the company
@@ -273,7 +272,7 @@ frame will be almost entirely empty. Let’s take a look at how empty our
 objects data frame is using missingno.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [69]:
+<span></span>In [504]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -286,7 +285,7 @@ objects data frame is using missingno.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification_data_prep._7_0.png" src="_images/classification_data_prep._7_0.png" />
+<img alt="../_images/__pycache___copy_classification_data_prep._7_0.png" src="../_images/__pycache___copy_classification_data_prep._7_0.png" />
 </div>
 </div>
 <p>The other issue is how we can go about combining the row of the data
@@ -300,7 +299,7 @@ founders This means I need to find a way to combine information about
 companies and their founders.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [70]:
+<span></span>In [505]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -320,12 +319,12 @@ directly with the company’s total funding or worth. I am now going to
 create some dumby variables to get rid of the emptiness of the data.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [71]:
+<span></span>In [506]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="c1">#function to convert variable to fill data</span>
-<span class="k">def</span> <span class="nf">convert_null</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">negative</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+<span></span><span class="c1">#function to convert into dumnby variables</span>
+<span class="k">def</span> <span class="nf">convert_dumby</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">negative</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    description: create a two class dummby variable for a dataframe with None values</span>
 
@@ -360,75 +359,111 @@ create some dumby variables to get rid of the emptiness of the data.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [72]:
+<span></span>In [507]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="c1">#change variables of responses:</span>
-<span class="n">closed</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;closed_at&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span></span><span class="c1">#make dumby variables of responses:</span>
+<span class="n">closed</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;closed_at&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 <span class="n">objects</span><span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">closed</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [73]:
+<span></span>In [508]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="c1">#make dumby variable for funding: Yes if they got funding, no if not</span>
-<span class="n">funding</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;first_funding_at&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">)</span>
+<span class="n">funding</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;first_funding_at&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">)</span>
 <span class="n">objects</span><span class="p">[</span><span class="s1">&#39;had_funding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">funding</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [74]:
+<span></span>In [509]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="c1">#make variable for investment: Yes if they got investment, no if not</span>
-<span class="n">investment</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;invested_companies&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;num_investment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">investment</span>
+<span></span><span class="c1">#make dumby variable for investment: Yes if they got investment, no if not</span>
+<span class="n">investment</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;invested_companies&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">)</span>
+<span class="n">objects</span><span class="p">[</span><span class="s1">&#39;has_investment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">investment</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [75]:
+<span></span>In [510]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="c1">#get number of relationships</span>
-<span class="n">num_relationships</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;relationships&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">num_relationships</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;relationships&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 <span class="n">objects</span><span class="p">[</span><span class="s1">&#39;num_relationships&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_relationships</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [76]:
+<span></span>In [511]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="c1">#get number of milestones</span>
-<span class="n">num_milestones</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;milestones&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">num_milestones</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;milestones&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 <span class="n">objects</span><span class="p">[</span><span class="s1">&#39;num_milestones&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_milestones</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [80]:
+<span></span>In [512]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#deal with people that didn&#39;t go to school for subjects</span>
+<span class="n">subjects</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">degrees</span><span class="p">[</span><span class="s1">&#39;subjects&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subjects</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [513]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#deal with institution for people that didn&#39;t go to school</span>
+<span class="n">school</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;institution&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">degrees</span><span class="p">[</span><span class="s1">&#39;school&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">school</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [514]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#deal with degree for people that didn&#39;t get a degree</span>
+<span class="n">degree</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;degree_type&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">degrees</span><span class="p">[</span><span class="s1">&#39;degree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">degree</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [515]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="c1">#deal with logo sizes</span>
-<span class="n">width</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;logo_width&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">width</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;logo_width&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 <span class="n">objects</span><span class="p">[</span><span class="s1">&#39;logo_width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">width</span>
 
-<span class="n">height</span> <span class="o">=</span> <span class="n">convert_null</span><span class="p">(</span><span class="s1">&#39;logo_height&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">height</span> <span class="o">=</span> <span class="n">convert_dumby</span><span class="p">(</span><span class="s1">&#39;logo_height&#39;</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pos_val</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 <span class="n">objects</span><span class="p">[</span><span class="s1">&#39;logo_height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span>
 </pre></div>
 </div>
@@ -436,7 +471,7 @@ create some dumby variables to get rid of the emptiness of the data.</p>
 <p>Now I can store the predictors in one data frame.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [81]:
+<span></span>In [516]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -465,43 +500,310 @@ create some dumby variables to get rid of the emptiness of the data.</p>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [82]:
+<span></span>In [517]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="c1">#keep variables from people</span>
 <span class="n">people</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">people</span><span class="p">[</span><span class="s1">&#39;affiliation_name&#39;</span><span class="p">]</span>
 <span class="n">vars_people</span> <span class="o">=</span> <span class="n">keep_variables</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;birthplace&#39;</span><span class="p">,</span> <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">])</span>
+<span class="n">vars_people</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [83]:
+<span></span>Out[517]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>birthplace</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>p:2</td>
+      <td>None</td>
+      <td>Ben</td>
+      <td>Elowitz</td>
+      <td>Blue Nile</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>p:3</td>
+      <td>None</td>
+      <td>Kevin</td>
+      <td>Flaherty</td>
+      <td>Wetpaint</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>p:4</td>
+      <td>None</td>
+      <td>Raju</td>
+      <td>Vegesna</td>
+      <td>Zoho</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>p:5</td>
+      <td>None</td>
+      <td>Ian</td>
+      <td>Wenig</td>
+      <td>Zoho</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>p:6</td>
+      <td>Redding, CA</td>
+      <td>Kevin</td>
+      <td>Rose</td>
+      <td>i/o Ventures</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [518]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="c1">#keep variables from degrees</span>
 <span class="n">vars_degrees</span> <span class="o">=</span> <span class="n">keep_variables</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;degree_type&#39;</span><span class="p">,</span> <span class="s1">&#39;institution&#39;</span><span class="p">,</span> <span class="s1">&#39;subject&#39;</span><span class="p">])</span>
+<span class="n">vars_degrees</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [84]:
+<span></span>Out[518]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>degree_type</th>
+      <th>institution</th>
+      <th>subject</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>p:6117</td>
+      <td>MBA</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>p:6136</td>
+      <td>BA</td>
+      <td>Washington University, St. Louis</td>
+      <td>English, French</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>p:6136</td>
+      <td>MS</td>
+      <td>Boston University</td>
+      <td>Mass Communication</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>p:6005</td>
+      <td>MS</td>
+      <td>University of Greenwich</td>
+      <td>Internet Technology</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>p:5832</td>
+      <td>BCS</td>
+      <td>Rice University</td>
+      <td>Computer Science, Psychology</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [519]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="c1">#keep variables from objects</span>
-<span class="n">vars_objects</span> <span class="o">=</span> <span class="n">keep_variables</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;category_code&#39;</span><span class="p">,</span> <span class="s1">&#39;had_funding&#39;</span><span class="p">,</span> <span class="s1">&#39;num_investment&#39;</span><span class="p">,</span> <span class="s1">&#39;num_relationships&#39;</span><span class="p">,</span> <span class="s1">&#39;num_milestones&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_height&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_width&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">])</span>
+<span class="n">vars_objects</span> <span class="o">=</span> <span class="n">keep_variables</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;category_code&#39;</span><span class="p">,</span> <span class="s1">&#39;had_funding&#39;</span><span class="p">,</span> <span class="s1">&#39;has_investment&#39;</span><span class="p">,</span> <span class="s1">&#39;num_relationships&#39;</span><span class="p">,</span> <span class="s1">&#39;num_milestones&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_height&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_width&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">])</span>
+<span class="n">vars_objects</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[519]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>object_id</th>
+      <th>closed</th>
+      <th>status</th>
+      <th>name</th>
+      <th>category_code</th>
+      <th>had_funding</th>
+      <th>has_investment</th>
+      <th>num_relationships</th>
+      <th>num_milestones</th>
+      <th>logo_height</th>
+      <th>logo_width</th>
+      <th>region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>c:1</td>
+      <td>No</td>
+      <td>operating</td>
+      <td>Wetpaint</td>
+      <td>web</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>17.0</td>
+      <td>5.0</td>
+      <td>54.0</td>
+      <td>401.0</td>
+      <td>Seattle</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>c:10</td>
+      <td>No</td>
+      <td>acquired</td>
+      <td>Flektor</td>
+      <td>games_video</td>
+      <td>No</td>
+      <td>No</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>85.0</td>
+      <td>186.0</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>c:100</td>
+      <td>No</td>
+      <td>acquired</td>
+      <td>There</td>
+      <td>games_video</td>
+      <td>No</td>
+      <td>No</td>
+      <td>12.0</td>
+      <td>4.0</td>
+      <td>34.0</td>
+      <td>107.0</td>
+      <td>SF Bay</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>c:10000</td>
+      <td>No</td>
+      <td>operating</td>
+      <td>MYWEBBO</td>
+      <td>network_hosting</td>
+      <td>No</td>
+      <td>No</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>unknown</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>c:10001</td>
+      <td>No</td>
+      <td>operating</td>
+      <td>THE Movie Streamer</td>
+      <td>games_video</td>
+      <td>No</td>
+      <td>No</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>74.0</td>
+      <td>200.0</td>
+      <td>unknown</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [85]:
+<span></span>In [520]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -528,7 +830,7 @@ create some dumby variables to get rid of the emptiness of the data.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [86]:
+<span></span>In [521]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -538,13 +840,15 @@ create some dumby variables to get rid of the emptiness of the data.</p>
 <span class="n">dfs_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">]</span>
 
 <span class="c1">#edit dfs</span>
-<span class="n">vars_people</span><span class="p">,</span> <span class="n">vars_degrees</span> <span class="o">=</span> <span class="n">drop_duplicates</span><span class="p">(</span><span class="n">dfs_info</span><span class="p">)</span>
+<span class="n">vs</span> <span class="o">=</span> <span class="n">drop_duplicates</span><span class="p">(</span><span class="n">dfs_info</span><span class="p">)</span>
+<span class="n">vars_people</span> <span class="o">=</span> <span class="n">vs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">vars_degrees</span> <span class="o">=</span> <span class="n">vs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [88]:
+<span></span>In [522]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -589,7 +893,7 @@ create some dumby variables to get rid of the emptiness of the data.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [89]:
+<span></span>In [523]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -608,7 +912,7 @@ create some dumby variables to get rid of the emptiness of the data.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[89]:
+<span></span>Out[523]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -618,13 +922,13 @@ create some dumby variables to get rid of the emptiness of the data.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [90]:
+<span></span>In [524]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="c1">#replace missing value</span>
 <span class="n">rep_na</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-<span class="n">rep_na</span> <span class="o">=</span> <span class="n">rep_na</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;unknown&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">rep_na</span> <span class="o">=</span> <span class="n">rep_na</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;unkown&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -633,7 +937,7 @@ empty rows. I am going to deal with this by droping any row that has na
 values.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [91]:
+<span></span>In [525]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -646,12 +950,12 @@ values.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification_data_prep._29_0.png" src="_images/classification_data_prep._29_0.png" />
+<img alt="../_images/__pycache___copy_classification_data_prep._32_0.png" src="../_images/__pycache___copy_classification_data_prep._32_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [92]:
+<span></span>In [526]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -662,17 +966,17 @@ values.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[92]:
+<span></span>Out[526]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
-<span></span>(2348, 17)
+<span></span>(2827, 17)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [93]:
+<span></span>In [527]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -682,7 +986,7 @@ values.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[93]:
+<span></span>Out[527]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -709,7 +1013,7 @@ values.</p>
       <th>name</th>
       <th>category_code</th>
       <th>had_funding</th>
-      <th>num_investment</th>
+      <th>has_investment</th>
       <th>num_relationships</th>
       <th>num_milestones</th>
       <th>logo_height</th>
@@ -731,471 +1035,7 @@ values.</p>
       <td>Fundable.com</td>
       <td>finance</td>
       <td>No</td>
-      <td>3.0</td>
-      <td>3.0</td>
-      <td>4.0</td>
-      <td>120.0</td>
-      <td>120.0</td>
-      <td>Columbus</td>
-      <td>BBA</td>
-      <td>Ohio State University</td>
-      <td>Entrepreneurship, Marketing</td>
-      <td>Ohio</td>
-      <td>Eric</td>
-      <td>Corl</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>No</td>
-      <td>operating</td>
-      <td>Wevod</td>
-      <td>games_video</td>
       <td>Yes</td>
-      <td>0.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>89.0</td>
-      <td>250.0</td>
-      <td>Paris</td>
-      <td>MS</td>
-      <td>EPITECH</td>
-      <td>computer sciences and technologies</td>
-      <td>France</td>
-      <td>Nassim</td>
-      <td>Ghandour</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>No</td>
-      <td>acquired</td>
-      <td>Jumptap</td>
-      <td>mobile</td>
-      <td>Yes</td>
-      <td>0.0</td>
-      <td>45.0</td>
-      <td>3.0</td>
-      <td>165.0</td>
-      <td>650.0</td>
-      <td>Boston</td>
-      <td>BA</td>
-      <td>American University</td>
-      <td>Economics</td>
-      <td>St. Petersburg, Russia</td>
-      <td>Veronika</td>
-      <td>Sonsev</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>Yes</td>
-      <td>closed</td>
-      <td>FairSoftware</td>
-      <td>web</td>
-      <td>Yes</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>67.0</td>
-      <td>250.0</td>
-      <td>SF Bay</td>
-      <td>MS</td>
-      <td>Supelec</td>
-      <td>Electrical Engineering</td>
-      <td>Paris, France</td>
-      <td>Alain</td>
-      <td>Raynaud</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>No</td>
-      <td>operating</td>
-      <td>WPP</td>
-      <td>public_relations</td>
-      <td>No</td>
-      <td>21.0</td>
-      <td>23.0</td>
-      <td>3.0</td>
-      <td>59.0</td>
-      <td>86.0</td>
-      <td>New York</td>
-      <td>Degree</td>
-      <td>University of Kentucky</td>
-      <td>Degree</td>
-      <td>Kentucky</td>
-      <td>Jack</td>
-      <td>Smith</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<p>Let’s look at the relationship of our data and the reponse variables.
-First let’s look at the relationship of the more numerical features on
-the response variables.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [94]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">make_plots</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">feat</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
-
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    description: helper function to view view reponse and feature relationship</span>
-<span class="sd">    inputs:</span>
-<span class="sd">        reponse: string name of response variable in data</span>
-<span class="sd">        feat: string name of feature in data</span>
-<span class="sd">        data: dataframe</span>
-<span class="sd">        kind: kind of plot</span>
-<span class="sd">    output:</span>
-<span class="sd">        baxplot that is saved with title</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">kind</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">])</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">response</span><span class="p">,</span> <span class="n">end</span><span class="p">])</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">feat</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">kind</span><span class="p">])</span>
-    <span class="n">fig_end</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">feat</span><span class="p">,</span> <span class="n">fig</span><span class="p">])</span>
-    <span class="n">save_fig</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="n">fig_end</span><span class="p">])</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;box&#39;</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-        <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">feat</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">response</span><span class="p">)</span>
-
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span><span class="p">):</span>
-        <span class="n">fig</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">response</span><span class="p">,</span> <span class="s1">&#39;bar.png&#39;</span><span class="p">])</span>
-        <span class="n">group</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">feat</span><span class="p">,</span> <span class="n">response</span><span class="p">])[[</span><span class="n">response</span><span class="p">,</span> <span class="n">feat</span><span class="p">]]</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
-
-        <span class="n">resp_freqs</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-        <span class="n">cat_code_resp_rel</span> <span class="o">=</span> <span class="n">group</span> <span class="o">/</span> <span class="n">resp_freqs</span>
-
-        <span class="n">cat_freqs</span> <span class="o">=</span> <span class="n">cat_code_resp_rel</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-        <span class="n">cat_code_rel</span> <span class="o">=</span> <span class="n">cat_code_resp_rel</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">cat_freqs</span><span class="p">,</span> <span class="n">axis</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-
-        <span class="n">cat_code_rel</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_fig</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [95]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;num_relationships&#39;</span><span class="p">,</span> <span class="s1">&#39;num_milestones&#39;</span><span class="p">,</span> <span class="s1">&#39;num_investment&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_height&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_width&#39;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
-    <span class="n">make_plots</span><span class="p">(</span><span class="n">response</span> <span class="o">=</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="n">feat</span> <span class="o">=</span> <span class="n">f</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
-    <span class="n">make_plots</span><span class="p">(</span><span class="n">response</span> <span class="o">=</span> <span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="n">feat</span> <span class="o">=</span> <span class="n">f</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_0.png" src="_images/classification_data_prep._34_0.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_1.png" src="_images/classification_data_prep._34_1.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_2.png" src="_images/classification_data_prep._34_2.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_3.png" src="_images/classification_data_prep._34_3.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_4.png" src="_images/classification_data_prep._34_4.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_5.png" src="_images/classification_data_prep._34_5.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_6.png" src="_images/classification_data_prep._34_6.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_7.png" src="_images/classification_data_prep._34_7.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_8.png" src="_images/classification_data_prep._34_8.png" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._34_9.png" src="_images/classification_data_prep._34_9.png" />
-</div>
-</div>
-<p>We can see some of these variables have a different relationship based
-on the response variable. For example, the number of milestones looks
-like it could help predict status, for example, higher number of
-relationships seems to correlate with ipo status, but there doesn’t seem
-to be much seperation in number of relationships and the closed
-response. Interestingly, the features that seems to most seperate both
-variables are logo size (width or height).</p>
-<p>I am now going to look at the relationship between purely string based
-categorical features and the response variables. Before I do, I should
-not that we have a huge imbalance of frequencies in the reponse
-variables. You can see the plots of these frequencies at the begining of
-the classification notebook, and the implications of this imbalance were
-huge in the ability to classify and which models we picked. For now,
-because of this imbalance, I’m going to look at the relative frequency
-of resopnse variable. Here is an example of what happens without
-relative frequency:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [96]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;category_code&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">])[[</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;category_code&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._37_0.png" src="_images/classification_data_prep._37_0.png" />
-</div>
-</div>
-<p>This doesn’t tell us much, because operating is just so frequent for
-every variable.</p>
-<p>In addition, there are differences in frequencies of each category of
-the response variable. I want to get an idea of the impact of each
-category on the status variable. Here is what happens if I don’t divide
-by feature frequencies.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [97]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">cat_code</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;category_code&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">])[[</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;category_code&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
-
-<span class="n">resp_freqs</span> <span class="o">=</span> <span class="n">cat_code</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-<span class="n">cat_code_resp_rel</span> <span class="o">=</span> <span class="n">cat_code</span> <span class="o">/</span> <span class="n">resp_freqs</span>
-
-<span class="n">cat_code_resp_rel</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._39_0.png" src="_images/classification_data_prep._39_0.png" />
-</div>
-</div>
-<p>It is hard to visualize what is going on when web and software companies
-clearly overpower the rest. I am now going to plot the relationship
-between most the string based categorical response variables, and the
-two types of response. Note that I am now including region, birthplace,
-first name, or last name, simply because there were so many
-possibilities that the plot was hard to read. You will be able to see
-what I mean for degree_type, institution, and subject. In retrospect, I
-should have used a stemmed on these variables, however, I didn’t think
-of this until after I completed the classification notebook, and the
-runetime on that notebook is so significant that a change to stemmed
-categories wasn’t worth it.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [100]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;category_code&#39;</span><span class="p">,</span> <span class="s1">&#39;had_funding&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;degree_type&#39;</span><span class="p">,</span> <span class="s1">&#39;institution&#39;</span><span class="p">,</span> <span class="s1">&#39;subject&#39;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
-    <span class="n">make_plots</span><span class="p">(</span><span class="n">response</span> <span class="o">=</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="n">feat</span> <span class="o">=</span> <span class="n">f</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-    <span class="n">make_plots</span><span class="p">(</span><span class="n">response</span> <span class="o">=</span> <span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="n">feat</span> <span class="o">=</span> <span class="n">f</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_0.png" src="_images/classification_data_prep._41_0.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_1.png" src="_images/classification_data_prep._41_1.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_2.png" src="_images/classification_data_prep._41_2.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_3.png" src="_images/classification_data_prep._41_3.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_4.png" src="_images/classification_data_prep._41_4.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_5.png" src="_images/classification_data_prep._41_5.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_6.png" src="_images/classification_data_prep._41_6.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_7.png" src="_images/classification_data_prep._41_7.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_8.png" src="_images/classification_data_prep._41_8.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_9.png" src="_images/classification_data_prep._41_9.png" />
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_10.png" src="_images/classification_data_prep._41_10.png" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/classification_data_prep._41_11.png" src="_images/classification_data_prep._41_11.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [99]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[99]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>closed</th>
-      <th>status</th>
-      <th>name</th>
-      <th>category_code</th>
-      <th>had_funding</th>
-      <th>num_investment</th>
-      <th>num_relationships</th>
-      <th>num_milestones</th>
-      <th>logo_height</th>
-      <th>logo_width</th>
-      <th>region</th>
-      <th>degree_type</th>
-      <th>institution</th>
-      <th>subject</th>
-      <th>birthplace</th>
-      <th>first_name</th>
-      <th>last_name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>7</th>
-      <td>No</td>
-      <td>operating</td>
-      <td>Fundable.com</td>
-      <td>finance</td>
-      <td>No</td>
-      <td>3.0</td>
       <td>3.0</td>
       <td>4.0</td>
       <td>120.0</td>
@@ -1215,7 +1055,7 @@ categories wasn’t worth it.</p>
       <td>Wevod</td>
       <td>games_video</td>
       <td>Yes</td>
-      <td>0.0</td>
+      <td>No</td>
       <td>2.0</td>
       <td>0.0</td>
       <td>89.0</td>
@@ -1235,7 +1075,7 @@ categories wasn’t worth it.</p>
       <td>Jumptap</td>
       <td>mobile</td>
       <td>Yes</td>
-      <td>0.0</td>
+      <td>No</td>
       <td>45.0</td>
       <td>3.0</td>
       <td>165.0</td>
@@ -1255,7 +1095,7 @@ categories wasn’t worth it.</p>
       <td>FairSoftware</td>
       <td>web</td>
       <td>Yes</td>
-      <td>0.0</td>
+      <td>No</td>
       <td>1.0</td>
       <td>1.0</td>
       <td>67.0</td>
@@ -1275,7 +1115,7 @@ categories wasn’t worth it.</p>
       <td>WPP</td>
       <td>public_relations</td>
       <td>No</td>
-      <td>21.0</td>
+      <td>Yes</td>
       <td>23.0</td>
       <td>3.0</td>
       <td>59.0</td>
@@ -1292,10 +1132,10 @@ categories wasn’t worth it.</p>
 </table>
 </div></div>
 </div>
-<p>Now I can save the data file and use it in the next notebook</p>
+<p>Now I can safe the data file and use it in the next notebook</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [101]:
+<span></span>In [528]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1304,7 +1144,16 @@ categories wasn’t worth it.</p>
 </pre></div>
 </div>
 </div>
-<p>Move on to the classification notebook next.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -1315,22 +1164,20 @@ categories wasn’t worth it.</p>
         <div class="sphinxsidebarwrapper"><div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="education..html" title="previous chapter">Exploratory Analysis #4: Executive Education</a></li>
-      <li>Next: <a href="classification..html" title="next chapter">Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status</a></li>
+  <li><a href="../index.html">Documentation overview</a><ul>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/classification_data_prep..ipynb.txt"
+      <li><a href="../_sources/__pycache__/copy_classification_data_prep..ipynb.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
+    <form class="search" action="../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
@@ -1350,7 +1197,7 @@ categories wasn’t worth it.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/classification_data_prep..ipynb.txt"
+      <a href="../_sources/__pycache__/copy_classification_data_prep..ipynb.txt"
           rel="nofollow">Page source</a>
     </div>
 

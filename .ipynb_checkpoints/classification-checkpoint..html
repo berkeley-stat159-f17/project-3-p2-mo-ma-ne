@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status &#8212; p3 1 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Explore Categorical Variables to Classify Company Status &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../',
         VERSION:     '1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -18,16 +18,14 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Summary: Can we predict a start-up’s success?" href="main..html" />
-    <link rel="prev" title="Exploratory Analysis #5: Prepare Data for Classification" href="classification_data_prep..html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -207,11 +205,11 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 </style>
-<div class="section" id="Exploratory-Analysis-#6:-Explore-Categorical-Variables-to-Classify-Company-Status">
-<h1>Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status<a class="headerlink" href="#Exploratory-Analysis-#6:-Explore-Categorical-Variables-to-Classify-Company-Status" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Explore-Categorical-Variables-to-Classify-Company-Status">
+<h1>Explore Categorical Variables to Classify Company Status<a class="headerlink" href="#Explore-Categorical-Variables-to-Classify-Company-Status" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [44]:
+<span></span>In [210]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -221,7 +219,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [45]:
+<span></span>In [211]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -240,7 +238,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [46]:
+<span></span>In [212]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -253,7 +251,7 @@ div.nboutput div.output_area.stderr {
 variable.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [47]:
+<span></span>In [213]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -270,12 +268,12 @@ variable.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._5_0.png" src="_images/classification._5_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._5_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._5_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [48]:
+<span></span>In [214]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -292,7 +290,7 @@ variable.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._6_0.png" src="_images/classification._6_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._6_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._6_0.png" />
 </div>
 </div>
 <p>As you can see the vast majority of the data represents companies that
@@ -328,7 +326,7 @@ variable, and that would create a huge number of predictors, so for now
 I am going to go with the more naive approach.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [49]:
+<span></span>In [215]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -339,7 +337,7 @@ I am going to go with the more naive approach.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [50]:
+<span></span>In [216]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -377,7 +375,7 @@ I am going to go with the more naive approach.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [51]:
+<span></span>In [217]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -389,7 +387,7 @@ I am going to go with the more naive approach.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[51]:
+<span></span>Out[217]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -539,7 +537,7 @@ I am going to go with the more naive approach.</p>
 is to use 80 percent of the data as the training set.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [52]:
+<span></span>In [218]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -550,7 +548,7 @@ is to use 80 percent of the data as the training set.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[52]:
+<span></span>Out[218]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -560,7 +558,7 @@ is to use 80 percent of the data as the training set.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [53]:
+<span></span>In [219]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -573,7 +571,7 @@ is to use 80 percent of the data as the training set.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[53]:
+<span></span>Out[219]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -583,7 +581,7 @@ is to use 80 percent of the data as the training set.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [54]:
+<span></span>In [220]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -597,7 +595,7 @@ is to use 80 percent of the data as the training set.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[54]:
+<span></span>Out[220]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -609,7 +607,7 @@ is to use 80 percent of the data as the training set.</p>
 and test data.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [55]:
+<span></span>In [221]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -656,7 +654,7 @@ and test data.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [56]:
+<span></span>In [222]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -669,7 +667,7 @@ and test data.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [57]:
+<span></span>In [223]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -680,7 +678,7 @@ and test data.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[57]:
+<span></span>Out[223]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -690,7 +688,7 @@ and test data.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [58]:
+<span></span>In [224]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -701,7 +699,7 @@ and test data.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[58]:
+<span></span>Out[224]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -713,7 +711,7 @@ and test data.</p>
 data.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [59]:
+<span></span>In [225]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -724,7 +722,7 @@ data.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [60]:
+<span></span>In [226]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -756,7 +754,7 @@ estimated performance of the hyperparameters. Using GridSearchCV I can
 find the best combination of my two hyperparameters.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [61]:
+<span></span>In [227]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -777,7 +775,7 @@ example, I will show an example after these steps as to what happens
 when I use accuracy.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [62]:
+<span></span>In [228]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -792,7 +790,7 @@ it would take much longer. GridSearchCV is one of the most usefull parts
 of sklearn in my limited experience with it.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [63]:
+<span></span>In [229]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1034,7 +1032,7 @@ of sklearn in my limited experience with it.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[63]:
+<span></span>Out[229]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1054,7 +1052,7 @@ of sklearn in my limited experience with it.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [64]:
+<span></span>In [230]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1082,7 +1080,7 @@ of sklearn in my limited experience with it.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [65]:
+<span></span>In [231]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1097,12 +1095,12 @@ of sklearn in my limited experience with it.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._34_0.png" src="_images/classification._34_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._34_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._34_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [66]:
+<span></span>In [232]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1117,14 +1115,14 @@ of sklearn in my limited experience with it.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._35_0.png" src="_images/classification._35_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._35_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._35_0.png" />
 </div>
 </div>
 <p>I can now fit a random forest using the best combination of
 hyperparameters.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [67]:
+<span></span>In [233]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1135,7 +1133,7 @@ hyperparameters.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [68]:
+<span></span>In [234]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1174,7 +1172,7 @@ hyperparameters.</p>
 variable that best splits the data into the status categories.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [69]:
+<span></span>In [235]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1187,7 +1185,7 @@ variable that best splits the data into the status categories.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[69]:
+<span></span>Out[235]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1290,7 +1288,7 @@ variable that best splits the data into the status categories.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [70]:
+<span></span>In [236]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1304,7 +1302,7 @@ variable that best splits the data into the status categories.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._41_0.png" src="_images/classification._41_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._41_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._41_0.png" />
 </div>
 </div>
 <p>It seems num_relationships best splits our data into the status
@@ -1316,7 +1314,7 @@ category, we still don’t know how well that model predicts unseen data?
 First let’s look at the accuracy of our model.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [71]:
+<span></span>In [237]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1328,7 +1326,7 @@ First let’s look at the accuracy of our model.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[71]:
+<span></span>Out[237]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1347,7 +1345,7 @@ the “jth” class, based on some ordering. I provide the ordering in a
 list before the confusion matrix is printed.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [72]:
+<span></span>In [238]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1367,11 +1365,11 @@ list before the confusion matrix is printed.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
-[[  4   0  31   0]
- [  3   2   9   0]
- [ 19   6 377   5]
- [  2   0   8   4]]
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;ipo&#39;, &#39;operating&#39;]
+[[  4   0   0  31]
+ [  3   2   0   9]
+ [  2   0   4   8]
+ [ 19   6   5 377]]
 </pre></div></div>
 </div>
 <p>Before I said I would show what happened with the best results based on
@@ -1385,7 +1383,7 @@ with maximum tree depth. Let’s look at what happens in that case, by
 keeping all other parameters constant.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [73]:
+<span></span>In [239]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1402,7 +1400,7 @@ keeping all other parameters constant.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[73]:
+<span></span>Out[239]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1412,7 +1410,7 @@ keeping all other parameters constant.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [74]:
+<span></span>In [240]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1431,11 +1429,11 @@ keeping all other parameters constant.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
-[[  0   0  35   0]
- [  0   0  14   0]
- [  0   0 407   0]
- [  0   0  13   1]]
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;ipo&#39;, &#39;operating&#39;]
+[[  0   0   0  35]
+ [  0   0   0  14]
+ [  0   0   1  13]
+ [  0   0   0 407]]
 </pre></div></div>
 </div>
 <p>Similar results would have occured if we had set max_depth to none. As
@@ -1469,7 +1467,7 @@ but this time on the binary variable indicating whether a business was
 closed or not.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [75]:
+<span></span>In [241]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1481,7 +1479,7 @@ closed or not.</p>
 <p>Note: the below cell may take a while</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [76]:
+<span></span>In [242]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1501,7 +1499,7 @@ closed or not.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[76]:
+<span></span>Out[242]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1521,7 +1519,7 @@ closed or not.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [77]:
+<span></span>In [243]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1537,12 +1535,12 @@ closed or not.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._56_0.png" src="_images/classification._56_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._56_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._56_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [78]:
+<span></span>In [244]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1558,12 +1556,12 @@ closed or not.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._57_0.png" src="_images/classification._57_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._57_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._57_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [79]:
+<span></span>In [245]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1574,7 +1572,7 @@ closed or not.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [80]:
+<span></span>In [246]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1588,7 +1586,7 @@ closed or not.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._59_0.png" src="_images/classification._59_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._59_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._59_0.png" />
 </div>
 </div>
 <p>Now it seems the feature that is the most important is had_funding,
@@ -1601,7 +1599,7 @@ institution of a founder, which is more important than the degree type.</p>
 Let’s start with accuracy.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [81]:
+<span></span>In [247]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1614,7 +1612,7 @@ Let’s start with accuracy.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[81]:
+<span></span>Out[247]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1627,7 +1625,7 @@ random forest. However, the issue there was that the model had no true
 predictive power.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [82]:
+<span></span>In [248]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1669,7 +1667,7 @@ score, so let’s look at our model performance bu looking at the ROC
 curve and AUC statistic.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [83]:
+<span></span>In [249]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1690,8 +1688,8 @@ curve and AUC statistic.</p>
     <span class="n">pred_probs_closed_pos</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">test_closed_binary</span><span class="p">,</span> <span class="n">pred_probs_closed_pos</span><span class="p">)</span>
     <span class="n">auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">test_closed_binary</span><span class="p">,</span> <span class="n">pred_probs_closed_pos</span><span class="p">)</span>
-    <span class="n">auc_str</span> <span class="o">=</span> <span class="s2">&quot;AUC: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">auc</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">auc_str</span><span class="p">)</span>
+    <span class="c1">#auc_str = &quot;AUC: &quot; + str(auc)</span>
+    <span class="c1">#print(auc_str)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
@@ -1705,7 +1703,7 @@ curve and AUC statistic.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [84]:
+<span></span>In [250]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1713,25 +1711,46 @@ curve and AUC statistic.</p>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-AUC: 0.794564536341
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._68_1.png" src="_images/classification._68_1.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._68_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._68_0.png" />
 </div>
 </div>
 <p>Once again our performance isn’t great. If we wanted great performance
 we could have turned every feature into a dumby indicator variable and
 run a KNN model, however, then we would not have any good inference on
 important features, and would have run the risk of overfitting the data.</p>
+<p>This next plot is a little weird. I decided to take the probabilities
+that each invidual was not closed and the probabilities that each
+indivual was closed and make a scatterplott. This isn’t really a
+scatterplot, it’s really a line, because every point has to add up to 1.
+But idea idealy all orange would be at the top corner and all blue at
+the bottom corner.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [251]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#I DONT KNOW IF I WANT TO KEEP THIS</span>
+<span class="n">rf_probs</span> <span class="o">=</span> <span class="n">best_rcf_closed</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)</span>
+<span class="n">x_axis</span> <span class="o">=</span> <span class="n">rf_probs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">y_axis</span> <span class="o">=</span> <span class="n">rf_probs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;no_prob&#39;</span><span class="p">:</span> <span class="n">x_axis</span><span class="p">,</span> <span class="s1">&#39;yes_prob&#39;</span><span class="p">:</span> <span class="n">y_axis</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">test_closed</span><span class="o">.</span><span class="n">values</span><span class="p">})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">x_vars</span> <span class="o">=</span> <span class="s1">&#39;no_prob&#39;</span><span class="p">,</span> <span class="n">y_vars</span> <span class="o">=</span> <span class="s1">&#39;yes_prob&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">probs</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._71_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._71_0.png" />
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="Extremeley-Randomized-Trees-Classifier">
@@ -1765,7 +1784,7 @@ the chance of overfitting, and I am purposely using ExtraTrees for its
 ability to reduce model variance.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [85]:
+<span></span>In [252]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1856,7 +1875,7 @@ ability to reduce model variance.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[85]:
+<span></span>Out[252]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1876,7 +1895,7 @@ ability to reduce model variance.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [86]:
+<span></span>In [253]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1908,7 +1927,7 @@ ability to reduce model variance.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [87]:
+<span></span>In [254]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1923,12 +1942,12 @@ ability to reduce model variance.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._75_0.png" src="_images/classification._75_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._77_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._77_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [88]:
+<span></span>In [255]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1940,7 +1959,7 @@ ability to reduce model variance.</p>
 <p>Let’s look at the variable importance plot.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [89]:
+<span></span>In [256]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1955,7 +1974,7 @@ ability to reduce model variance.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._78_0.png" src="_images/classification._78_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._80_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._80_0.png" />
 </div>
 </div>
 <p>Like the Random Forest model on status number of relationships is the
@@ -1963,7 +1982,7 @@ most important, but now number of milestones is also important. Let’s
 look at the perforamnce of this model.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [90]:
+<span></span>In [257]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -1975,7 +1994,7 @@ look at the perforamnce of this model.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[90]:
+<span></span>Out[257]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -1987,7 +2006,7 @@ look at the perforamnce of this model.</p>
 but let’s look at the confusion matrix.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [91]:
+<span></span>In [258]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2004,19 +2023,19 @@ but let’s look at the confusion matrix.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;ipo&#39;, &#39;operating&#39;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[91]:
+<span></span>Out[258]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
-<span></span>array([[  6,   4,  25,   0],
-       [  5,   3,   6,   0],
-       [ 19,  24, 358,   6],
-       [  3,   2,   5,   4]])
+<span></span>array([[  6,   4,   0,  25],
+       [  5,   3,   0,   6],
+       [  3,   2,   4,   5],
+       [ 19,  24,   6, 358]])
 </pre></div>
 </div>
 </div>
@@ -2033,7 +2052,7 @@ happen if the tree had a lower max depth keeping the maximum feature
 parameter constant.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [92]:
+<span></span>In [259]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2072,7 +2091,7 @@ parameter constant.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [93]:
+<span></span>In [260]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2087,16 +2106,16 @@ parameter constant.</p>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Accuracy is: 0.542553191489
-[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
-[[  0  18  13   4]
- [  0  11   3   0]
- [  3 147 241  16]
- [  0   5   6   3]]
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;ipo&#39;, &#39;operating&#39;]
+[[  0  18   4  13]
+ [  0  11   0   3]
+ [  0   5   3   6]
+ [  3 147  16 241]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [94]:
+<span></span>In [261]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2111,16 +2130,16 @@ Accuracy is: 0.542553191489
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Accuracy is: 0.578723404255
-[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
-[[  0  17  12   6]
- [  1  10   3   0]
- [ 22 115 253  17]
- [  1   4   0   9]]
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;ipo&#39;, &#39;operating&#39;]
+[[  0  17   6  12]
+ [  1  10   0   3]
+ [  1   4   9   0]
+ [ 22 115  17 253]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [95]:
+<span></span>In [262]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2135,11 +2154,11 @@ Accuracy is: 0.578723404255
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Accuracy is: 0.697872340426
-[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
-[[  6  11  18   0]
- [  4   4   6   0]
- [ 39  49 311   8]
- [  5   1   1   7]]
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;ipo&#39;, &#39;operating&#39;]
+[[  6  11   0  18]
+ [  4   4   0   6]
+ [  5   1   7   1]
+ [ 39  49   8 311]]
 </pre></div></div>
 </div>
 <p>We can see that smaller values of depth allow us to better predict
@@ -2148,7 +2167,7 @@ predict acquired and ipo. What would happen if we picked a depth outside
 of the corss validation range I picked?</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [96]:
+<span></span>In [263]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2163,11 +2182,11 @@ of the corss validation range I picked?</p>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Accuracy is: 0.840425531915
-[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
-[[  4   0  31   0]
- [  3   1  10   0]
- [ 10   7 388   2]
- [  1   0  11   2]]
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;ipo&#39;, &#39;operating&#39;]
+[[  4   0   0  31]
+ [  3   1   0  10]
+ [  1   0   2  11]
+ [ 10   7   2 388]]
 </pre></div></div>
 </div>
 <p>Here the perforamance begins to act more like it did for the best random
@@ -2177,14 +2196,6 @@ overpredicts operating.</p>
 better on the status dataset, however, the fact that most gave similar
 variable importance statistics gives us a good idea about which features
 are important in creating this decision trees.</p>
-<div class="figure" id="id2">
-<img alt="var\_imp\_rf\_status" src="_images/variable_importance_status_random_forest.png" />
-<p class="caption"><span class="caption-text">var_imp_rf_status</span></p>
-</div>
-<div class="figure" id="id3">
-<img alt="var\_imp\_status\_ext" src="_images/variable_importance_status_extra_trees.png" />
-<p class="caption"><span class="caption-text">var_imp_status_ext</span></p>
-</div>
 <p>It looks like for both tree based methods number of relationships is the
 most important variable. Number of milestones is also important for both
 types of methods. Interestingly, first name is as important or more
@@ -2195,7 +2206,7 @@ important than features many features, including academic features.</p>
 closed.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [97]:
+<span></span>In [264]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2213,7 +2224,7 @@ closed.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[97]:
+<span></span>Out[264]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -2233,7 +2244,7 @@ closed.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [98]:
+<span></span>In [265]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2247,12 +2258,12 @@ closed.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._98_0.png" src="_images/classification._98_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._100_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._100_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [99]:
+<span></span>In [266]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2262,7 +2273,7 @@ closed.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [100]:
+<span></span>In [267]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2277,7 +2288,7 @@ closed.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._100_0.png" src="_images/classification._100_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._102_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._102_0.png" />
 </div>
 </div>
 <p>Similar to the random forest closed variable importance plot, whether
@@ -2287,7 +2298,7 @@ interesting note here is taht the number of relationships is now note
 important.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [101]:
+<span></span>In [268]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2299,7 +2310,7 @@ important.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[101]:
+<span></span>Out[268]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -2310,7 +2321,7 @@ important.</p>
 <p>This is a very low accuracy, let’s look at the confusion matrix.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [102]:
+<span></span>In [269]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2332,7 +2343,7 @@ important.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[102]:
+<span></span>Out[269]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -2347,7 +2358,7 @@ to predict “No” seemingly to imply, in this case, Random Forest is
 ideal. Let’s look at the ROC and AUC.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [103]:
+<span></span>In [270]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2355,19 +2366,11 @@ ideal. Let’s look at the ROC and AUC.</p>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-AUC: 0.715068922306
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._106_1.png" src="_images/classification._106_1.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._108_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._108_0.png" />
 </div>
 </div>
 <p>This model really did not perform well. The black dotted line on the ROC
@@ -2376,14 +2379,6 @@ by random. This mean this extratrees classifier, at times, is worse than
 a random guess classifier.</p>
 <p>We can still examine the varible importances of the random forest vs the
 extremeley randomized tree to see if we can gather any insights</p>
-<div class="figure" id="id4">
-<img alt="var\_imp\_rf\_closed" src="_images/random_forest_two_class_variable_importance.png" />
-<p class="caption"><span class="caption-text">var_imp_rf_closed</span></p>
-</div>
-<div class="figure" id="id5">
-<img alt="var\_imp\_closed\_ext" src="_images/variable_importance_closed_extra_trees.png" />
-<p class="caption"><span class="caption-text">var_imp_closed_ext</span></p>
-</div>
 <p>Had funding clearly looks like an important feature to predicting
 whether a business is closed or not based on our tree based bethods.
 Category code also seems to be an important variable for both methods.
@@ -2402,7 +2397,7 @@ this section instead of encoding the variables, I am going to look at
 only the categorical features by creating a longer dumby matrix.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [104]:
+<span></span>In [271]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2412,7 +2407,7 @@ only the categorical features by creating a longer dumby matrix.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [105]:
+<span></span>In [272]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2423,7 +2418,7 @@ only the categorical features by creating a longer dumby matrix.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[105]:
+<span></span>Out[272]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -2433,7 +2428,7 @@ only the categorical features by creating a longer dumby matrix.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [106]:
+<span></span>In [273]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2443,7 +2438,7 @@ only the categorical features by creating a longer dumby matrix.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[106]:
+<span></span>Out[273]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2619,7 +2614,7 @@ data drame by splitting any categorical features into dumby variables. I
 am going to only keep the categorical dumby variables in this section</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [107]:
+<span></span>In [274]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2639,7 +2634,7 @@ to look at a 2D few of these distances using MDS, and you will see the
 result.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [108]:
+<span></span>In [275]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2650,7 +2645,7 @@ result.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [109]:
+<span></span>In [276]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2662,7 +2657,7 @@ result.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [110]:
+<span></span>In [277]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2674,7 +2669,7 @@ result.</p>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[110]:
+<span></span>Out[277]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -2685,7 +2680,7 @@ result.</p>
 <p>The next code chunk takes a very long time.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [111]:
+<span></span>In [278]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2715,7 +2710,7 @@ result.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [112]:
+<span></span>In [279]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2729,7 +2724,7 @@ result.</p>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [113]:
+<span></span>In [280]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2752,12 +2747,12 @@ result.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._128_0.png" src="_images/classification._128_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._130_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._130_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [114]:
+<span></span>In [281]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -2773,7 +2768,7 @@ result.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/classification._129_0.png" src="_images/classification._129_0.png" />
+<img alt="../_images/.ipynb_checkpoints_classification-checkpoint._131_0.png" src="../_images/.ipynb_checkpoints_classification-checkpoint._131_0.png" />
 </div>
 </div>
 <p>As you can see there is no clear pattern in seperation based on
@@ -2784,8 +2779,9 @@ section had trouble classifying the data. It may be that the features we
 are looking are aren’t really indicators of success or failure in
 business.</p>
 </div>
+</div>
 <div class="section" id="Final-Thoughts">
-<h2>Final Thoughts<a class="headerlink" href="#Final-Thoughts" title="Permalink to this headline">¶</a></h2>
+<h1>Final Thoughts<a class="headerlink" href="#Final-Thoughts" title="Permalink to this headline">¶</a></h1>
 <p>In this notebook we tried to classify business status via categorical
 variables about business location and founders. In doing so, we were not
 only looking to build an accurate model, we also wanted to understand
@@ -2810,6 +2806,15 @@ status. Further analysis certainly could have been done, but the
 runetime on this notebook is already significant so we kind of leave
 with an ambigous answer to our question of what categorical features
 predict company status.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -2819,9 +2824,9 @@ predict company status.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status</a><ul>
+<li><a class="reference internal" href="#">Explore Categorical Variables to Classify Company Status</a><ul>
 <li><a class="reference internal" href="#Random-Forest-Classifier">Random Forest Classifier</a><ul>
 <li><a class="reference internal" href="#Closed">Closed</a></li>
 </ul>
@@ -2831,29 +2836,27 @@ predict company status.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#Looking-at-Data-using-Dumby">Looking at Data using Dumby</a></li>
-<li><a class="reference internal" href="#Final-Thoughts">Final Thoughts</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#Final-Thoughts">Final Thoughts</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="classification_data_prep..html" title="previous chapter">Exploratory Analysis #5: Prepare Data for Classification</a></li>
-      <li>Next: <a href="main..html" title="next chapter">Summary: Can we predict a start-up’s success?</a></li>
+  <li><a href="../index.html">Documentation overview</a><ul>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/classification..ipynb.txt"
+      <li><a href="../_sources/.ipynb_checkpoints/classification-checkpoint..ipynb.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
+    <form class="search" action="../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
@@ -2873,7 +2876,7 @@ predict company status.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/classification..ipynb.txt"
+      <a href="../_sources/.ipynb_checkpoints/classification-checkpoint..ipynb.txt"
           rel="nofollow">Page source</a>
     </div>
 

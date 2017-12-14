@@ -41,8 +41,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="Summary:-Can-we-predict-a-start-up’s-success?">
-<h1>Summary: Can we predict a start-up’s success?<a class="headerlink" href="#Summary:-Can-we-predict-a-start-up’s-success?" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="Summary:-Can-we-predict-a-start-up's-success?">
+<h1>Summary: Can we predict a start-up’s success?<a class="headerlink" href="#Summary:-Can-we-predict-a-start-up's-success?" title="Permalink to this headline">¶</a></h1>
 <p>Authors: Annie Maslan, Jack Moorer, Mitch Negus</p>
 <div class="section" id="Overview">
 <h2>Overview<a class="headerlink" href="#Overview" title="Permalink to this headline">¶</a></h2>
@@ -56,18 +56,18 @@ and time 3. Investor portfolio correlations</p>
 <div class="section" id="1.-Valuation-and-number-of-IPOs-by-place-and-time">
 <h3>1. Valuation and number of IPOs by place and time<a class="headerlink" href="#1.-Valuation-and-number-of-IPOs-by-place-and-time" title="Permalink to this headline">¶</a></h3>
 <p>We first consider the number of IPOs by region. The data provided in the
-‘cb_ipos’ table is lacking the valuation amount for many companies. When
-filtering for entries that have valuation amount included, we have an N
-of 167. We continue with this valuation analyis but will subsequently
-look at total funding in part 2 for a larger dataset that may also
-indicate company success. We find that SF Bay has the highest number of
-companies that IPO (34) with NYC in second (11) and London in third (8).
-In the below barplot, we consider the regions that had &gt;5 companies IPO
-in order of decreasing number of companies. Seattle has the highest
-average valuation for companies that IPO; however, if we consider a
-barplot of the same data we see that Seattle with 7 companies is more
-sensitive to outliers and has a broader distribution. This additional
-analysis can be found in the supplementary notebook
+‘cb_ipos’ table is lacking the valuation amount for many companies.
+When filtering for entries that have valuation amount included, we have
+an N of 167. We continue with this valuation analyis but will
+subsequently look at total funding in part 2 for a larger dataset that
+may also indicate company success. We find that SF Bay has the highest
+number of companies that IPO (34) with NYC in second (11) and London in
+third (8). In the below barplot, we consider the regions that had &gt;5
+companies IPO in order of decreasing number of companies. Seattle has
+the highest average valuation for companies that IPO; however, if we
+consider a barplot of the same data we see that Seattle with 7 companies
+is more sensitive to outliers and has a broader distribution. This
+additional analysis can be found in the supplementary notebook
 ‘location_time.ipynb.’</p>
 <div class="figure" id="id4">
 <img alt="valuation by region" src="_images/valuation_region.png" />
@@ -146,7 +146,9 @@ others, so this statistic could be biased in favor of capital intensive
 companies. We will assume that this is not so overwhelming to render the
 metric worthless. Funding totals for the top 100 businesses are plotted
 below.</p>
-<p><img alt="image0" src="_images/funding_totals.png" /></p>
+<div class="figure">
+<img alt="" src="_images/funding_totals.png" />
+</div>
 <p>Using this metric, we find that slightly more than 25% of the companies
 in the Crunchbase dataset raised over $10 million in funding rounds, and
 so we select this subset as “the top businesses”. For the more than
@@ -155,7 +157,9 @@ with degree information) to those companies. Together, the degree
 information for successful companies let’s us create a visual to show
 how many degrees each university has conferred to affiliates of all
 companies in the top tier of fundraising businesses.</p>
-<p><img alt="image1" src="_images/affiliates_by_school.png" /></p>
+<div class="figure">
+<img alt="" src="_images/affiliates_by_school.png" />
+</div>
 </div>
 <div class="section" id="5.-Prediction-of-Success">
 <h3>5. Prediction of Success<a class="headerlink" href="#5.-Prediction-of-Success" title="Permalink to this headline">¶</a></h3>
@@ -234,11 +238,11 @@ looked at the boxplots of each type category of response for both the
 status and closed variables. Here is an example of a status vs number of
 milestones and closed vs number of milestones.</p>
 <div class="figure" id="id5">
-<img alt="num_milestones_status_boxplot" src="_images/num_milestones_status_box.png" />
+<img alt="num\_milestones\_status\_boxplot" src="_images/num_milestones_status_box.png" />
 <p class="caption"><span class="caption-text">num_milestones_status_boxplot</span></p>
 </div>
 <div class="figure" id="id6">
-<img alt="num_mile_closed_boxplot" src="_images/num_milestones_closed_box.png" />
+<img alt="num\_mile\_closed\_boxplot" src="_images/num_milestones_closed_box.png" />
 <p class="caption"><span class="caption-text">num_mile_closed_boxplot</span></p>
 </div>
 <p>We also looked at the relationship between what I called the purely
@@ -248,22 +252,22 @@ features. It was important we looked at relative response due to
 unbalanced frequencies in the response and feature variables. Here are
 the plots for category code on satus and had funding on closed.</p>
 <div class="figure" id="id7">
-<img alt="cat_code_status" src="_images/category_code_status_bar.png" />
+<img alt="cat\_code\_status" src="_images/category_code_status_bar.png" />
 <p class="caption"><span class="caption-text">cat_code_status</span></p>
 </div>
 <div class="figure" id="id8">
-<img alt="had_fund_closed" src="_images/had_funding_closed_bar.png" />
+<img alt="had\_fund\_closed" src="_images/had_funding_closed_bar.png" />
 <p class="caption"><span class="caption-text">had_fund_closed</span></p>
 </div>
 <p>At this point we were ready to train and predict a classification model
 on our data. Before I talk about the methods I used and process let’s
 look at the distributions of the response variables.</p>
 <div class="figure" id="id9">
-<img alt="status_dist" src="_images/classification_status_variable_dist.png" />
+<img alt="status\_dist" src="_images/classification_status_variable_dist.png" />
 <p class="caption"><span class="caption-text">status_dist</span></p>
 </div>
 <div class="figure" id="id10">
-<img alt="closed_dist" src="_images/classification_closed_variable_dist.png" />
+<img alt="closed\_dist" src="_images/classification_closed_variable_dist.png" />
 <p class="caption"><span class="caption-text">closed_dist</span></p>
 </div>
 <p>As you can see there is a huge imbalance in the distrubtions of our
@@ -317,7 +321,7 @@ Instead, I used the scoring metric f1_weight, which is based both on
 model accuracy and precision. For random forest I plotted the results of
 the hyperparameters like in this example.</p>
 <div class="figure" id="id11">
-<img alt="fr_status_cv" src="_images/rf_cv_results_status_max_features.png" />
+<img alt="fr\_status\_cv" src="_images/rf_cv_results_status_max_features.png" />
 <p class="caption"><span class="caption-text">fr_status_cv</span></p>
 </div>
 <p>Here you see how the weighted f1 score changed basde on the max depth of
@@ -355,7 +359,7 @@ increased randomness without an huge increase in bias.</p>
 <p>Here is an example of the cross validation plot using max depth and
 numbe of features for ExtraTrees.</p>
 <div class="figure" id="id12">
-<img alt="ext_cv_status" src="_images/extra_trees_status_cv_results.png" />
+<img alt="ext\_cv\_status" src="_images/extra_trees_status_cv_results.png" />
 <p class="caption"><span class="caption-text">ext_cv_status</span></p>
 </div>
 <p>As you can see performance is monotonically increasing with an increase
@@ -374,11 +378,11 @@ trees models were mixed, but the nice thing about tree based models is
 that even though they generally don’t provide fantastic predictive
 performance, we can still examine feature importance</p>
 <div class="figure" id="id13">
-<img alt="var_imp_rf_st" src="_images/variable_importance_status_random_forest.png" />
+<img alt="var\_imp\_rf\_st" src="_images/variable_importance_status_random_forest.png" />
 <p class="caption"><span class="caption-text">var_imp_rf_st</span></p>
 </div>
 <div class="figure" id="id14">
-<img alt="var_imp_ex_status" src="_images/variable_importance_status_extra_trees.png" />
+<img alt="var\_imp\_ex\_status" src="_images/variable_importance_status_extra_trees.png" />
 <p class="caption"><span class="caption-text">var_imp_ex_status</span></p>
 </div>
 <p>We can see the feature importance of the two models is similar, which is
@@ -402,7 +406,7 @@ hense the closed response variable</p>
 <p>Here is an example of the cross validation results based on AUC from the
 random forest model:</p>
 <div class="figure" id="id15">
-<img alt="rf_closed_cv" src="_images/rf_closed_cv_results_max_features.png" />
+<img alt="rf\_closed\_cv" src="_images/rf_closed_cv_results_max_features.png" />
 <p class="caption"><span class="caption-text">rf_closed_cv</span></p>
 </div>
 <p>As you can see we are actually getting interesting results based on AUC.
@@ -415,7 +419,7 @@ project, I treated this as success, as the problem kind of transformed
 into finding a model that could predict the very rare closed response
 case. Here is the ROC cruve for this model.</p>
 <div class="figure" id="id16">
-<img alt="rf_closed_roc" src="_images/random_forest_roc_curve.png" />
+<img alt="rf\_closed\_roc" src="_images/random_forest_roc_curve.png" />
 <p class="caption"><span class="caption-text">rf_closed_roc</span></p>
 </div>
 </div>
@@ -424,7 +428,7 @@ case. Here is the ROC cruve for this model.</p>
 <p>Here is an example of the cross validation plot from ExtraTrees on
 closed</p>
 <div class="figure" id="id17">
-<img alt="ext_closed_cv" src="_images/extra_trees_closed_cv_results.png" />
+<img alt="ext\_closed\_cv" src="_images/extra_trees_closed_cv_results.png" />
 <p class="caption"><span class="caption-text">ext_closed_cv</span></p>
 </div>
 <p>As you can see we are once again getting interesting results. I fit the
@@ -436,7 +440,7 @@ success in predicted the ‘Yes’ variable as random forest with worse
 results in predicting the ‘No’ variable. In this case random forest
 performance was cleary superior. Here is the ExtraTrees ROC.</p>
 <div class="figure" id="id18">
-<img alt="ext_roc" src="_images/extra_trees_roc_curve.png" />
+<img alt="ext\_roc" src="_images/extra_trees_roc_curve.png" />
 <p class="caption"><span class="caption-text">ext_roc</span></p>
 </div>
 </div>
@@ -451,11 +455,11 @@ perform better on this highly imbalanced dataset. Once again we can look
 at the feature importance, despite the fact the predictive power of the
 models are poor.</p>
 <div class="figure" id="id19">
-<img alt="rf_cl_imp" src="_images/random_forest_two_class_variable_importance.png" />
+<img alt="rf\_cl\_imp" src="_images/random_forest_two_class_variable_importance.png" />
 <p class="caption"><span class="caption-text">rf_cl_imp</span></p>
 </div>
 <div class="figure" id="id20">
-<img alt="ex_closed_imp" src="_images/variable_importance_closed_extra_trees.png" />
+<img alt="ex\_closed\_imp" src="_images/variable_importance_closed_extra_trees.png" />
 <p class="caption"><span class="caption-text">ex_closed_imp</span></p>
 </div>
 <p>Here we get pretty consistant feature importance statistics for both
@@ -481,14 +485,14 @@ at a low dimensional view of our data using the Euclidean distances from
 the dumby matrix of categorical variables and MDS. This process was very
 similar to part of project 2. Remember the features involved in this MDS
 2D projection do not include num_investments, num_relationships,
-num_milestones, logo_hieght, and logo_width, which were some of the most
-important features for the status section.</p>
+num_milestones, logo_hieght, and logo_width, which were some of the
+most important features for the status section.</p>
 <div class="figure" id="id21">
-<img alt="mds_status" src="_images/mds_euc_status.png" />
+<img alt="mds\_status" src="_images/mds_euc_status.png" />
 <p class="caption"><span class="caption-text">mds_status</span></p>
 </div>
 <div class="figure" id="id22">
-<img alt="mds_closed" src="_images/mds_euc_closed.png" />
+<img alt="mds\_closed" src="_images/mds_euc_closed.png" />
 <p class="caption"><span class="caption-text">mds_closed</span></p>
 </div>
 <p>As you can see, especailly for the status plot, there is no real clear
