@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Exploratory Analysis #4: Executive Education &#8212; p3 1 documentation</title>
+    <title>Exploratory Analysis #3: Executive Education &#8212; p3 1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Prepare Data for Classification" href="classification_data_prep..html" />
-    <link rel="prev" title="Exploratory analysis #2: investor portfolio correlations" href="investors..html" />
+    <link rel="next" title="Exploratory Analysis 4: Prepare Data for Classification" href="classification_data_prep..html" />
+    <link rel="prev" title="Exploratory analysis #3: investor portfolio correlations" href="investors..html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -207,8 +207,8 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 </style>
-<div class="section" id="Exploratory-Analysis-#4:-Executive-Education">
-<h1>Exploratory Analysis #4: Executive Education<a class="headerlink" href="#Exploratory-Analysis-#4:-Executive-Education" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Exploratory-Analysis-#3:-Executive-Education">
+<h1>Exploratory Analysis #3: Executive Education<a class="headerlink" href="#Exploratory-Analysis-#3:-Executive-Education" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="So-you-want-to-start-a-company...">
 <h2>So you want to start a company…<a class="headerlink" href="#So-you-want-to-start-a-company..." title="Permalink to this headline">¶</a></h2>
 <p>The leaders of the world’s top businesses have to start somewhere. Using
@@ -1040,51 +1040,12 @@ are associated with well performing businesses. We also see that it is
 quite common for those at successful businesses to have multiple
 degrees.</p>
 </div>
-</div>
 <div class="section" id="(Not-so)-humble-beginnings">
-<h1>(Not so) humble beginnings<a class="headerlink" href="#(Not-so)-humble-beginnings" title="Permalink to this headline">¶</a></h1>
+<h2>(Not so) humble beginnings<a class="headerlink" href="#(Not-so)-humble-beginnings" title="Permalink to this headline">¶</a></h2>
 <p>Next we take a look at the institutions who have produced the people
 affiliated with the successful businesses. If we were to take a closer
 look at the table above, you would see that many of the institutions are
 duplicated, but often with slight variations for each school.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">CPE</span><span class="p">[</span><span class="s1">&#39;institution&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">2660</span><span class="p">:</span><span class="mi">2680</span><span class="p">]:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-University of California - Santa Cruz
-University of California @ Santa Cruz
-University of California Berkeley
-University of California Riverside
-University of California at Berekely
-University of California at Berkeley
-University of California at Berkley
-University of California at Los Angeles
-University of California at Riverside
-University of California at Santa Barbara
-University of California at Santa Barbara.
-University of California,
-University of California, Berkeley
-University of California, Berkeley - School of Law
-University of California, Berkeley - Walter A. Haas School of Bu
-University of California, Berkeley, Boalt School of Law
-University of California, Berkeley, Walter A. Haas School of Bus
-University of California, Davis
-University of California, Davis (UCD)
-University of California, Hastings College of the Law
-</pre></div></div>
-</div>
 <p>We will try to eliminate some of these duplicates, while at the same
 time reducing the names in such a way that we can properly aggregate a
 school when it is named alternatively. We will do this by defining a
@@ -1303,7 +1264,7 @@ businesses.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/education._33_0.png" src="_images/education._33_0.png" />
+<img alt="_images/education._32_0.png" src="_images/education._32_0.png" />
 </div>
 </div>
 <p>We can see that there are several universities contributing far more
@@ -1337,6 +1298,7 @@ Together, these three schools produced 13.5% of the total graduates in top busin
 </pre></div></div>
 </div>
 </div>
+</div>
 
 
           </div>
@@ -1346,20 +1308,20 @@ Together, these three schools produced 13.5% of the total graduates in top busin
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Exploratory Analysis #4: Executive Education</a><ul>
+<li><a class="reference internal" href="#">Exploratory Analysis #3: Executive Education</a><ul>
 <li><a class="reference internal" href="#So-you-want-to-start-a-company...">So you want to start a company…</a></li>
 <li><a class="reference internal" href="#The-most-successful-businesses">The most successful businesses</a></li>
 <li><a class="reference internal" href="#The-people-behind-the-most-successful-businesses">The people behind the most successful businesses</a></li>
+<li><a class="reference internal" href="#(Not-so)-humble-beginnings">(Not so) humble beginnings</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#(Not-so)-humble-beginnings">(Not so) humble beginnings</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="investors..html" title="previous chapter">Exploratory analysis #2: investor portfolio correlations</a></li>
-      <li>Next: <a href="classification_data_prep..html" title="next chapter">Prepare Data for Classification</a></li>
+      <li>Previous: <a href="investors..html" title="previous chapter">Exploratory analysis #3: investor portfolio correlations</a></li>
+      <li>Next: <a href="classification_data_prep..html" title="next chapter">Exploratory Analysis 4: Prepare Data for Classification</a></li>
   </ul></li>
 </ul>
 </div>
