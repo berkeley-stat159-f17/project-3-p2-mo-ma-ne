@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Explore Categorical Variables to Classify Company Status"
+    "# Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status"
    ]
   },
   {
@@ -2147,14 +2147,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/variable_importance_status_random_forest.png'>"
+    "![var_imp_rf_status](results/variable_importance_status_random_forest.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    " <img src='results/variable_importance_status_extra_trees.png'>"
+    "![var_imp_status_ext](results/variable_importance_status_extra_trees.png)"
    ]
   },
   {
@@ -2392,14 +2392,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/random_forest_two_class_variable_importance.png'>"
+    "![var_imp_rf_closed](results/random_forest_two_class_variable_importance.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/variable_importance_closed_extra_trees.png'>"
+    "![var_imp_closed_ext](results/variable_importance_closed_extra_trees.png)"
    ]
   },
   {
@@ -2906,7 +2906,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Final Thoughts"
+    "## Final Thoughts"
    ]
   },
   {
@@ -2921,15 +2921,6 @@
     "\n",
     "Finally, we decided to convert the purely string based categorical variables in a dumby data frame and and examine a two dimensional view of the categorial used Euclidean Distances and MDS. This showed that, while we were able to extract the importance of the features used, these features may not actually seperate the data enough to predict company status. Further analysis certainly could have been done, but the runetime on this notebook is already significant so we kind of leave with an ambigous answer to our question of what categorical features predict company status."
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {

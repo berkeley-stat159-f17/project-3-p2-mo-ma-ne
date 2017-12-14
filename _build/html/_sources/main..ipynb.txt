@@ -107,11 +107,11 @@
     "\n",
     "To answer these questions, we first need to define a benchmark for a company's success. This could simply be whether the company is still operating or not (presumably companies that are not still operating were unsuccessful), or it could also be related to the company's total valuation. Instead, we use the total funding acquired in all funding rounds for a company. Note that this is itself an imperfect metric. Some highly successful companies might require less capital investment than others, so this statistic could be biased in favor of capital intensive companies. We will assume that this is not so overwhelming to render the metric worthless. Funding totals for the top 100 businesses are plotted below.\n",
     "\n",
-    "<img src='results/funding_totals.png'>\n",
+    "![](results/funding_totals.png)\n",
     "\n",
     "Using this metric, we find that slightly more than 25% of the companies in the Crunchbase dataset raised over $10 million in funding rounds, and so we select this subset as \"the top businesses\". For the more than 7,000 companies in that sample, we match individuals (who are paired with degree information) to those companies. Together, the degree information for successful companies let's us create a visual to show how many degrees each university has conferred to affiliates of all companies in the top tier of fundraising businesses.\n",
     "\n",
-    "<img src='results/funding_totals.png'>"
+    "![](results/affiliates_by_school.png)"
    ]
   },
   {
@@ -175,14 +175,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/num_milestones_status_box.png'>"
+    "![num_milestones_status_boxplot](results/num_milestones_status_box.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/num_milestones_closed_box.png'>"
+    "![num_mile_closed_boxplot](results/num_milestones_closed_box.png)"
    ]
   },
   {
@@ -196,14 +196,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/category_code_status_bar.png'>"
+    "![cat_code_status](results/category_code_status_bar.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/had_funding_closed_bar.png'>"
+    "![had_fund_closed](results/had_funding_closed_bar.png)"
    ]
   },
   {
@@ -217,14 +217,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src = \"results/classification_status_variable_dist.png\">"
+    "![status_dist](results/classification_status_variable_dist.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src = \"results/classification_closed_variable_dist.png\">"
+    "![closed_dist](results/classification_closed_variable_dist.png)"
    ]
   },
   {
@@ -280,7 +280,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/rf_cv_results_status_max_features.png'>"
+    "![fr_status_cv](results/rf_cv_results_status_max_features.png)"
    ]
   },
   {
@@ -322,7 +322,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/extra_trees_status_cv_results.png'>"
+    "![ext_cv_status](results/extra_trees_status_cv_results.png)"
    ]
   },
   {
@@ -350,14 +350,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/variable_importance_status_random_forest.png'>"
+    "![var_imp_rf_st](results/variable_importance_status_random_forest.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/variable_importance_status_extra_trees.png'>"
+    "![var_imp_ex_status](results/variable_importance_status_extra_trees.png)"
    ]
   },
   {
@@ -371,7 +371,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "#### Looking at the closed response variables"
+    "### Looking at the closed response variables"
    ]
   },
   {
@@ -399,7 +399,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/rf_closed_cv_results_max_features.png'>"
+    "![rf_closed_cv](results/rf_closed_cv_results_max_features.png)"
    ]
   },
   {
@@ -413,7 +413,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/random_forest_roc_curve.png'>"
+    "![rf_closed_roc](results/random_forest_roc_curve.png)"
    ]
   },
   {
@@ -434,7 +434,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src = 'results/extra_trees_closed_cv_results.png'>"
+    "![ext_closed_cv](results/extra_trees_closed_cv_results.png)"
    ]
   },
   {
@@ -448,7 +448,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/extra_trees_roc_curve.png'>"
+    "![ext_roc](results/extra_trees_roc_curve.png)"
    ]
   },
   {
@@ -469,14 +469,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/random_forest_two_class_variable_importance.png'>"
+    "![rf_cl_imp](results/random_forest_two_class_variable_importance.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/variable_importance_closed_extra_trees.png'>"
+    "![ex_closed_imp](results/variable_importance_closed_extra_trees.png)"
    ]
   },
   {
@@ -513,14 +513,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src = 'results/mds_euc_status.png'>"
+    "![mds_status](results/mds_euc_status.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<img src='results/mds_euc_closed.png'>"
+    "![mds_closed](results/mds_euc_closed.png)"
    ]
   },
   {

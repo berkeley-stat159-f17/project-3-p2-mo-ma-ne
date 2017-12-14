@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Explore Categorical Variables to Classify Company Status &#8212; p3 1 documentation</title>
+    <title>Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status &#8212; p3 1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Summary: Can we predict a start-up’s success?" href="main..html" />
-    <link rel="prev" title="Prepare Data for Classification" href="classification_data_prep..html" />
+    <link rel="prev" title="Exploratory Analysis #5: Prepare Data for Classification" href="classification_data_prep..html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -207,8 +207,8 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 </style>
-<div class="section" id="Explore-Categorical-Variables-to-Classify-Company-Status">
-<h1>Explore Categorical Variables to Classify Company Status<a class="headerlink" href="#Explore-Categorical-Variables-to-Classify-Company-Status" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Exploratory-Analysis-#6:-Explore-Categorical-Variables-to-Classify-Company-Status">
+<h1>Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status<a class="headerlink" href="#Exploratory-Analysis-#6:-Explore-Categorical-Variables-to-Classify-Company-Status" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
 <span></span>In [44]:
@@ -2177,6 +2177,14 @@ overpredicts operating.</p>
 better on the status dataset, however, the fact that most gave similar
 variable importance statistics gives us a good idea about which features
 are important in creating this decision trees.</p>
+<div class="figure" id="id2">
+<img alt="var\_imp\_rf\_status" src="_images/variable_importance_status_random_forest.png" />
+<p class="caption"><span class="caption-text">var_imp_rf_status</span></p>
+</div>
+<div class="figure" id="id3">
+<img alt="var\_imp\_status\_ext" src="_images/variable_importance_status_extra_trees.png" />
+<p class="caption"><span class="caption-text">var_imp_status_ext</span></p>
+</div>
 <p>It looks like for both tree based methods number of relationships is the
 most important variable. Number of milestones is also important for both
 types of methods. Interestingly, first name is as important or more
@@ -2368,6 +2376,14 @@ by random. This mean this extratrees classifier, at times, is worse than
 a random guess classifier.</p>
 <p>We can still examine the varible importances of the random forest vs the
 extremeley randomized tree to see if we can gather any insights</p>
+<div class="figure" id="id4">
+<img alt="var\_imp\_rf\_closed" src="_images/random_forest_two_class_variable_importance.png" />
+<p class="caption"><span class="caption-text">var_imp_rf_closed</span></p>
+</div>
+<div class="figure" id="id5">
+<img alt="var\_imp\_closed\_ext" src="_images/variable_importance_closed_extra_trees.png" />
+<p class="caption"><span class="caption-text">var_imp_closed_ext</span></p>
+</div>
 <p>Had funding clearly looks like an important feature to predicting
 whether a business is closed or not based on our tree based bethods.
 Category code also seems to be an important variable for both methods.
@@ -2768,9 +2784,8 @@ section had trouble classifying the data. It may be that the features we
 are looking are aren’t really indicators of success or failure in
 business.</p>
 </div>
-</div>
 <div class="section" id="Final-Thoughts">
-<h1>Final Thoughts<a class="headerlink" href="#Final-Thoughts" title="Permalink to this headline">¶</a></h1>
+<h2>Final Thoughts<a class="headerlink" href="#Final-Thoughts" title="Permalink to this headline">¶</a></h2>
 <p>In this notebook we tried to classify business status via categorical
 variables about business location and founders. In doing so, we were not
 only looking to build an accurate model, we also wanted to understand
@@ -2795,15 +2810,6 @@ status. Further analysis certainly could have been done, but the
 runetime on this notebook is already significant so we kind of leave
 with an ambigous answer to our question of what categorical features
 predict company status.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
 </div>
 </div>
 
@@ -2815,7 +2821,7 @@ predict company status.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Explore Categorical Variables to Classify Company Status</a><ul>
+<li><a class="reference internal" href="#">Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status</a><ul>
 <li><a class="reference internal" href="#Random-Forest-Classifier">Random Forest Classifier</a><ul>
 <li><a class="reference internal" href="#Closed">Closed</a></li>
 </ul>
@@ -2825,15 +2831,15 @@ predict company status.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#Looking-at-Data-using-Dumby">Looking at Data using Dumby</a></li>
+<li><a class="reference internal" href="#Final-Thoughts">Final Thoughts</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#Final-Thoughts">Final Thoughts</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="classification_data_prep..html" title="previous chapter">Prepare Data for Classification</a></li>
+      <li>Previous: <a href="classification_data_prep..html" title="previous chapter">Exploratory Analysis #5: Prepare Data for Classification</a></li>
       <li>Next: <a href="main..html" title="next chapter">Summary: Can we predict a start-up’s success?</a></li>
   </ul></li>
 </ul>
