@@ -1,0 +1,2878 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Explore Categorical Variables to Classify Company Status &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Summary: Can we predict a start-up’s success?" href="main..html" />
+    <link rel="prev" title="Prepare Data for Classification" href="classification_data_prep..html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+</style>
+<div class="section" id="Explore-Categorical-Variables-to-Classify-Company-Status">
+<h1>Explore Categorical Variables to Classify Company Status<a class="headerlink" href="#Explore-Categorical-Variables-to-Classify-Company-Status" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">modules</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-dark&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#read in the data from data prep notebook</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s1">&#39;results/classification_data.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;classification_data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s examine the data a bit, first the frequency of our response
+variable.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#frequencies of status variables</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distrubtion of Status Response Variable&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Category&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;results/classification_status_variable_dist.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._5_0.png" src="_images/classification._5_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#frequncies of closed varible</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distrubtion of Two Category Response Variable&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Category&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;results/classification_closed_variable_dist.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._6_0.png" src="_images/classification._6_0.png" />
+</div>
+</div>
+<p>As you can see the vast majority of the data represents companies that
+are still operating. I am going to start with the easier two class
+response closed vs not closed, and then move on to the company status.
+The issue that we have here, and one that we need to keep in mind for
+our classification models, is that we have a huge difference in our
+response variable prior probabilities. The issue may arrive when
+evaluated performance, here is an example of why this may be an issue.
+Say we are modeling a rare disease where 99.99 percent of our data does
+not have the disease and 0.01 percent of our data does have the disease.
+Then a model that just predicts “no” every time has an error rate of
+0.0001, which is very low, but our model obviously sucks.</p>
+<div class="section" id="Random-Forest-Classifier">
+<h2>Random Forest Classifier<a class="headerlink" href="#Random-Forest-Classifier" title="Permalink to this headline">¶</a></h2>
+<p>I am going to start by using a random forest to classify status of a
+company. The reason I am going to focus on random forests is that random
+forests allow us to view the variable importance very easily, allowing
+us to see what predictors are most impactful in company status. Another
+reason random forests are nice in this case is that the sklearn
+RandomForestClassifier allows me to weight the response categories by
+setting class_weight, reducing the issue I discussed before of
+unbalanced prior probabilities. I also just want to try out sklearn’s
+random forest classifier and compare it to the r package randomForest.</p>
+<p>I did not realize sklearn’s random forest method does not except
+categorical variables yet. So I’m going to have to convert a bunch of
+variables into dumby variables. I don’t really like this, as an example
+why, say my 3 levels of a category are ‘green’, ‘red’, and ‘blue’ and an
+encoder make green = 0, red = 1, blue = 2. Then by this classification
+red is “in between” green and blue, when this is not the case. However,
+the alternative is create dumby columns for each category of each
+variable, and that would create a huge number of predictors, so for now
+I am going to go with the more naive approach.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#function to transform to encoded numerical variables</span>
+<span class="k">def</span> <span class="nf">transform_dumby</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">preds_index</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: transform a data predictors into dumby variables</span>
+
+<span class="sd">    inputs:</span>
+<span class="sd">        df: pandas data frame</span>
+<span class="sd">        preds_index: preds_index: eiter an a two item list consisting of the start and stop column index or tuple of predictors column index or a single integer. If it is a single integer we assume this is the first index and predictors are the rest of the df.</span>
+
+<span class="sd">    out: pandas df with encoded variables</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rt_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">preds_index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">preds_index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">preds_index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">predictor_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">predictor_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">preds_index</span><span class="p">:]</span>
+
+    <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="n">predictor_list</span><span class="p">:</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">):</span>
+            <span class="n">label_encoder</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">LabelEncoder</span><span class="p">()</span>
+            <span class="n">label_encoder</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+            <span class="n">new_col</span> <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+            <span class="n">rt_df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_col</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">rt_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#transform the data so random forest can use it</span>
+<span class="n">dat</span> <span class="o">=</span> <span class="n">transform_dumby</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">dat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[51]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>closed</th>
+      <th>status</th>
+      <th>name</th>
+      <th>category_code</th>
+      <th>had_funding</th>
+      <th>num_investment</th>
+      <th>num_relationships</th>
+      <th>num_milestones</th>
+      <th>logo_height</th>
+      <th>logo_width</th>
+      <th>region</th>
+      <th>degree_type</th>
+      <th>institution</th>
+      <th>subject</th>
+      <th>birthplace</th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7</th>
+      <td>No</td>
+      <td>operating</td>
+      <td>Fundable.com</td>
+      <td>11</td>
+      <td>0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>120.0</td>
+      <td>120.0</td>
+      <td>110</td>
+      <td>69</td>
+      <td>701</td>
+      <td>465</td>
+      <td>745</td>
+      <td>344</td>
+      <td>366</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>No</td>
+      <td>operating</td>
+      <td>Wevod</td>
+      <td>12</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>89.0</td>
+      <td>250.0</td>
+      <td>336</td>
+      <td>317</td>
+      <td>273</td>
+      <td>1116</td>
+      <td>330</td>
+      <td>797</td>
+      <td>634</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>No</td>
+      <td>acquired</td>
+      <td>Jumptap</td>
+      <td>22</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>45.0</td>
+      <td>3.0</td>
+      <td>165.0</td>
+      <td>650.0</td>
+      <td>57</td>
+      <td>52</td>
+      <td>26</td>
+      <td>352</td>
+      <td>980</td>
+      <td>1147</td>
+      <td>1748</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Yes</td>
+      <td>closed</td>
+      <td>FairSoftware</td>
+      <td>40</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>67.0</td>
+      <td>250.0</td>
+      <td>372</td>
+      <td>317</td>
+      <td>894</td>
+      <td>394</td>
+      <td>790</td>
+      <td>29</td>
+      <td>1508</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>No</td>
+      <td>operating</td>
+      <td>WPP</td>
+      <td>30</td>
+      <td>0</td>
+      <td>21.0</td>
+      <td>23.0</td>
+      <td>3.0</td>
+      <td>59.0</td>
+      <td>86.0</td>
+      <td>309</td>
+      <td>199</td>
+      <td>1182</td>
+      <td>310</td>
+      <td>492</td>
+      <td>507</td>
+      <td>1731</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Now I need to split into test and training sets. One common convention
+is to use 80 percent of the data as the training set.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#shape of the data</span>
+<span class="n">dat</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[52]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(2348, 17)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="c1">#split into test and training set using 80 percent of the data</span>
+<span class="n">training</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">training</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[53]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(1878, 17)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#get test data being removing the training rows from data</span>
+<span class="n">training_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">training</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">training_index</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">test</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[54]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(470, 17)
+</pre></div>
+</div>
+</div>
+<p>Now I can seperate the predictors and response variables in the training
+and test data.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#function to seperate predictors and response in one line</span>
+<span class="k">def</span> <span class="nf">seperate_preds_response</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">response_var</span><span class="p">,</span> <span class="n">preds_index</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    decription: function that makes it so I don&#39;t have to split into predictors and response for test and traiing data.</span>
+
+<span class="sd">    inputs:</span>
+<span class="sd">        df: training or test data frame</span>
+<span class="sd">        response_var: either a string of the name of the response variable or a list of strings for multiple different response variables</span>
+<span class="sd">        preds_index: eiter an a two item list consisting of the start and stop column index or tuple of predictors column index or a single integer. If it is a single integer we assume this is the first index and predictors are the rest of the df.</span>
+<span class="sd">    output:</span>
+<span class="sd">        List of predictors and response.</span>
+<span class="sd">        First item of the list is the data frame of predictors. The rest are the response series.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;df must be Pandas DFs&quot;</span><span class="p">)</span>
+
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">preds_index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">preds_index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">preds_index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">predictor_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">predictor_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">preds_index</span><span class="p">:]</span>
+
+    <span class="n">predictors</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">predictor_list</span><span class="p">]</span>
+
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">predictors</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">response_var</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;columns of response_var must be strings in the data frame&quot;</span><span class="p">)</span>
+
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+        <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#seperate predictors and response</span>
+<span class="n">train_preds</span><span class="p">,</span> <span class="n">train_closed</span><span class="p">,</span> <span class="n">train_status</span> <span class="o">=</span> <span class="n">seperate_preds_response</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">test_preds</span><span class="p">,</span> <span class="n">test_closed</span><span class="p">,</span> <span class="n">test_status</span> <span class="o">=</span> <span class="n">seperate_preds_response</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#training shape</span>
+<span class="n">train_preds</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[57]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(1878, 14)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#test shape</span>
+<span class="n">test_preds</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[58]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(470, 14)
+</pre></div>
+</div>
+</div>
+<p>I am now going to fit a random forest classifier on the status of the
+data.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">ensemble</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+</pre></div>
+</div>
+</div>
+<p>Before I fit the random forest model I am going to use GridSearchCV to
+perform cross validation in order to tune the hyperparameters of the
+random forest. In the case of this random forest I am going to tune the
+number of trees in the random forest ‘n_estimators’, the parameter
+‘max_features’, and the maximum depth (terminal nodes) of the tree
+‘max_depth’. The ‘max_features’ parameter is the most important
+parameter for random forests, and determines the maximum number of
+predictors to random forest will look at when decided how to best split
+the data. The reason random forests do not look at all of the predictors
+in the data when creating splits lies in the bias-variance trade off:
+the random forest will risk increasing bias while reducing variance in
+limiting the maximum number of features. This reduces any error causes
+my highly correlated predictors.</p>
+<p>Cross Validation allows us to tune these hyperparameters. When looking
+at the predictive power of a learning model, the accuracy of the model
+in predicting the data used to train it is a dis-honest evaluation of
+the model. Cross Validation splits the data in k folds, then for each
+value of the hyperparameters we are looking at it training the model on
+all but one of the folds at a time, tests the model on each left out
+fold. The average perforamnce of each of the k folds is used as the
+estimated performance of the hyperparameters. Using GridSearchCV I can
+find the best combination of my two hyperparameters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#list of number of predictors examined in the CV</span>
+<span class="n">num_preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">train_preds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1">#list of the number of trees used in the CV</span>
+<span class="n">n_ests</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">]</span>
+
+<span class="c1">#max depth</span>
+<span class="n">m_depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Note that for scoring I am using an f1 score, f1_weighted. This is to
+attempt to not overclassify the highly frequent “operating” status. For
+example, I will show an example after these steps as to what happens
+when I use accuracy.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#dictionary of parameters to be tuned</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_features&#39;</span><span class="p">:</span>  <span class="n">num_preds</span><span class="p">,</span> <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="n">m_depth</span><span class="p">,</span> <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="n">n_ests</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>The cell below may take a view minutes to run. As side note, while this
+next cell does take a but of time to run, if we run to do the same in r
+it would take much longer. GridSearchCV is one of the most usefull parts
+of sklearn in my limited experience with it.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [63]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#intialize a random forest classifier.</span>
+<span class="c1">#random state sets the random set of the classifier</span>
+<span class="c1">#class_weight = &#39;balanced_subsample&#39;</span>
+<span class="n">rcf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">class_weight</span> <span class="o">=</span> <span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+
+<span class="c1">#do 5-fold cross validation the hyperparameters</span>
+<span class="n">cv_rcf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rcf</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;f1_weighted&#39;</span><span class="p">,</span> <span class="n">return_train_score</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="c1">#fit the training data</span>
+<span class="n">cv_rcf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_preds</span><span class="p">,</span> <span class="n">train_status</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[63]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>GridSearchCV(cv=5, error_score=&#39;raise&#39;,
+       estimator=RandomForestClassifier(bootstrap=True, class_weight=&#39;balanced&#39;,
+            criterion=&#39;gini&#39;, max_depth=None, max_features=&#39;auto&#39;,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+            oob_score=False, random_state=100, verbose=0, warm_start=False),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={&#39;max_features&#39;: array([2, 3, 4, 5, 6]), &#39;max_depth&#39;: array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]), &#39;n_estimators&#39;: [50, 100, 150, 200, 250]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=False,
+       scoring=&#39;f1_weighted&#39;, verbose=0)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">plot_cross_validation_result</span><span class="p">(</span><span class="n">cv_model</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">hue</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">savefig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    description: plot results of parameter tuning cross validation with 3 parameters</span>
+<span class="sd">    inputs:</span>
+<span class="sd">        cv_results: GridSearchCV object with cv_results_ instance</span>
+<span class="sd">        col: String, column name in cv_results_ to facet</span>
+<span class="sd">        hue: String, column in cv_results_ to split by</span>
+<span class="sd">        x_var: String, column in cv_results_ to plot as x</span>
+<span class="sd">        title: String, title</span>
+<span class="sd">        savefig: savefig file name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cv_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cv_model</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">hue</span><span class="p">,</span> <span class="n">x_var</span><span class="p">]]</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">scores</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">hue</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="s1">&#39;mean_test_score&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add_legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#plot the results of the cross validation grouped by max_features and faceted by number of trees</span>
+<span class="n">plot_cross_validation_result</span><span class="p">(</span><span class="n">cv_rcf</span><span class="p">,</span> <span class="s1">&#39;param_n_estimators&#39;</span><span class="p">,</span> <span class="s1">&#39;param_max_features&#39;</span><span class="p">,</span> <span class="s1">&#39;param_max_depth&#39;</span><span class="p">,</span>
+                             <span class="s2">&quot;Random Forest Hyperparamter Cross Validation Results For Status Response Variable grouped by max_features&quot;</span><span class="p">,</span>
+                             <span class="s2">&quot;results/rf_cv_results_status_max_features.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._34_0.png" src="_images/classification._34_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#plot the results of the cross validation grouped by max_depth and faceted by number of trees</span>
+<span class="n">plot_cross_validation_result</span><span class="p">(</span><span class="n">cv_rcf</span><span class="p">,</span> <span class="s1">&#39;param_n_estimators&#39;</span><span class="p">,</span> <span class="s1">&#39;param_max_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;param_max_features&#39;</span><span class="p">,</span>
+                             <span class="s2">&quot;Random Forest Hyperparamter Cross Validation Results For Status Response Variable grouped by max_depth&quot;</span><span class="p">,</span>
+                             <span class="s2">&quot;results/rf_cv_results_status_max_depth.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._35_0.png" src="_images/classification._35_0.png" />
+</div>
+</div>
+<p>I can now fit a random forest using the best combination of
+hyperparameters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#fit the best cross validation random forest</span>
+<span class="n">best_rcf</span> <span class="o">=</span> <span class="n">cv_rcf</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">var_imp_plot</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_preds</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">savefig</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="s1">&#39;gini&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    description: plot variable importance for randomforest and extratrees model</span>
+<span class="sd">    inputs:</span>
+<span class="sd">        model: sklearn randomforest or extratrees model</span>
+<span class="sd">        train_preds: list of training predictor column names</span>
+<span class="sd">        title: title of plot</span>
+<span class="sd">        savefig: savefig name</span>
+<span class="sd">        score: (option) String, evaluation parameter, deafult set to gini, if not default supply own vector of variable importance</span>
+
+<span class="sd">    output:</span>
+<span class="sd">        variable importance plot</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">score</span> <span class="o">==</span> <span class="s1">&#39;gini&#39;</span><span class="p">:</span>
+        <span class="n">imps</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">feature_importances_</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">imps</span> <span class="o">=</span> <span class="n">score</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">train_preds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">feature_names</span> <span class="o">=</span> <span class="n">train_preds</span><span class="o">.</span><span class="n">columns</span>
+
+    <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">imps</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">align</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">train_preds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Importance&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Variable&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now I can look at the feature importance of each variable. This is the
+variable that best splits the data into the status categories.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#create data frame of variable importance</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;variable&#39;</span><span class="p">:</span> <span class="n">train_preds</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;gini&#39;</span><span class="p">:</span> <span class="n">best_rcf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">}</span>
+<span class="n">feature_imp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">feature_imp</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[69]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gini</th>
+      <th>variable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.059958</td>
+      <td>category_code</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.047761</td>
+      <td>had_funding</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.061400</td>
+      <td>num_investment</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.167173</td>
+      <td>num_relationships</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.080897</td>
+      <td>num_milestones</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.079395</td>
+      <td>logo_height</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.075504</td>
+      <td>logo_width</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.057165</td>
+      <td>region</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.045197</td>
+      <td>degree_type</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.069924</td>
+      <td>institution</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.060716</td>
+      <td>subject</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0.059804</td>
+      <td>birthplace</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0.070913</td>
+      <td>first_name</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0.064193</td>
+      <td>last_name</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [70]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Variable Importance of Tuned Random Forest for Status Response&quot;</span>
+<span class="n">savefig</span> <span class="o">=</span> <span class="s2">&quot;results/variable_importance_status_random_forest.png&quot;</span>
+<span class="n">var_imp_plot</span><span class="p">(</span><span class="n">best_rcf</span><span class="p">,</span> <span class="n">train_preds</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">savefig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._41_0.png" src="_images/classification._41_0.png" />
+</div>
+</div>
+<p>It seems num_relationships best splits our data into the status
+categories.</p>
+<p>Now I am going to move on to testing. Recall before I mentioned how the
+issue of class imbalance may effect our learning model. While we were
+able to find out number of relationships split the data well the status
+category, we still don’t know how well that model predicts unseen data?
+First let’s look at the accuracy of our model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [71]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#look at accuracy of the data</span>
+<span class="n">test_status_score</span> <span class="o">=</span> <span class="n">best_rcf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_preds</span><span class="p">,</span> <span class="n">test_status</span><span class="p">)</span>
+<span class="n">test_status_score</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[71]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>0.82340425531914896
+</pre></div>
+</div>
+</div>
+<p>That’s not horrible. However, I mentioned before the issue when
+attempting to classify on a data set with highly unbalanced accuracy is
+that a model can return “accurate” results by simply classifying every
+observation as the class with the overwhelmingly high frequency. Below I
+will show the confusion matrix of the predictions our model made. In a
+confusion matrix, the number in the ith row and jth column is the number
+of individuals we predicted to be in the “ith” class, but is really in
+the “jth” class, based on some ordering. I provide the ordering in a
+list before the confusion matrix is printed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [72]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="c1">#class predictions</span>
+<span class="n">preds_status_forest</span> <span class="o">=</span> <span class="n">best_rcf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)</span>
+<span class="c1">#confusion matrix</span>
+<span class="n">labs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">test_status</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">labs</span><span class="p">)</span>
+<span class="n">cf</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_status</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">preds_status_forest</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">labs</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
+[[  4   0  31   0]
+ [  3   2   9   0]
+ [ 19   6 377   5]
+ [  2   0   8   4]]
+</pre></div></div>
+</div>
+<p>Before I said I would show what happened with the best results based on
+accuracy. Accuracy and tree depth are highly correlated, and deep trees
+can provide very accurate results, but overfit. You can see that tree
+depth is almost maximum for our best random forest model here based on
+f1_score, because f1 score is still reliant on us getting many accurate
+“operating” classifications. However, if I had kept the score on
+accuracy in the cross validation process, I would have gotten a model
+with maximum tree depth. Let’s look at what happens in that case, by
+keeping all other parameters constant.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [73]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">rcf_max_depth</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">bootstrap</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span>
+            <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">min_impurity_split</span><span class="o">=</span><span class="mf">1e-07</span><span class="p">,</span>
+            <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">min_weight_fraction_leaf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">oob_score</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">rcf_max_depth</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_preds</span><span class="p">,</span> <span class="n">train_status</span><span class="p">)</span>
+<span class="n">rcf_max_depth</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_preds</span><span class="p">,</span> <span class="n">test_status</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[73]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>0.86808510638297876
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [74]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#class predictions</span>
+<span class="n">preds_max</span> <span class="o">=</span> <span class="n">rcf_max_depth</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)</span>
+<span class="c1">#confusion matrix</span>
+<span class="n">labs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">test_status</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">labs</span><span class="p">)</span>
+<span class="n">cf</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_status</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">preds_max</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">labs</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
+[[  0   0  35   0]
+ [  0   0  14   0]
+ [  0   0 407   0]
+ [  0   0  13   1]]
+</pre></div></div>
+</div>
+<p>Similar results would have occured if we had set max_depth to none. As
+you can see, the model did not do very well. Very few cases in the test
+sample were predicted to be not ‘operating’, showing the model really is
+not predicting anything, this shows the issue with model accuracy. You
+can see that the model based on the weighted f1 scores really does not
+perform much better, and is still overpredicting operating. I could have
+based the scoring criteria only on precision, but then model accuracy
+would suffer.</p>
+<p>As a side note, I struggled with what you see above for a long time. In
+r, dealing with these kind of datasets tends to be a little easier, and
+when searching for ways to solve the issue of overpredicting frequent
+classes I read some pretty heated comments on stack overflow by people
+critizing sklearn for people behind.</p>
+<p>One way to make this problem a little easier to to switch to a two
+variable case, and base the cross validation scoring statistic to AUC.
+Using sklearn, I can do is switch to binary variables and fit my models
+hyper-parameters using the sklearn’s roc_auc_score to measure test
+performance via auc. A receiver operating characteristic curve (ROC
+curve) is a good way to measure predictive performance of a two class
+response variable. AUC, short for area under the curve, provides a
+performance metric for a predictive model by calculating the area under
+the ROC curve.</p>
+<div class="section" id="Closed">
+<h3>Closed<a class="headerlink" href="#Closed" title="Permalink to this headline">¶</a></h3>
+<p>First, I realized that sklearn prefers binary 1 or 0 encoding for
+categorical responses in order to find the ROC curve and AUC so I am
+going to switch the encoding. Then I will run the sam process as before,
+but this time on the binary variable indicating whether a business was
+closed or not.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [75]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#change encoding</span>
+<span class="n">train_closed_binary</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;Yes&#39;</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">train_closed</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Note: the below cell may take a while</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [76]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#make closed model</span>
+<span class="c1">#params = {&#39;max_features&#39;:  num_preds, &#39;n_estimators&#39;: n_ests}</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_features&#39;</span><span class="p">:</span>  <span class="n">num_preds</span><span class="p">,</span> <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="n">m_depth</span><span class="p">,</span> <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="n">n_ests</span><span class="p">}</span>
+
+<span class="n">rcf_closed</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">class_weight</span> <span class="o">=</span> <span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
+
+<span class="n">cv_rcf_closed</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rcf_closed</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span>
+                      <span class="n">return_train_score</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="c1">#cv_rcf.fit(train_preds, train_closed)</span>
+<span class="n">cv_rcf_closed</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_preds</span><span class="p">,</span> <span class="n">train_closed_binary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[76]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>GridSearchCV(cv=5, error_score=&#39;raise&#39;,
+       estimator=RandomForestClassifier(bootstrap=True, class_weight=&#39;balanced&#39;,
+            criterion=&#39;gini&#39;, max_depth=None, max_features=&#39;auto&#39;,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+            oob_score=False, random_state=100, verbose=0, warm_start=False),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={&#39;max_features&#39;: array([2, 3, 4, 5, 6]), &#39;max_depth&#39;: array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10]), &#39;n_estimators&#39;: [50, 100, 150, 200, 250]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=False,
+       scoring=&#39;roc_auc&#39;, verbose=0)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [77]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#plot grouped by max_features</span>
+<span class="n">plot_cross_validation_result</span><span class="p">(</span><span class="n">cv_rcf_closed</span><span class="p">,</span> <span class="s1">&#39;param_n_estimators&#39;</span><span class="p">,</span> <span class="s1">&#39;param_max_features&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;param_max_depth&#39;</span><span class="p">,</span>
+                             <span class="s2">&quot;Random Forest Closed Response Hyperparamter Cross Validation Results grouped by max_features&quot;</span><span class="p">,</span>
+                             <span class="s1">&#39;results/rf_closed_cv_results_max_features.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._56_0.png" src="_images/classification._56_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [78]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#plot grouped by max_depth</span>
+<span class="n">plot_cross_validation_result</span><span class="p">(</span><span class="n">cv_rcf_closed</span><span class="p">,</span> <span class="s1">&#39;param_n_estimators&#39;</span><span class="p">,</span><span class="s1">&#39;param_max_depth&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;param_max_features&#39;</span><span class="p">,</span>
+                             <span class="s2">&quot;Random Forest Hyperparamter Closed Response Cross Validation Results grouped by max_depth&quot;</span><span class="p">,</span>
+                             <span class="s1">&#39;results/rf_closed_cv_results_max_depth.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._57_0.png" src="_images/classification._57_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [79]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#fit the best model based on the best hyperparameters</span>
+<span class="n">best_rcf_closed</span> <span class="o">=</span> <span class="n">cv_rcf_closed</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [80]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Variable Importance of Tuned Random Forest for Two Category Response&quot;</span>
+<span class="n">savefig</span> <span class="o">=</span> <span class="s2">&quot;results/random_forest_two_class_variable_importance.png&quot;</span>
+<span class="n">var_imp_plot</span><span class="p">(</span><span class="n">best_rcf_closed</span><span class="p">,</span> <span class="n">train_preds</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">savefig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._59_0.png" src="_images/classification._59_0.png" />
+</div>
+</div>
+<p>Now it seems the feature that is the most important is had_funding,
+followed by category_code. The number of investments is suprisingly
+low, however last name of founder is also very low in importance for
+determining the status of a company, which is expected. One other thing
+I notice, school subject of a founder is more important than the
+institution of a founder, which is more important than the degree type.</p>
+<p>Now we can look at the test performance of our new random forest model.
+Let’s start with accuracy.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [81]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#encode test response variibale</span>
+<span class="n">test_closed_binary</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;Yes&#39;</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">test_closed</span><span class="p">]</span>
+<span class="c1">#look at test score</span>
+<span class="n">best_rcf_closed</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_preds</span><span class="p">,</span> <span class="n">test_closed_binary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[81]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>0.7191489361702128
+</pre></div>
+</div>
+</div>
+<p>This is low, much lower than the test score we got for our previous
+random forest. However, the issue there was that the model had no true
+predictive power.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [82]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#look at test confusion matrix</span>
+<span class="n">preds_closed_forest</span> <span class="o">=</span> <span class="n">best_rcf_closed</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)</span>
+<span class="c1">#confusion matrix</span>
+<span class="n">labs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">test_closed_binary</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">labs</span><span class="p">)</span>
+<span class="n">cf_closed</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_closed_binary</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">preds_closed_forest</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">labs</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cf_closed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0, 1]
+[[327 129]
+ [  3  11]]
+</pre></div></div>
+</div>
+<p>Now you can see that the model is actually predicting negative cases. In
+the model on status we were constantly predicting a business would be
+operating, and were rarely able to predict when a business would have
+any other status. In this case, we were able to predict almost all of
+the closed businesses, even though we predicted many operating business
+would be closed.</p>
+<p>The issue now with the model is the high false positve rates, but in the
+data sets like the one we are working with, this example becomes a lot
+like attempting to predict a rare disease. When predicting a rare
+disease, obviously having too high of a false positive rate is much
+prefferable to a high false negative rate. While originally we set out
+to attempt find out how to predict succes, I’m actually now kind of
+trying to find how to predict failure.</p>
+<p>Remember I picked the hyperparameters of this model based on the AUC
+score, so let’s look at our model performance bu looking at the ROC
+curve and AUC statistic.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [83]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="k">def</span> <span class="nf">roc_auc_plot</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">savefig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    description: plot the roc and report the auc of a curve</span>
+<span class="sd">    inputs:</span>
+<span class="sd">        model: learning model with two category response</span>
+<span class="sd">        title: title</span>
+<span class="sd">        savefig: savefig file</span>
+
+<span class="sd">    outputs:</span>
+<span class="sd">        ROC curve</span>
+<span class="sd">        auc</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pred_probs_closed_pos</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">test_closed_binary</span><span class="p">,</span> <span class="n">pred_probs_closed_pos</span><span class="p">)</span>
+    <span class="n">auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">test_closed_binary</span><span class="p">,</span> <span class="n">pred_probs_closed_pos</span><span class="p">)</span>
+    <span class="n">auc_str</span> <span class="o">=</span> <span class="s2">&quot;AUC: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">auc</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">auc_str</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;True Positve Rate&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;False Negative Rate&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [84]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">roc_auc_plot</span><span class="p">(</span><span class="n">best_rcf_closed</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Random Forest ROC curve&quot;</span><span class="p">,</span> <span class="n">savefig</span> <span class="o">=</span> <span class="s2">&quot;results/random_forest_roc_curve&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AUC: 0.794564536341
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._68_1.png" src="_images/classification._68_1.png" />
+</div>
+</div>
+<p>Once again our performance isn’t great. If we wanted great performance
+we could have turned every feature into a dumby indicator variable and
+run a KNN model, however, then we would not have any good inference on
+important features, and would have run the risk of overfitting the data.</p>
+</div>
+</div>
+<div class="section" id="Extremeley-Randomized-Trees-Classifier">
+<h2>Extremeley Randomized Trees Classifier<a class="headerlink" href="#Extremeley-Randomized-Trees-Classifier" title="Permalink to this headline">¶</a></h2>
+<p>I spent a lot of time reading sklearn documentation for this project on
+models I was familiar with, and several time I just theme suggest
+reading the ExtraTreesClassifier. I had not heard of an Extra Trees
+model before, so I did some research and read some of
+<a class="reference external" href="http://www.montefiore.ulg.ac.be/~ernst/uploads/news/id63/extremely-randomized-trees.pdf">this</a>
+paper from 2006 introducing Extremeley Randomized Trees, or in sklearn
+speak ExtraTrees.</p>
+<p>Extremeley Randomized Trees are very similar to Random Forests, and
+sklearn sets up the user input up in a very similar way. Extremeley
+Randomized Trees are similar to Random Forests in that they take a
+random rubsample of features, but drops the idea of bootstraping many
+trees samples in order to find optimal cut off points for feature node
+splits, and instead randomizes the picks a decision boundary at random
+for these node splits. This is why they are “extremeley” random, and as
+far as the bias-variance tradeoff is concerned, the model’s increase in
+randomness seeks to further lower the variance of a model. Based on what
+I read, the performance of Extremley Randomized Trees can be similar, if
+not usually better, than that of a Random Forest.</p>
+<p>I am going to use GridSearchCV to tune the hyperparameters of the model
+again, however, this time I am not tuning the number of trees, or
+n_estimators, of the model. There are several reasons for this, for
+one, in general as the number of trees increases, generally model
+accurately increases at the sake of increases runtime, and I this
+notebook already has several cells that can take a few minutes to run.
+In addition, as the number of estimators increases, so does generally
+the chance of overfitting, and I am purposely using ExtraTrees for its
+ability to reduce model variance.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [85]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesClassifier</span>
+
+<span class="n">params_two</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_features&#39;</span> <span class="p">:</span> <span class="n">num_preds</span><span class="p">,</span> <span class="s1">&#39;max_depth&#39;</span> <span class="p">:</span> <span class="n">m_depth</span><span class="p">}</span>
+
+<span class="n">ext</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">criterion</span> <span class="o">=</span> <span class="s1">&#39;gini&#39;</span><span class="p">,</span>
+                           <span class="n">class_weight</span> <span class="o">=</span> <span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">cv_ext</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">params_two</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;f1_weighted&#39;</span><span class="p">,</span>
+                      <span class="n">return_train_score</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="n">cv_ext</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_preds</span><span class="p">,</span> <span class="n">train_status</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+/Users/jackmoorer/anaconda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[85]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>GridSearchCV(cv=5, error_score=&#39;raise&#39;,
+       estimator=ExtraTreesClassifier(bootstrap=False, class_weight=&#39;balanced&#39;,
+           criterion=&#39;gini&#39;, max_depth=None, max_features=&#39;auto&#39;,
+           max_leaf_nodes=None, min_impurity_split=1e-07,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1,
+           oob_score=False, random_state=5, verbose=0, warm_start=False),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={&#39;max_features&#39;: array([2, 3, 4, 5, 6]), &#39;max_depth&#39;: array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10])},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=False,
+       scoring=&#39;f1_weighted&#39;, verbose=0)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [86]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">plot_cv_two_param</span><span class="p">(</span><span class="n">cv_model</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">x_var</span><span class="p">,</span> <span class="n">ylab</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">savefig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    description: similar to plot before, but now with two hyperparameters</span>
+<span class="sd">    inputs:</span>
+<span class="sd">        cv_model: GridSearchCV model</span>
+<span class="sd">        group: column name to group by</span>
+<span class="sd">        xvar: param to put on x variable</span>
+<span class="sd">        y_lab: metric used for cv</span>
+<span class="sd">        title: title</span>
+<span class="sd">        savefig: savefig file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ext_cv_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cv_model</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+    <span class="n">ext_cv_results</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;mean_test_score&#39;</span><span class="p">,</span>
+                                               <span class="n">x</span> <span class="o">=</span> <span class="n">x_var</span><span class="p">,</span>
+                                              <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+    <span class="n">leg</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">leg</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">num_preds</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylab</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [87]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#plot cv results</span>
+<span class="n">plot_cv_two_param</span><span class="p">(</span><span class="n">cv_ext</span><span class="p">,</span> <span class="s1">&#39;param_max_features&#39;</span><span class="p">,</span> <span class="s1">&#39;param_max_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;Mean F1&#39;</span><span class="p">,</span>
+                  <span class="s2">&quot;Extremeley Randomized Trees Status Response Cross Validation Results Groups by Max Features&quot;</span><span class="p">,</span>
+                  <span class="s1">&#39;results/extra_trees_status_cv_results.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._75_0.png" src="_images/classification._75_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [88]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#fit extremeley randomized tree</span>
+<span class="n">best_ext</span> <span class="o">=</span> <span class="n">cv_ext</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s look at the variable importance plot.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [89]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#plot var importance</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Variable Importance of Tuned ExtraTrees for Status Response&quot;</span>
+<span class="n">savefig</span> <span class="o">=</span> <span class="s2">&quot;results/variable_importance_status_extra_trees.png&quot;</span>
+<span class="n">var_imp_plot</span><span class="p">(</span><span class="n">best_ext</span><span class="p">,</span> <span class="n">train_preds</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">savefig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._78_0.png" src="_images/classification._78_0.png" />
+</div>
+</div>
+<p>Like the Random Forest model on status number of relationships is the
+most important, but now number of milestones is also important. Let’s
+look at the perforamnce of this model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [90]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#report test score</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">best_ext</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_preds</span><span class="p">,</span> <span class="n">test_status</span><span class="p">)</span>
+<span class="n">acc</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[90]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>0.78936170212765955
+</pre></div>
+</div>
+</div>
+<p>This is worse than for our Random Forest model on the status variable,
+but let’s look at the confusion matrix.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [91]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#report confusion matrix</span>
+<span class="n">pr</span> <span class="o">=</span> <span class="n">best_ext</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)</span>
+<span class="n">labs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">test_status</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">labs</span><span class="p">)</span>
+<span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_status</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pr</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">labs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[91]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>array([[  6,   4,  25,   0],
+       [  5,   3,   6,   0],
+       [ 19,  24, 358,   6],
+       [  3,   2,   5,   4]])
+</pre></div>
+</div>
+</div>
+<p>Unlike the random forest, the extremeley randomized tree is able to
+predict other classes, however, not very accurately. I do think that if
+I had tuned the number of estimators along side it I could have gotten
+better results, but I want to conserve runtime on this notebook. Notice
+once again I used accuracy as the perfomance score. This ended up
+yeilding that the greatest maximum depth of the tree yeilded the best
+results. This is what happened for the random forest model as well.
+Accuracy will increase an depth increases, so accuracy is just not a
+good metric to try to tune tree depth. I can quickly see what would
+happen if the tree had a lower max depth keeping the maximum feature
+parameter constant.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [92]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">quick_examine_extra</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    descrition: function to quickly examine how results change for depth change ExtraTrees</span>
+<span class="sd">    input:</span>
+<span class="sd">        max_depth: int, max depth of the tree</span>
+<span class="sd">    output:</span>
+<span class="sd">        print:</span>
+<span class="sd">            model accuracy</span>
+<span class="sd">            confusion matrix</span>
+<span class="sd">        return:</span>
+<span class="sd">            model with depth param</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ext_depth</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">criterion</span> <span class="o">=</span> <span class="s1">&#39;gini&#39;</span><span class="p">,</span>
+                           <span class="n">class_weight</span> <span class="o">=</span> <span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+                                  <span class="n">max_features</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">max_depth</span> <span class="o">=</span> <span class="n">depth</span><span class="p">)</span>
+    <span class="n">ext_depth</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_preds</span><span class="p">,</span> <span class="n">train_status</span><span class="p">)</span>
+
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">ext_depth</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_preds</span><span class="p">,</span> <span class="n">test_status</span><span class="p">)</span>
+
+
+    <span class="n">pr</span> <span class="o">=</span> <span class="n">ext_depth</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)</span>
+    <span class="n">labs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">test_status</span><span class="p">))</span>
+    <span class="n">cf</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_status</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pr</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">labs</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Accuracy is:&quot;</span><span class="p">,</span>  <span class="n">acc</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">labs</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">cf</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">ext_depth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [93]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#depth 2 tree</span>
+<span class="n">ext_depth_2</span> <span class="o">=</span> <span class="n">quick_examine_extra</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Accuracy is: 0.542553191489
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
+[[  0  18  13   4]
+ [  0  11   3   0]
+ [  3 147 241  16]
+ [  0   5   6   3]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [94]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#depth 5 tree</span>
+<span class="n">ext_depth_5</span> <span class="o">=</span> <span class="n">quick_examine_extra</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Accuracy is: 0.578723404255
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
+[[  0  17  12   6]
+ [  1  10   3   0]
+ [ 22 115 253  17]
+ [  1   4   0   9]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [95]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#depth 8 tree</span>
+<span class="n">ext_depth_8</span> <span class="o">=</span> <span class="n">quick_examine_extra</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Accuracy is: 0.697872340426
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
+[[  6  11  18   0]
+ [  4   4   6   0]
+ [ 39  49 311   8]
+ [  5   1   1   7]]
+</pre></div></div>
+</div>
+<p>We can see that smaller values of depth allow us to better predict
+closed, but not small tree depths make it difficult for the tree to
+predict acquired and ipo. What would happen if we picked a depth outside
+of the corss validation range I picked?</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [96]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#depth 12 tree</span>
+<span class="n">ext_depth_12</span> <span class="o">=</span> <span class="n">quick_examine_extra</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Accuracy is: 0.840425531915
+[&#39;acquired&#39;, &#39;closed&#39;, &#39;operating&#39;, &#39;ipo&#39;]
+[[  4   0  31   0]
+ [  3   1  10   0]
+ [ 10   7 388   2]
+ [  1   0  11   2]]
+</pre></div></div>
+</div>
+<p>Here the perforamance begins to act more like it did for the best random
+forest model. Accuracy is high, but that is just because the model
+overpredicts operating.</p>
+<p>It is difficult to say which of ExtraTrees and RandomForest performed
+better on the status dataset, however, the fact that most gave similar
+variable importance statistics gives us a good idea about which features
+are important in creating this decision trees.</p>
+<p>It looks like for both tree based methods number of relationships is the
+most important variable. Number of milestones is also important for both
+types of methods. Interestingly, first name is as important or more
+important than features many features, including academic features.</p>
+<div class="section" id="Closed">
+<h3>Closed<a class="headerlink" href="#Closed" title="Permalink to this headline">¶</a></h3>
+<p>I am going to repeat the process of using the two category feature on
+closed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [97]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">params_two</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_features&#39;</span> <span class="p">:</span> <span class="n">num_preds</span><span class="p">,</span> <span class="s1">&#39;max_depth&#39;</span> <span class="p">:</span> <span class="n">m_depth</span><span class="p">}</span>
+
+<span class="n">ext_closed</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">criterion</span> <span class="o">=</span> <span class="s1">&#39;gini&#39;</span><span class="p">,</span>
+                           <span class="n">class_weight</span> <span class="o">=</span> <span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">cv_ext_closed</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">ext_closed</span><span class="p">,</span> <span class="n">params_two</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span>
+                      <span class="n">return_train_score</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="n">cv_ext_closed</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_preds</span><span class="p">,</span> <span class="n">train_closed_binary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[97]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>GridSearchCV(cv=5, error_score=&#39;raise&#39;,
+       estimator=ExtraTreesClassifier(bootstrap=False, class_weight=&#39;balanced&#39;,
+           criterion=&#39;gini&#39;, max_depth=None, max_features=&#39;auto&#39;,
+           max_leaf_nodes=None, min_impurity_split=1e-07,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1,
+           oob_score=False, random_state=5, verbose=0, warm_start=False),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={&#39;max_features&#39;: array([2, 3, 4, 5, 6]), &#39;max_depth&#39;: array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10])},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=False,
+       scoring=&#39;roc_auc&#39;, verbose=0)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [98]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">plot_cv_two_param</span><span class="p">(</span><span class="n">cv_ext_closed</span><span class="p">,</span> <span class="s1">&#39;param_max_features&#39;</span><span class="p">,</span> <span class="s1">&#39;param_max_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;Mean AUC&#39;</span><span class="p">,</span>
+                  <span class="s2">&quot;Extremeley Randomized Trees Closed Response Cross Validation Results Groups by Max Features&quot;</span><span class="p">,</span>
+                  <span class="s1">&#39;results/extra_trees_closed_cv_results.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._98_0.png" src="_images/classification._98_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [99]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">best_ext_closed</span> <span class="o">=</span> <span class="n">cv_ext_closed</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [100]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#plot var importance</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Variable Importance of Tuned ExtraTrees for Closed Response&quot;</span>
+<span class="n">savefig</span> <span class="o">=</span> <span class="s2">&quot;results/variable_importance_closed_extra_trees.png&quot;</span>
+<span class="n">var_imp_plot</span><span class="p">(</span><span class="n">best_ext_closed</span><span class="p">,</span> <span class="n">train_preds</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">savefig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._100_0.png" src="_images/classification._100_0.png" />
+</div>
+</div>
+<p>Similar to the random forest closed variable importance plot, whether
+the company had funding, what category the company was, and the school
+subject of the founder were relatively important variables. One
+interesting note here is taht the number of relationships is now note
+important.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [101]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#look at accuracy</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">best_ext_closed</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_preds</span><span class="p">,</span> <span class="n">test_closed_binary</span><span class="p">)</span>
+<span class="n">acc</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[101]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>0.63404255319148939
+</pre></div>
+</div>
+</div>
+<p>This is a very low accuracy, let’s look at the confusion matrix.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [102]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#report confusion</span>
+<span class="n">pr_closed</span> <span class="o">=</span> <span class="n">best_ext_closed</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_preds</span><span class="p">)</span>
+<span class="n">labs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">test_closed_binary</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">labs</span><span class="p">)</span>
+<span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_closed_binary</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pr_closed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0, 1]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[102]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>array([[287, 169],
+       [  3,  11]])
+</pre></div>
+</div>
+</div>
+<p>That is very similar to the confusion matrix, in fact, it looks like
+this model just overpredicts “No” without actually improving the ability
+to predict “No” seemingly to imply, in this case, Random Forest is
+ideal. Let’s look at the ROC and AUC.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [103]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">roc_auc_plot</span><span class="p">(</span><span class="n">best_ext_closed</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;ExtraTrees ROC curve&quot;</span><span class="p">,</span> <span class="n">savefig</span> <span class="o">=</span> <span class="s1">&#39;results/extra_trees_roc_curve.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AUC: 0.715068922306
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._106_1.png" src="_images/classification._106_1.png" />
+</div>
+</div>
+<p>This model really did not perform well. The black dotted line on the ROC
+curve donates the ROC of a random classify that classifies “Yes” or “No”
+by random. This mean this extratrees classifier, at times, is worse than
+a random guess classifier.</p>
+<p>We can still examine the varible importances of the random forest vs the
+extremeley randomized tree to see if we can gather any insights</p>
+<p>Had funding clearly looks like an important feature to predicting
+whether a business is closed or not based on our tree based bethods.
+Category code also seems to be an important variable for both methods.
+Because the methods are very similar in nature, it is not a suprise both
+ranomd forests and extremely randomized trees gave similar variable
+importance for the two response variable.</p>
+<p>In the two category case it seemed like random forest performed better
+than extremely randomized trees.</p>
+</div>
+</div>
+<div class="section" id="Looking-at-Data-using-Dumby">
+<h2>Looking at Data using Dumby<a class="headerlink" href="#Looking-at-Data-using-Dumby" title="Permalink to this headline">¶</a></h2>
+<p>In order to run the tree based methods in this section I had to encode
+the features becasue sklearn does not accept categorical variables. In
+this section instead of encoding the variables, I am going to look at
+only the categorical features by creating a longer dumby matrix.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [104]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">start_preds</span><span class="p">,</span> <span class="n">all_closed</span><span class="p">,</span> <span class="n">all_status</span> <span class="o">=</span> <span class="n">seperate_preds_response</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [105]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">long_preds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">start_preds</span><span class="p">)</span>
+<span class="n">long_preds</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[105]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(2348, 7996)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [106]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">long_preds</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[106]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>num_investment</th>
+      <th>num_relationships</th>
+      <th>num_milestones</th>
+      <th>logo_height</th>
+      <th>logo_width</th>
+      <th>category_code_advertising</th>
+      <th>category_code_analytics</th>
+      <th>category_code_automotive</th>
+      <th>category_code_biotech</th>
+      <th>category_code_cleantech</th>
+      <th>...</th>
+      <th>last_name_paunikar</th>
+      <th>last_name_raj</th>
+      <th>last_name_rokade</th>
+      <th>last_name_seo</th>
+      <th>last_name_sk</th>
+      <th>last_name_termini</th>
+      <th>last_name_van Apeldoorn</th>
+      <th>last_name_van Loo</th>
+      <th>last_name_van der Chijs</th>
+      <th>last_name_von Wallenstein</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7</th>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>120.0</td>
+      <td>120.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>89.0</td>
+      <td>250.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0.0</td>
+      <td>45.0</td>
+      <td>3.0</td>
+      <td>165.0</td>
+      <td>650.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>67.0</td>
+      <td>250.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>21.0</td>
+      <td>23.0</td>
+      <td>3.0</td>
+      <td>59.0</td>
+      <td>86.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 7996 columns</p>
+</div></div>
+</div>
+<p>With get_dummies, pandas turns my data frame into a completely numeric
+data drame by splitting any categorical features into dumby variables. I
+am going to only keep the categorical dumby variables in this section</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [107]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">long_preds_cat</span> <span class="o">=</span> <span class="n">long_preds</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;num_investment&#39;</span><span class="p">,</span> <span class="s1">&#39;num_relationships&#39;</span><span class="p">,</span> <span class="s1">&#39;num_milestones&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_height&#39;</span><span class="p">,</span> <span class="s1">&#39;logo_width&#39;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>I am now going to examine the data in two dimensions using MDS like last
+project. I considered running a PCA in order to do a dimension
+reduction, but I decided against it.</p>
+<p>I am going to focus on Eucliean Distances rather than Jensen-Shannon
+divergence. The reason I am doing this is that orgianlly I had planned
+on fitting a KNN on the data using euclidean distances. However, due to
+the curse of dimensionality it was have been important to first do
+feature selection to reduce the dimensions of the data. I first wanted
+to look at a 2D few of these distances using MDS, and you will see the
+result.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [108]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#take transpose so that features are rows</span>
+<span class="n">pres_mat</span> <span class="o">=</span> <span class="n">long_preds_cat</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [109]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#normalize on probability scale</span>
+<span class="n">column_sums</span> <span class="o">=</span> <span class="n">pres_mat</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">pmm</span> <span class="o">=</span> <span class="n">pres_mat</span> <span class="o">/</span> <span class="n">column_sums</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [110]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#look at shape of data</span>
+<span class="n">pmm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pmm</span><span class="p">)</span>
+<span class="n">pmm</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[110]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(7991, 2348)
+</pre></div>
+</div>
+</div>
+<p>The next code chunk takes a very long time.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [111]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#calculate euclidean distances</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
+
+<span class="c1">#Intialize empty matrix of Euclidean distances</span>
+<span class="n">euc_dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">pmm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pmm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="c1">#loop through columns</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pmm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="c1">#catch first column to compare</span>
+    <span class="n">cur_col</span> <span class="o">=</span> <span class="n">pmm</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="c1">#loop through remaining columns</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pmm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="c1">#catch second column to compare</span>
+        <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pmm</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+
+        <span class="c1">#compute Euclidean Distance</span>
+        <span class="n">euc_dist</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">euclidean</span><span class="p">(</span><span class="n">cur_col</span><span class="p">,</span> <span class="n">comp_col</span><span class="p">)</span>
+        <span class="n">euc_dists</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">euc_dist</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">):</span>
+            <span class="n">euc_dists</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">euc_dist</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [112]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#fit MDS in 2 dimensions to get 2 dimensional view</span>
+<span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
+<span class="n">mds</span> <span class="o">=</span> <span class="n">MDS</span><span class="p">(</span><span class="n">n_components</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dissimilarity</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">mds_fit</span> <span class="o">=</span> <span class="n">mds</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">euc_dists</span><span class="p">)</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">mds_fit</span><span class="o">.</span><span class="n">embedding_</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [113]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#intialize data frame for plots</span>
+<span class="n">dists</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">all_status</span><span class="p">,</span>
+     <span class="s1">&#39;closed&#39;</span><span class="p">:</span> <span class="n">all_closed</span><span class="p">,</span>
+     <span class="s1">&#39;x_cords&#39;</span><span class="p">:</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+     <span class="s1">&#39;y_cords&#39;</span><span class="p">:</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]}</span>
+<span class="n">mds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
+
+<span class="c1">#plot via status</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">x_vars</span> <span class="o">=</span> <span class="s1">&#39;x_cords&#39;</span><span class="p">,</span> <span class="n">y_vars</span> <span class="o">=</span> <span class="s1">&#39;y_cords&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mds</span><span class="p">,</span>
+             <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;2D MDS plot of Euclidean Distances&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;results/mds_euc_status.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._128_0.png" src="_images/classification._128_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [114]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#plot via closed</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">x_vars</span> <span class="o">=</span> <span class="s1">&#39;x_cords&#39;</span><span class="p">,</span> <span class="n">y_vars</span> <span class="o">=</span> <span class="s1">&#39;y_cords&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mds</span><span class="p">,</span>
+             <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;2D MDS plot of Euclidean Distances&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;results/mds_euc_closed.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/classification._129_0.png" src="_images/classification._129_0.png" />
+</div>
+</div>
+<p>As you can see there is no clear pattern in seperation based on
+Euclidean distances, do a method like a KNN would possibly not be
+affective in a situation like this.</p>
+<p>This may also partly explaine why the tree based methods in the previous
+section had trouble classifying the data. It may be that the features we
+are looking are aren’t really indicators of success or failure in
+business.</p>
+</div>
+</div>
+<div class="section" id="Final-Thoughts">
+<h1>Final Thoughts<a class="headerlink" href="#Final-Thoughts" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook we tried to classify business status via categorical
+variables about business location and founders. In doing so, we were not
+only looking to build an accurate model, we also wanted to understand
+feature importance in order to identify categorical variables that
+predicted business success or failure.</p>
+<p>We used two random tree based methods, Random Forest and Extremely
+Randomized Trees as our predictive models. These methods were choosen
+primarly for their ability to report feature importance, and this
+notebook acted an a comparison of the two similar models. I also wanted
+to compare sklearn’s RandomForestClassifier with the r package
+randomForest.</p>
+<p>Prediction was difficult, primarly due to highly imbalanced reponse
+categories. We were still able to extract feature importances for the
+status and closed reponse variables and measure the test performance of
+each model.</p>
+<p>Finally, we decided to convert the purely string based categorical
+variables in a dumby data frame and and examine a two dimensional view
+of the categorial used Euclidean Distances and MDS. This showed that,
+while we were able to extract the importance of the features used, these
+features may not actually seperate the data enough to predict company
+status. Further analysis certainly could have been done, but the
+runetime on this notebook is already significant so we kind of leave
+with an ambigous answer to our question of what categorical features
+predict company status.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Explore Categorical Variables to Classify Company Status</a><ul>
+<li><a class="reference internal" href="#Random-Forest-Classifier">Random Forest Classifier</a><ul>
+<li><a class="reference internal" href="#Closed">Closed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Extremeley-Randomized-Trees-Classifier">Extremeley Randomized Trees Classifier</a><ul>
+<li><a class="reference internal" href="#Closed">Closed</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Looking-at-Data-using-Dumby">Looking at Data using Dumby</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Final-Thoughts">Final Thoughts</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="classification_data_prep..html" title="previous chapter">Prepare Data for Classification</a></li>
+      <li>Next: <a href="main..html" title="next chapter">Summary: Can we predict a start-up’s success?</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/classification..ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Annie Maslan, Jack Moorer, Mitch Negus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/classification..ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

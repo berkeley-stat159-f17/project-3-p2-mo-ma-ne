@@ -1,0 +1,548 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Summary: Can we predict a start-up’s success? &#8212; p3 1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Copyright (c) 2017, Annie Maslan, Jack Moorer, and Mitch Negus" href="license.html" />
+    <link rel="prev" title="Explore Categorical Variables to Classify Company Status" href="classification..html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="Summary:-Can-we-predict-a-start-up's-success?">
+<h1>Summary: Can we predict a start-up’s success?<a class="headerlink" href="#Summary:-Can-we-predict-a-start-up's-success?" title="Permalink to this headline">¶</a></h1>
+<p>Authors: Annie Maslan, Jack Moorer, Mitch Negus</p>
+<div class="section" id="Overview">
+<h2>Overview<a class="headerlink" href="#Overview" title="Permalink to this headline">¶</a></h2>
+<p>We begin by exploratory analysis of the various factors we hypothesize
+may influence a company’s success. We consider the following factors: 1.
+Valuation and number of IPOs by place and time 2. Total funding by place
+and time 3. Investor portfolio correlations</p>
+</div>
+<div class="section" id="Exploratory-Analysis">
+<h2>Exploratory Analysis<a class="headerlink" href="#Exploratory-Analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="1.-Valuation-and-number-of-IPOs-by-place-and-time">
+<h3>1. Valuation and number of IPOs by place and time<a class="headerlink" href="#1.-Valuation-and-number-of-IPOs-by-place-and-time" title="Permalink to this headline">¶</a></h3>
+<p>We first consider the number of IPOs by region. The data provided in the
+‘cb_ipos’ table is lacking the valuation amount for many companies.
+When filtering for entries that have valuation amount included, we have
+an N of 167. We continue with this valuation analyis but will
+subsequently look at total funding in part 2 for a larger dataset that
+may also indicate company success. We find that SF Bay has the highest
+number of companies that IPO (34) with NYC in second (11) and London in
+third (8). In the below barplot, we consider the regions that had &gt;5
+companies IPO in order of decreasing number of companies. Seattle has
+the highest average valuation for companies that IPO; however, if we
+consider a barplot of the same data we see that Seattle with 7 companies
+is more sensitive to outliers and has a broader distribution. This
+additional analysis can be found in the supplementary notebook
+‘location_time.ipynb.’</p>
+<div class="figure" id="id4">
+<img alt="valuation by region" src="_images/valuation_region.png" />
+<p class="caption"><span class="caption-text">valuation by region</span></p>
+</div>
+<p>We next look at the number of IPOs over time to determine how timing may
+affect a company’s success. We no longer restrict our analysis to
+companies where valuation amount is provided. More recent years have
+more IPOs. However, we cannot rule out the possibility that the
+Crunchbase dataset is also simply becoming more complete over time.
+<img alt="ipos by year" src="_images/ipos_year.png" /></p>
+<p>From this analysis of valuation and number of IPOs by place and time, we
+may predict that start-ups that originate in SF Bay and New York in the
+years since 2007 would be most successful. However, we have also found
+many shortcomings in the Crunchbase data suggesting that some findings
+may be more so dependent on improved quality of complete data entry in
+more recent years.</p>
+</div>
+<div class="section" id="2.-Total-funding-by-place-and-time">
+<h3>2. Total funding by place and time<a class="headerlink" href="#2.-Total-funding-by-place-and-time" title="Permalink to this headline">¶</a></h3>
+<p>While we had been considering valuation amount from the IPO data, we
+also consider funding_total_usd for the below analysis because it is a
+much richer dataset. We have N=27,874 instead of N=167. The median
+funding is greatest in CA and MA. <img alt="funding by state" src="_images/funding_state.png" /></p>
+<p>Just as we looked at the number of IPOs over time, we now look at the
+emergence of new companies over time. Looking at the period from
+1990-2012, we see that the number of new companies in on the rise. As
+with the IPOs data, we have to consider that the Crunchbase dataset may
+be becoming more exhaustive. <img alt="new companies by year" src="_images/new_year.png" /></p>
+<p>We also consider the lifespan of companies and find that the median is 3
+years, and that the lifespan does not vary significantly by state. For
+all supplementary related analysis, refer to ‘location_time.ipynb.’</p>
+<p>From the analysis of funding by state and number of new companis over
+time, we can hypothesize that companies in CA and MA that are founded in
+more recent years will be most successful.</p>
+</div>
+<div class="section" id="3.-Investor-portfolio-correlations">
+<h3>3. Investor portfolio correlations<a class="headerlink" href="#3.-Investor-portfolio-correlations" title="Permalink to this headline">¶</a></h3>
+<p>If a company can get a certain investor, are there other investors the
+company is likely to get as well? We consider the correlation among
+investors using multidimensional scaling with the ultimate goal of
+determing whether certain investor portfolios cluster. We create a
+company matrix, whose columns are company vectors for each investing
+company. Each matrix entry is a count of the number of occurences of
+each company in the investor portfolio. The resulting matrix is very
+sparse; it is compose of 99.76% zeros. We normalize the matrix to
+represent the probability of investing in a given company for each given
+investor. Using Multidimensional Scaling with both euclidean distance
+and Jensen-Shannon distance calcuations, no clusters are evident.</p>
+<p><img alt="mds naive" src="_images/mds_naive.png" /> <img alt="mds jsdiv" src="_images/mds_jsdiv.png" /></p>
+<p>From this very sparce investor-company distance matrix data we cannot
+conclude any compelling correlations among investors. We also try a
+variety of subsets of the data in the hopes that some correlations may
+arise. For example we consider just the top 5% of companies in terms of
+funding total, just companies in CA, just biotech companies, etc. For
+each of the filters we tried, no clusters formed. Therefore, we do not
+identify any correlations among investor portfolios.</p>
+</div>
+<div class="section" id="4.-Executive-Education">
+<h3>4. Executive Education<a class="headerlink" href="#4.-Executive-Education" title="Permalink to this headline">¶</a></h3>
+<p>Executives at some of the highest performing businesses need to get
+their starts somewhere. For some, like Facebook’s Mark Zuckerberg, their
+backgrounds do not include a college degree. This however seems to be
+the minority. Still, the premise begs the question: are there schools
+which tend to produce more successful business executives? Is there a
+direct correlation between which institution you receive a degree from
+and eventual success?</p>
+<p>To answer these questions, we first need to define a benchmark for a
+company’s success. This could simply be whether the company is still
+operating or not (presumably companies that are not still operating were
+unsuccessful), or it could also be related to the company’s total
+valuation. Instead, we use the total funding acquired in all funding
+rounds for a company. Note that this is itself an imperfect metric. Some
+highly successful companies might require less capital investment than
+others, so this statistic could be biased in favor of capital intensive
+companies. We will assume that this is not so overwhelming to render the
+metric worthless. Funding totals for the top 100 businesses are plotted
+below.</p>
+<p>Using this metric, we find that slightly more than 25% of the companies
+in the Crunchbase dataset raised over $10 million in funding rounds, and
+so we select this subset as “the top businesses”. For the more than
+7,000 companies in that sample, we match individuals (who are paired
+with degree information) to those companies. Together, the degree
+information for successful companies let’s us create a visual to show
+how many degrees each university has conferred to affiliates of all
+companies in the top tier of fundraising businesses.</p>
+</div>
+<div class="section" id="5.-Prediction-of-Success">
+<h3>5. Prediction of Success<a class="headerlink" href="#5.-Prediction-of-Success" title="Permalink to this headline">¶</a></h3>
+<p>The first question when asked when we found this dataset is can we
+predict startup success, and if so, what are some important predictors
+of success in business. Much of this dataset was focused on data we
+probably know is highly correlated with success, for example, money
+evaluation, investments, funding rounds, etc. We easily could have used
+some of these features and attempted to predict start up success with
+them, but there is a good chance what we find is pretty trivial: more
+likely that not a company with a large number of investor, a lot of
+funding, and a high evaluation will be successful, but that isn’t that
+interesting. Instead, we wanted to focus on purely categorical features
+(so discrete variables) of a business based on the company itself and
+its founder. These variables include what industry the company is in,
+what highest level of degree did the founder receive, or what region is
+company is based in. I also included logo size, which is not discrete,
+just because I thought it would be funny. The full list of features we
+used are:</p>
+<ul class="simple">
+<li>company category_code</li>
+<li>whether they had funding (yes or no)</li>
+<li>number of investors</li>
+<li>number of relationships to other founders</li>
+<li>company logo height</li>
+<li>company logo width</li>
+<li>region</li>
+<li>degree_type (highest degree)</li>
+<li>institution (for highest degree)</li>
+<li>subject (for highest degree)</li>
+<li>first name</li>
+<li>last name</li>
+</ul>
+<p>The way we are measuring success here is via company status, and in a
+binary case whether the business was closed or not. The different
+categories for status were whether the business was closed, acquired, an
+IPO, or operating. The closed response variable was just encoded as
+“Yes” for closed and “No” for not closed.</p>
+<p>There were two big issues while preprocessing the data for
+classification. The first was that a lot of the Object dataframe, which
+contained the majority, of the data was empty. One of the main reasons
+why is that for many of the feature variables we are using, the data put
+values equivalent to 0 or ‘None’ (ie if the company did not have a logo)
+to missing values. In fact, the dataset usually used the string ‘unkown’
+as its NaN/None value, which does not come up as a null entry in python.
+After examining the data, we determined which variables had None or NaN
+that could be converted to useful values, and encoded them. We then
+switched ‘unkown’ to NaN so we could drop it later.</p>
+<p>The next issue was there was no easy way to combine the dataframes. The
+dataframes had object ids that corresponded to the id in the Object
+dataframe, however, data on companies had different object ids than
+information about the same company’s founder. In addition, when we
+determined we could merge the data frames through company name, many
+duplicates appeared, and several founder from the same company existed
+in the dataframe. These duplicates certainly would have affected any
+classification model we tried to use.</p>
+<p>I want to take a moment to talk about the structure of this dataset. The
+data-preprocessing portion of this project took much longer than it
+should have if it was a well-documented, well-formatted dataset. There
+was no documentation we could find on what the features represented or
+how the data was organized. In the end the assumptions we made during
+this preprocessing, which were necessary in order to have a “large
+enough” dataset, may have severely affected model performance and
+inference. In addition, the time it took to understand how the data was
+structured, what certain features represented, and combine the data in a
+useable way, ended up taking time away from analysis. I actually was
+planning on doing a separate regression based predictive model on
+continuous variables, but the issues I discussed in this paragraph left
+me so frustrated with the data I decided it wasn’t worth it. I thought
+that my frustrations might be relevant in a course based on
+reproducibility, but I digress.</p>
+<p>After merging all features and response into one dataframe and dropping
+NaN values, we explored the relationship between the feature variables
+and response variables. For feature variables that had numeric values we
+looked at the boxplots of each type category of response for both the
+status and closed variables. Here is an example of a status vs number of
+milestones and closed vs number of milestones.</p>
+<p>We also looked at the relationship between what I called the purely
+“string based” categorical variables and response by plotting the
+relative frequencies of the response variables in each category of the
+features. It was important we looked at relative response due to
+unbalanced frequencies in the response and feature variables. Here are
+the plots for category code on satus and had funding on closed.</p>
+<p>At this point we were ready to train and predict a classification model
+on our data. Before I talk about the methods I used and process let’s
+look at the distributions of the response variables.</p>
+<p>As you can see there is a huge imbalance in the distrubtions of our
+response variables. This is going to be a serious issue for our
+predictive models. I detail this issue more in the classification
+notebook, but here is a quick example for why model performance will be
+affected by reponse category imbalance. Say we are trying to predict
+whether someone has a very rare disease, say 0.001 percent of the
+population has this disease. When we fit our model, it will look at the
+accuracy of prediction in order to determine its internal features.
+However, in this case, a model that predicts that you don’t have the
+disease every time has an accuarcy of 99.99 percent; obviously this
+model is very accurate, but in reality it does nothing.</p>
+<p>One more note about the structure of our data, sklearn currenlty does
+not accept non-integer predictors. This was unfortunate, and my two
+options were to convert the data into a huge, high-dimensional dumby
+matrix, or encode each variable with string values. I decided to encode
+the variables, however, you can read why this is an issue in the
+classification notebook.</p>
+<p>The models we used for classification were a random forest and extremely
+randomized trees. The main reason we choose these two methods were a)
+they have a fantastic built in ability to provide inference to feature
+importance, and b) once we discovered extremely randomized trees we
+wanted to compare its results to the similar random forest model. I also
+decided to work with random forests (and tackle this classification
+question in general) in order to explore sklearn. I (Jack) just spent
+the semester learning about machine learning methods in r, so I decided
+to work with random forests to teach myself how to use sklearn’s
+RandomForestClassifier and compare it to the randomForest r package.</p>
+<p>Before fitting a model on the data, I had to tune hyperparameters, and
+luckily sklearn provides GridSearchCV to help me in this process. For
+random forest I tuned 3 hyperparameters, the number of random features
+for each tree in the bootstrap process, the number of estimators (trees)
+used, and the maximum depth of each tree. Due to runtime issues, I later
+skipped tuning the number of estimators for the extremely randomized
+trees model. Sometimes maximum depth of trees is note tuned, and
+originally this is what I did (leaving the maximum depth of the tree as
+the default none), however, because of the imbalance in response
+category frequency maximum depth gave us horrible results, and had to be
+tuned.</p>
+<div class="section" id="Looking-at-the-status-response-variables">
+<h4>Looking at the status response variables<a class="headerlink" href="#Looking-at-the-status-response-variables" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="Random-Forest">
+<h5>Random Forest<a class="headerlink" href="#Random-Forest" title="Permalink to this headline">¶</a></h5>
+<p>I will start with the four category status response variables.
+Originally for the cross-validation metrix used to tune the parameters
+of the models I used the defeault accuracy, and got horrible results
+with high accuracy, but useless results, as they generally
+overclassified the ‘operating’ category in order to be accurate.
+Instead, I used the scoring metric f1_weight, which is based both on
+model accuracy and precision. For random forest I plotted the results of
+the hyperparameters like in this example.</p>
+<p>Here you see how the weighted f1 score changed basde on the max depth of
+the tree grouped by the max features of the tree in seperate panels for
+the number of estimators used. Notice the shape of all of the plots. The
+reason this is happening is that as depth increases, the model will
+overpredict the frequent ‘operating’ variable. If I were to use accuracy
+as the cross validation metric, you would see a monotonically increasing
+function for each line.</p>
+<p>A ‘best’ random forest was picked using the best combination of
+parameters, then the random forest was fit on the training data. I will
+cover feature importance at the end of the this status section.
+Perforamnce, was mixed for the random forest. The model accuracy was
+about 82 percent, however, looking at the confusion matrix showed
+sporatic results. Using an f1 score did allow our model to predict more
+than just the operating status, and at the end of the section on random
+forests using status I showed an example of what the confusion matrix
+would have looked like had we used accuracy as our performance metrix.
+In this confusion matrix, almost every test individual was predicting to
+be operating, providing a high accuracy, but showing the difficulty
+working with unbalanced models.</p>
+</div>
+<div class="section" id="Extremely-Randomized-Trees">
+<h5>Extremely Randomized Trees<a class="headerlink" href="#Extremely-Randomized-Trees" title="Permalink to this headline">¶</a></h5>
+<p>I discovered ExtraTrees when looking up how to deal with unbalanced data
+in a random forest. An extremly randomized trees model (or
+ExtraTreesClassifier in sklearn) is similar to a random forest, except
+that instead of using a boostrap process to estimate node splits, it
+splits node with a completely random decision boundary. I read
+<a class="reference external" href="http://www.montefiore.ulg.ac.be/~ernst/uploads/news/id63/extremely-randomized-trees.pdf">this</a>
+paper that introduced Extra Trees in order to understand what is going
+on, and the decision to increase randomness is centered on the
+bias-variance tradeoff: a model’s variance should increase with
+increased randomness without an huge increase in bias.</p>
+<p>Here is an example of the cross validation plot using max depth and
+numbe of features for ExtraTrees.</p>
+<p>As you can see performance is monotonically increasing with an increase
+in depth, and after fitting the “best” model and examining the results I
+looked at the confusion matrix of different depth levels. In general,
+the ExtraTreesClassifier performed like the same RandomForest with a
+depth decrease of about 2. We can see that the ExtraTrees classifier was
+less accurate, but slightly better at predicting the less frequent
+status categories compared to random forest.</p>
+</div>
+</div>
+<div class="section" id="Feature-Importance">
+<h4>Feature Importance<a class="headerlink" href="#Feature-Importance" title="Permalink to this headline">¶</a></h4>
+<p>Our preditive results for the random forest and extremely randomized
+trees models were mixed, but the nice thing about tree based models is
+that even though they generally don’t provide fantastic predictive
+performance, we can still examine feature importance</p>
+<p>We can see the feature importance of the two models is similar, which is
+expected since they have a similar process. From these results we can
+see number of relationships with other founders is the feature that best
+splits the data here. Many of the features have similarly low
+importance, especially the string based features. I will go over later
+why I think these features simply aren’t important for predicting
+company status</p>
+</div>
+<div class="section" id="Looking-at-the-closed-response-variables">
+<h4>Looking at the closed response variables<a class="headerlink" href="#Looking-at-the-closed-response-variables" title="Permalink to this headline">¶</a></h4>
+<p>I wasn’t very happy with the f1 scoring metric, however, it was hard to
+find a better one. However, one great metric for evaluating imbalanced
+data is the AUC or area under the curve an ROC curve. In order to use
+AUC as the performance metric I had to use a two category predictor,
+hense the closed response variable</p>
+</div>
+<div class="section" id="Random-Forest">
+<h4>Random Forest<a class="headerlink" href="#Random-Forest" title="Permalink to this headline">¶</a></h4>
+<p>Here is an example of the cross validation results based on AUC from the
+random forest model:</p>
+<p>As you can see we are actually getting interesting results based on AUC.
+I fit the random forest based on the parameters with the best AUC and
+evaluated the performance. While accuracy was near 70 percent, we can
+see that this random forest was actually able to predict the vast
+majority of ‘Yes’ closed responses in the data set, even if it came at a
+cost of predicting many wrong ‘No’ individuals. At this point in the
+project, I treated this as success, as the problem kind of transformed
+into finding a model that could predict the very rare closed response
+case. Here is the ROC cruve for this model.</p>
+</div>
+<div class="section" id="Extremely-Randomized-Trees">
+<h4>Extremely Randomized Trees<a class="headerlink" href="#Extremely-Randomized-Trees" title="Permalink to this headline">¶</a></h4>
+<p>Here is an example of the cross validation plot from ExtraTrees on
+closed</p>
+<p>As you can see we are once again getting interesting results. I fit the
+model based on the best combination of parameters and looked at the
+model importance. Performance of this model was not great, despite using
+AUC as the scoring stat. The model accuracy was in the low 60
+percentages, and the ExtraTrees model in general had the same rate of
+success in predicted the ‘Yes’ variable as random forest with worse
+results in predicting the ‘No’ variable. In this case random forest
+performance was cleary superior. Here is the ExtraTrees ROC.</p>
+</div>
+<div class="section" id="Feature-Importance">
+<h4>Feature Importance<a class="headerlink" href="#Feature-Importance" title="Permalink to this headline">¶</a></h4>
+<p>Results for the closed section were mixed. I was expecting a much better
+model than the models on the status reponse variable, however, that was
+not really the case. Unlike the previous resonse variable, we were able
+to say that the random forest model outperformed the extremly randomized
+tree model, which suprised me given that I expected ExtraTrees to
+perform better on this highly imbalanced dataset. Once again we can look
+at the feature importance, despite the fact the predictive power of the
+models are poor.</p>
+<p>Here we get pretty consistant feature importance statistics for both
+models. For whether a business was closed or not, whether the company
+had funding was the most important predictor, followed by category code
+and founder degree subject.</p>
+</div>
+</div>
+<div class="section" id="Discussion-On-Predictors-Choosen">
+<h3>Discussion On Predictors Choosen<a class="headerlink" href="#Discussion-On-Predictors-Choosen" title="Permalink to this headline">¶</a></h3>
+<p>I mentioned that I purposely picked features that do not naturely seem
+like they have predictive power in business status for this section.
+After fitting our tree based models, I decided to look at the string
+based categorical varaibles, that generally had very low importance in
+our data, and see if they were able to seperate our data.</p>
+<p>This section at first developed from my plan to fit a KNN on a matrix of
+dumby features, and then due to curse of dimensionality, reducing the
+dimensions via feature selection to see if performance improved. The
+rationalle was that, while we probably couldn’t get feature importance
+out of a knn, at least we could have high predictive power.</p>
+<p>However, knn is based on Euclidean distances, so first I decided to look
+at a low dimensional view of our data using the Euclidean distances from
+the dumby matrix of categorical variables and MDS. This process was very
+similar to part of project 2. Remember the features involved in this MDS
+2D projection do not include num_investments, num_relationships,
+num_milestones, logo_hieght, and logo_width, which were some of the
+most important features for the status section.</p>
+<p>As you can see, especailly for the status plot, there is no real clear
+pattern that the categories takes, and the mds plot does not really show
+that euclidean distances truly seperate the data. The results are
+slightly different for closed, where the categorical variables used in
+these MDS projection did have more importance, but there is just so much
+blue that it is hard to find the orange section of the plot.</p>
+<p>The reason I included this is that these plots lead me to believe that
+these highly categorical features like school subject or first name did
+not seperate the data in any real way based on how we currenlty have set
+up the data. This lead me to say that the results of this section are
+ambigous. While we were able to find importance categorical features in
+prediction start up status, the model performance and MDS plots imply
+that these features may not actually seperate the data. Obvsiouly, more
+extensive analysis is needed to come to a final conclusion.</p>
+</div>
+<div class="section" id="Author-Contributions">
+<h3>Author Contributions<a class="headerlink" href="#Author-Contributions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Annie-Maslan">
+<h4>Annie Maslan<a class="headerlink" href="#Annie-Maslan" title="Permalink to this headline">¶</a></h4>
+<p>Annie focused on the exploratory analysis sections about valuation and
+number of IPOs by place and time, total funding by place and time, and
+investor correlations. She also made the Makefile, did the
+MySQL/environment set-up, and Sphinx build.</p>
+</div>
+<div class="section" id="Jack-Moorer">
+<h4>Jack Moorer<a class="headerlink" href="#Jack-Moorer" title="Permalink to this headline">¶</a></h4>
+<p>Jack focused on the classification section of this project through the
+classifcation_data_prep notebook and and classification notebook.</p>
+</div>
+<div class="section" id="Mitch-Negus">
+<h4>Mitch Negus<a class="headerlink" href="#Mitch-Negus" title="Permalink to this headline">¶</a></h4>
+<p>Mitch focused on the analysis of how education is correlated with
+business success. Since institution names were recorded inconsistently
+in the crunchbase dataset, he developed a tool to aggregate data for a
+single institution recorded under many names. He also worked to make the
+Travis CI builds and tests compatible with MySQL databases and improve
+functionality for databases requiring custom credentials.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Summary: Can we predict a start-up’s success?</a><ul>
+<li><a class="reference internal" href="#Overview">Overview</a></li>
+<li><a class="reference internal" href="#Exploratory-Analysis">Exploratory Analysis</a><ul>
+<li><a class="reference internal" href="#1.-Valuation-and-number-of-IPOs-by-place-and-time">1. Valuation and number of IPOs by place and time</a></li>
+<li><a class="reference internal" href="#2.-Total-funding-by-place-and-time">2. Total funding by place and time</a></li>
+<li><a class="reference internal" href="#3.-Investor-portfolio-correlations">3. Investor portfolio correlations</a></li>
+<li><a class="reference internal" href="#4.-Executive-Education">4. Executive Education</a></li>
+<li><a class="reference internal" href="#5.-Prediction-of-Success">5. Prediction of Success</a><ul>
+<li><a class="reference internal" href="#Looking-at-the-status-response-variables">Looking at the status response variables</a><ul>
+<li><a class="reference internal" href="#Random-Forest">Random Forest</a></li>
+<li><a class="reference internal" href="#Extremely-Randomized-Trees">Extremely Randomized Trees</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Feature-Importance">Feature Importance</a></li>
+<li><a class="reference internal" href="#Looking-at-the-closed-response-variables">Looking at the closed response variables</a></li>
+<li><a class="reference internal" href="#Random-Forest">Random Forest</a></li>
+<li><a class="reference internal" href="#Extremely-Randomized-Trees">Extremely Randomized Trees</a></li>
+<li><a class="reference internal" href="#Feature-Importance">Feature Importance</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Discussion-On-Predictors-Choosen">Discussion On Predictors Choosen</a></li>
+<li><a class="reference internal" href="#Author-Contributions">Author Contributions</a><ul>
+<li><a class="reference internal" href="#Annie-Maslan">Annie Maslan</a></li>
+<li><a class="reference internal" href="#Jack-Moorer">Jack Moorer</a></li>
+<li><a class="reference internal" href="#Mitch-Negus">Mitch Negus</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="classification..html" title="previous chapter">Explore Categorical Variables to Classify Company Status</a></li>
+      <li>Next: <a href="license.html" title="next chapter">Copyright (c) 2017, Annie Maslan, Jack Moorer, and Mitch Negus</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/main..ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Annie Maslan, Jack Moorer, Mitch Negus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/main..ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Exploratory Analysis #5: Prepare Data for Classification"
+    "# Prepare Data for Classification"
    ]
   },
   {
@@ -299,9 +299,7 @@
   {
    "cell_type": "code",
    "execution_count": 82,
-   "metadata": {
-    "collapsed": true
-   },
+   "metadata": {},
    "outputs": [],
    "source": [
     "#keep variables from people\n",
@@ -312,9 +310,7 @@
   {
    "cell_type": "code",
    "execution_count": 83,
-   "metadata": {
-    "collapsed": true
-   },
+   "metadata": {},
    "outputs": [],
    "source": [
     "#keep variables from degrees\n",
@@ -324,9 +320,7 @@
   {
    "cell_type": "code",
    "execution_count": 84,
-   "metadata": {
-    "collapsed": true
-   },
+   "metadata": {},
    "outputs": [],
    "source": [
     "#keep variables from objects\n",
