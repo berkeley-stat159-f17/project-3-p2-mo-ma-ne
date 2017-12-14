@@ -1,7 +1,9 @@
 name: cb
 channels:
+- conda-forge
 - defaults
 dependencies:
+- nbsphinx=0.2.18=py_0
 - _license=1.1=py36_1
 - alabaster=0.7.10=py36_0
 - appnope=0.1.0=py36_0
@@ -156,7 +158,9 @@ dependencies:
 - snowballstemmer=1.2.1=py36_0
 - sortedcollections=0.5.3=py36_0
 - sortedcontainers=1.5.7=py36_0
-- sphinx=1.5.6=py36_0
+- sphinx=1.6.3=py36hcd1b3e7_0
+- sphinxcontrib=1.0=py36h9364dc8_1
+- sphinxcontrib-websupport=1.0.1=py36h92f4a7a_1
 - spyder=3.1.4=py36_0
 - sqlalchemy=1.1.9=py36_0
 - sqlite=3.13.0=0
@@ -169,6 +173,7 @@ dependencies:
 - toolz=0.8.2=py36_0
 - tornado=4.5.1=py36_0
 - traitlets=4.3.2=py36_0
+- typing=3.6.2=py36haa2d9ef_0
 - unicodecsv=0.14.1=py36_0
 - unixodbc=2.3.4=0
 - wcwidth=0.1.7=py36_0
@@ -188,6 +193,7 @@ dependencies:
   - awscli==1.11.190
   - backports.shutil-get-terminal-size==1.0.0
   - botocore==1.7.48
+  - commonmark==0.7.4
   - et-xmlfile==1.0.1
   - future==0.16.0
   - ipython-genutils==0.2.0
@@ -199,6 +205,7 @@ dependencies:
   - mysqlclient==1.3.12
   - prompt-toolkit==1.0.14
   - pyasn1==0.3.7
+  - recommonmark==0.4.0
   - rope-py3k==0.9.4.post1
   - rsa==3.4.2
   - s3transfer==0.1.11
