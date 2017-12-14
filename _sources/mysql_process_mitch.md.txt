@@ -1,0 +1,7 @@
+# MySQL Process
+
+- Download MySQL community from website
+- Check if it is in path  
+	- use `which mysql`
+	- if not in path, check `/usr/local/`
+- On Mac, go to System Preferences > MySQL and check that the server is running (if not, activate it)
