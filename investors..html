@@ -1822,24 +1822,25 @@ conclude any compelling correlations among investors. We tried a variety
 of subsets of the data in the hopes that we would discover correlations
 among investors. For example, some of the attributes that we tried to
 subset on were:</p>
-<ol class="arabic">
-<li><p class="first">Top 5% of companies in terms of funding_total_usd</p>
+<ol class="arabic simple">
+<li>Top 5% of companies in terms of funding_total_usd</li>
+</ol>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;funding_total_usd&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.05</span><span class="o">*</span><span class="mi">71811</span><span class="p">)]</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">CA</p>
+<ol class="arabic simple" start="2">
+<li>CA</li>
+</ol>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="p">[</span><span class="n">allData</span><span class="o">.</span><span class="n">state_code</span> <span class="o">==</span> <span class="s2">&quot;CA&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">Biotech</p>
+<ol class="arabic simple" start="3">
+<li>Biotech</li>
+</ol>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allData</span> <span class="o">=</span> <span class="n">allData</span><span class="p">[</span><span class="n">allData</span><span class="o">.</span><span class="n">category_code</span> <span class="o">==</span> <span class="s2">&quot;biotech&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-</li>
-</ol>
 <p>However, unfortunately no clusters emerged. Therefore, we condlude that
 we cannot produce compelling correlations among investors.</p>
 </div>

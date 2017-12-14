@@ -1592,8 +1592,8 @@ closed or not.</p>
 </div>
 </div>
 <p>Now it seems the feature that is the most important is had_funding,
-followed by category_code. The number of investments is suprisingly
-low, however last name of founder is also very low in importance for
+followed by category_code. The number of investments is suprisingly low,
+however last name of founder is also very low in importance for
 determining the status of a company, which is expected. One other thing
 I notice, school subject of a founder is more important than the
 institution of a founder, which is more important than the degree type.</p>
@@ -1756,13 +1756,13 @@ I read, the performance of Extremley Randomized Trees can be similar, if
 not usually better, than that of a Random Forest.</p>
 <p>I am going to use GridSearchCV to tune the hyperparameters of the model
 again, however, this time I am not tuning the number of trees, or
-n_estimators, of the model. There are several reasons for this, for
-one, in general as the number of trees increases, generally model
-accurately increases at the sake of increases runtime, and I this
-notebook already has several cells that can take a few minutes to run.
-In addition, as the number of estimators increases, so does generally
-the chance of overfitting, and I am purposely using ExtraTrees for its
-ability to reduce model variance.</p>
+n_estimators, of the model. There are several reasons for this, for one,
+in general as the number of trees increases, generally model accurately
+increases at the sake of increases runtime, and I this notebook already
+has several cells that can take a few minutes to run. In addition, as
+the number of estimators increases, so does generally the chance of
+overfitting, and I am purposely using ExtraTrees for its ability to
+reduce model variance.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
 <span></span>In [85]:
@@ -2178,11 +2178,11 @@ better on the status dataset, however, the fact that most gave similar
 variable importance statistics gives us a good idea about which features
 are important in creating this decision trees.</p>
 <div class="figure" id="id2">
-<img alt="var\_imp\_rf\_status" src="_images/variable_importance_status_random_forest.png" />
+<img alt="var_imp_rf_status" src="_images/variable_importance_status_random_forest.png" />
 <p class="caption"><span class="caption-text">var_imp_rf_status</span></p>
 </div>
 <div class="figure" id="id3">
-<img alt="var\_imp\_status\_ext" src="_images/variable_importance_status_extra_trees.png" />
+<img alt="var_imp_status_ext" src="_images/variable_importance_status_extra_trees.png" />
 <p class="caption"><span class="caption-text">var_imp_status_ext</span></p>
 </div>
 <p>It looks like for both tree based methods number of relationships is the
@@ -2377,11 +2377,11 @@ a random guess classifier.</p>
 <p>We can still examine the varible importances of the random forest vs the
 extremeley randomized tree to see if we can gather any insights</p>
 <div class="figure" id="id4">
-<img alt="var\_imp\_rf\_closed" src="_images/random_forest_two_class_variable_importance.png" />
+<img alt="var_imp_rf_closed" src="_images/random_forest_two_class_variable_importance.png" />
 <p class="caption"><span class="caption-text">var_imp_rf_closed</span></p>
 </div>
 <div class="figure" id="id5">
-<img alt="var\_imp\_closed\_ext" src="_images/variable_importance_closed_extra_trees.png" />
+<img alt="var_imp_closed_ext" src="_images/variable_importance_closed_extra_trees.png" />
 <p class="caption"><span class="caption-text">var_imp_closed_ext</span></p>
 </div>
 <p>Had funding clearly looks like an important feature to predicting

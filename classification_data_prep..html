@@ -267,9 +267,9 @@ degree_type (highest degree) - institution (for highest degree) -
 subject (for highest degree) - first name - last name</p>
 <p>One big issue with this data set though is that it is mostly empty. Many
 of the variables have missing values in place of a “0”, or for a
-categorical variable like ‘closed_at’, a none value means the company
-is not closed. This means if we don’t create dumby variables the data
-frame will be almost entirely empty. Let’s take a look at how empty our
+categorical variable like ‘closed_at’, a none value means the company is
+not closed. This means if we don’t create dumby variables the data frame
+will be almost entirely empty. Let’s take a look at how empty our
 objects data frame is using missingno.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
@@ -293,11 +293,11 @@ objects data frame is using missingno.</p>
 fame. We can look at the variable ‘id’ in object, and see every other
 data frame has an ‘object_id’. At first, I thought this was great, and
 would let me combine any of the data frames. However, the ‘id’ in object
-or ‘object_id’ is different for founders and companies, and is
-denotated with a “p” for a person or “c” for company. Objects had
-information on everything, and seperates information for companies and
-founders This means I need to find a way to combine information about
-companies and their founders.</p>
+or ‘object_id’ is different for founders and companies, and is denotated
+with a “p” for a person or “c” for company. Objects had information on
+everything, and seperates information for companies and founders This
+means I need to find a way to combine information about companies and
+their founders.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
 <span></span>In [70]:
