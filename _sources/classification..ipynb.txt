@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Exploratory Analysis 5: Explore Categorical Variables to Classify Company Status"
+    "# Exploratory Analysis #6: Explore Categorical Variables to Classify Company Status"
    ]
   },
   {
